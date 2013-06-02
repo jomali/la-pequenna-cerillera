@@ -1,0 +1,309 @@
+!% -~S~D
+!% +language_name=Spanish
+!% $MAX_LABELS=2000
+!% $MAX_ZCODE_SIZE=40000
+
+
+!!==============================================================================
+!!
+!!	LA PEQUEÑA CERILLERA
+!!
+!!==============================================================================
+!!
+!!	File:			cerillera.inf
+!!	Author(s):		J. Francisco Martín (jfm.lisaso@gmail.com)
+!!	Cover-art:		Anne Anderson
+!!	Language:		ES (Castellano)
+!!	System:			Inform/INFSP 6
+!!	Platform:		Máquina-Z
+!!	Release:		2.0
+!!	Released:		2013/06/02
+!!	Notes:
+!!
+!!		Parte del código fuente de la aplicación es una reutilización de 
+!!		código empleado en otros proyectos del autor, por lo que puede
+!!		haber implementadas funciones, objetos o funcionalidades que en 
+!!		realidad no son utilizadas.
+!!
+!!------------------------------------------------------------------------------
+!!
+!!	This file is part of LA PEQUEÑA CERILLERA.
+!!
+!!	LA PEQUEÑA CERILLERA is free software: you can redistribute it 
+!!	and/or modify it under the terms of the GNU General Public License 
+!!	as published by the Free Software Foundation, either version 3 of 
+!!	the License, or (at your option) any later version.
+!!
+!!	LA PEQUEÑA CERILLERA is distributed in the hope that it will be 
+!!	useful, but WITHOUT ANY WARRANTY; without even the implied 
+!!	warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+!!	See the GNU General Public License for more details.
+!!
+!!	You should have received a copy of the GNU General Public License 
+!!	along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+!!
+!!	Copyright (c) 2010-2013, J. Francisco Martín
+!!
+!!------------------------------------------------------------------------------
+
+
+!!==============================================================================
+!!	Constantes y variables globales del relato
+!!------------------------------------------------------------------------------
+
+Constant Story
+"LA PEQUEÑA CERILLERA, de H.C. Andersen";
+
+Constant Headline
+"Un cuento interactivo por José Fco. Martín Lisaso, (c) 2010-2013";
+
+!Constant Checking 1;
+!Release 0; Serial "101209";
+!Release 1; Serial "101210";
+!Release 2; Serial "101213";
+
+Constant Checking 2;
+Release 0; Serial "130602";
+
+Constant MANUAL_PRONOUNS;		! Los pronoms. refieren a objetos ya mencionados
+Constant NO_PLACES;				! Acciones LUGARES Y OBJETOS desactivadas
+Constant NO_SCORE;				! No se lleva conteo de puntuación
+Constant SIN_MENSAJES;			! Se omiten los mensajes por defecto de la lib.
+
+Constant PARSER_STYLE _IST_;	! Selecciona estilo de los mensajes del parser
+Constant PARSER_PREFIX "[";		! Define texto inicial de mensajes del parser
+Constant PARSER_SUFIX "]";		! Define texto final de mensajes del parser
+
+
+!!==============================================================================
+!!	Reemplazos de rutinas utilizadas por la librería Inform
+!!------------------------------------------------------------------------------
+
+Replace Banner;					! Créditos generales de la aplicación
+Replace DrawStatusLine;			! Dibuja la barra de estado
+Replace GetGNAOfObject;			! Rutina para obtener el GNA de un objeto
+Replace LMode1Sub;				! Lookmode 1: Breve
+Replace LMode2Sub;				! Lookmode 2: Largo (establecido por defecto)
+Replace LMode3Sub;				! Lookmode 3: Superbreve
+Replace LookSub;				! Rutina para la acción MIRAR
+Replace VersionSub;				! Créditos detallados de la aplicación
+
+
+!!==============================================================================
+!!	Librerías y extensiones (Parte 1 de 3)
+!!------------------------------------------------------------------------------
+
+Include "Parser.h";				! Decodifica la entrada del teclado
+Include ">cerillera_lib.inf";	! Personalizaciones de la librería Inform
+Include ">cerillera_langLM.inf"; ! Mensajes de la librería
+
+
+!!==============================================================================
+!!	Puntos de entrada para Glk (sólo Glulx)
+!!------------------------------------------------------------------------------
+
+!! ...
+
+
+!!==============================================================================
+!!	Librerías y extensiones (Parte 2 de 2)
+!!------------------------------------------------------------------------------
+
+Include "types.h";				! Rutinas para modificar estilo de los textos
+Include "VerbLib.h";			! Define cómo trabajan las acciones
+
+
+!!==============================================================================
+!!	Puntos de entrada y otras rutinas
+!!------------------------------------------------------------------------------
+
+!!------------------------------------------------------------------------------
+!! Inicialización del relato
+!!------------------------------------------------------------------------------
+[ Initialise;
+	SetGrammaticalInflection(PASADO_TERCERA_PERSONA);
+	inventory_style = ENGLISH_BIT + RECURSE_BIT + FULLINV_BIT;
+	ChangePlayer( Cerillera );
+	location = ESQUINA;
+	lookmode = 2;
+	EraseWindow();
+
+	banner();
+	new_line; new_line;
+	print (parser) "Haz clic aquí y pulsa una tecla para empezar";
+	KeyCharPrimitive();
+	EraseWindow();
+
+	return 2;
+];
+
+!!------------------------------------------------------------------------------
+!! Foco del jugador
+!!------------------------------------------------------------------------------
+[ InScope person item;
+	!! En la oscuridad, se mueven al foco del jugador todos aquellos objetos 
+	!! que hayan sido ya manipulados previamente por el personaje
+	if ( person == player && location == thedark ) {
+		objectloop(item in parent(player))
+			if (item has moved) PlaceInScope(item);
+	}
+	return false;
+];
+
+!!------------------------------------------------------------------------------
+!!	Rutinas y definiciones requeridas para lanzar la acción ##Examine sobre un 
+!!	objeto tecleando únicamente su nombre. Sigue la implementación propuesta en 
+!!	<http://rec.arts.int-fiction.narkive.com/Cz9j184N/inform-6-parser-question>
+!!------------------------------------------------------------------------------
+[ UnknownVerb;
+	verb_wordnum = 0;
+	return 'no.verb';
+];
+
+[ PrintVerb v;
+	if (v == 'no.verb') {
+		print "hacer algo con";
+		return true;
+	}
+	return false;
+];
+
+Verb 'no.verb' * noun -> Examine;
+
+
+!!==============================================================================
+!!	Gramática estándar y extendida
+!!------------------------------------------------------------------------------
+
+Include	"SpanishG.h";		! Gramática española
+Include	"SpanishEG.h";		! Gramática española extendida
+
+!!------------------------------------------------------------------------------
+
+Verb meta 'ayuda' 'pista' 'pistas'
+	*								-> Help
+;
+VerboIrregular "mostrar ayuda" with imperativo 'ayuda';
+
+Extend only 'normal' replace
+    *								-> LMode2
+;
+
+Extend	'habla' replace
+	* noun							-> TalkTo
+	* 'a'/'con' noun				-> TalkTo
+	* creature						-> TalkTo
+	* 'a'/'con' creature			-> TalkTo
+	* 'por' noun					-> TalkOn
+	* 'por' creature				-> TalkOn
+;
+
+Verb	'conversa' 'platica'
+	* noun							-> TalkTo
+	* 'a'/'con' noun				-> TalkTo
+	* creature						-> TalkTo
+	* 'a'/'con' creature			-> TalkTo
+	* 'por' noun					-> TalkOn
+	* 'por' creature				-> TalkOn
+;
+
+!!------------------------------------------------------------------------------
+
+[ HelpSub; return OBJayuda.gestor_pistas(); ];
+
+[ TalkOnSub;
+	start_parser_style();
+	print "Habla con ", (name) noun;
+	end_parser_style();
+	new_line;
+	<<TalkTo noun second>>;
+];
+
+[ TalkToSub;
+	if ( noun == player ) {
+		switch (GRAMMATICAL_INFLECTION) {
+		1,2,3:	"Hablar con uno mismo no resulta especialmente divertido.";
+		4,5,6:	"Hablar con uno mismo no resultaba especialmente divertido.";
+		}
+	}
+	if ( noun hasnt animate ) 
+		switch (GRAMMATICAL_INFLECTION) {
+		1,2,3:	"Mejor intentar hablar con cosas que puedan devolver 
+				una respuesta.";
+		4,5,6:	"Mejor intentar hablar con cosas que pudiesen devolver 
+				una respuesta.";
+	}
+	switch (GRAMMATICAL_INFLECTION) {
+	1:	print_ret (The) noun, " no parece", (n) noun, " estar interesad", 
+		(o) noun, " en hablar conmigo.";
+	2:	print_ret (The) noun, " no parece", (n) noun, " estar interesad",
+		(o) noun, " en hablar contigo.";
+	3:	print (The) noun, " no parece", (n) noun, " estar interesad",
+		(o) noun, " en hablar con ";
+		if (player has female || 
+			(player provides gender && player.gender == G_FEMENINO))
+			print "ella";
+		else
+			print "él";
+		".";
+	4:	print_ret (The) noun, " no parecía", (n) noun, " estar interesad",
+		(o) noun, " en hablar conmigo.";
+	5:	print_ret (The) noun, " no parecía", (n) noun, " estar interesad",
+		(o) noun, " en hablar contigo.";
+	6:	print (The) noun, " no parecía", (n) noun, " estar interesad",
+		(o) noun, " en hablar con ";
+		if (player has female || 
+			(player provides gender && player.gender == G_FEMENINO))
+			print "ella";
+		else
+			print "él";
+		".";
+	}
+];
+
+!!------------------------------------------------------------------------------
+
+#Ifdef	DEBUG;
+Verb meta 'gna'
+	* multi							-> GNA
+;
+
+[ GNA g;
+	g = GetGNAOfObject(noun);
+	print g, ": ";
+	switch (g) {
+		0,1,2,3,4,5: print "animado ";
+		default:	 print "inanimado ";
+	}
+	switch (g) {
+		0,1,2,6,7,8: print "singular ";
+		default:	 print "plural ";
+	}
+	switch (g) {
+		0,3,6,9:	 print "masculino";
+		1,4,7,10:	 print "femenino";
+		default:	 print "neutro";
+	}
+];
+
+[ GNASub;
+	start_parser_style();
+	print "Objeto: ";
+	roman_style();
+	print (name) noun; 
+	parser_style();
+	print ". (", (The) noun," / ", (the) noun," / ", (a) noun, 
+	" / -", (o) noun, ")^GNA ", (GNA) noun;
+	end_parser_style();
+	new_line;
+];
+#Endif; ! DEBUG;
+
+
+!!==============================================================================
+!!	Definición de atributos, clases y objetos
+!!------------------------------------------------------------------------------
+
+Include ">cerillera_obj.inf";
+
+
