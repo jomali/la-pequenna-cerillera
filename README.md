@@ -11,7 +11,7 @@ Por último, en caso de sentir verdadera curiosidad, al final de este documento 
 
 ## Cómo leer el relato desde Internet
 
-Si tienes conexión a Internet, puedes ejecutar la aplicación (sin contenidos multimedia) directamente desde tu navegador siguiendo [este enlace](http://iplayif.com/?story=http%3A//www.caad.es/sites/default/files/descargas/Juegos/Maquina-Z/cerillera.z5).
+Si tienes conexión a Internet, puedes ejecutar la aplicación (sin contenidos multimedia) directamente desde tu navegador siguiendo [este enlace](http://iplayif.com/?story=https://github.com/jomali/Cerillera/raw/master/cerillera.z5).
 
 -------
 

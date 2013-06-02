@@ -130,7 +130,7 @@ Include "VerbLib.h";			! Define cómo trabajan las acciones
 
 	banner();
 	new_line; new_line;
-	print (parser) "Haz clic aquí y pulsa una tecla para empezar";
+	print (parser) "Pulsa una tecla para empezar";
 	KeyCharPrimitive();
 	EraseWindow();
 

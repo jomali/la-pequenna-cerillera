@@ -169,9 +169,10 @@ Object	OBJayuda
 		],
 		DescripcionObjetos_2 [;
 			print_ret (parser) "Dado que examinar objetos es una acción muy 
-			frecuente, puedes abreviar el comando y teclear EX o simplemente X. 
-			De este modo, la instrucción X CALLE es equivalente a escribir 
-			EXAMINA LA CALLE.";
+			frecuente, puedes abreviar el comando y teclear EX, X o simplemente 
+			el nombre del objeto que quieras examinar. De este modo, la 
+			instrucción EXAMINA LA CALLE es equivalente a escribir EX CALLE o 
+			CALLE a secas.";
 		],
 		!!----------------------
 		Inventario_explicado	false,
