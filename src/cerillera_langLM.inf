@@ -2696,11 +2696,13 @@ Default GRAMMATICAL_INFLECTION 2;
 				!! #33: El jugador ha intentado usar objetos múltiples (o 
 				!! "TODO") con un verbo que en su gramática no lo admite.
 				!! -- "No puedes especificar objetos múltiples con ese verbo.";
-				start_parser_style();
-				print "No se pueden especificar objetos múltiples con '", 
-				(address) verb_word ,"'.";
-				end_parser_style();
-				new_line;
+				print_ret (parser) "No se pueden especificar objetos múltiples 
+				con esa acción.";
+!				start_parser_style();
+!				print "No se pueden especificar objetos múltiples con '", 
+!				(address) verb_word ,"'.";
+!				end_parser_style();
+!				new_line;
 				return true;
 		MMULTI_PE:
 				!! #34: El player ha intentado objetos multiples para "noun" y 
