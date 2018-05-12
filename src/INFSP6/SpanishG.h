@@ -50,7 +50,7 @@ System_file; ! for supress warnings in I6 environment
 [ DialectoSudSub;
   dialecto_sudamericano = 2; ! git
   "Elegido dialecto SUDAMERICANO.";
-];    
+];
 
 [ DialectoCastSub;
   dialecto_sudamericano = 0;
@@ -377,7 +377,7 @@ Verb 'vacia'
     * noun 'en' noun                     -> EmptyT
     * noun 'sobre' noun                  -> EmptyT
     * noun 'encima' 'de' noun            -> EmptyT;
-Verb 'transfiere' 'cambia' 
+Verb 'transfiere' 'cambia'
     * noun 'a//' noun                     -> Transfer;
 VerboIrregular "transferir"  with imperativo 'transfiere';
 Verb 'deja' 'suelta'
@@ -408,18 +408,19 @@ Verb 'tira'
 Verb 'da' 'regala' 'dale' 'dase' 'ofrece' 'darse'
     * held 'a//' creature        -> Give
     * 'a//' creature held        -> Give reverse
-    * creature held            -> Give reverse 
+    * creature held            -> Give reverse
     * 'una' 'patada' 'a//' noun            -> Attack
     * 'un' 'punetazo' 'a//' noun    -> Attack
     * 'un' 'golpe' 'a//' noun              -> Attack;
 VerboIrregular "darle" with imperativo 'dale' 'dase' 'darse';
-Verb 'muestra' 'ensena' 
+Verb 'muestra' 'ensena'
     * creature held                     -> Show reverse
     * 'a//' creature held        -> Show reverse
     * held 'a//' creature        -> Show;
 VerboIrregular "mostrar" with imperativo 'muestra';
 [ ADirection; if (noun in compass) rtrue; rfalse; ];
-Verb 'anda' 'camina' 'corre' 'ir' 've' 'vete' 'vuelve'
+!! XXX - Se elimina el verbo vuelve/volver como sinónimo de la acción:
+Verb 'anda' 'camina' 'corre' 'ir' 've' 'vete' !'vuelve'
     *                                   -> VagueGo
     * noun=ADirection                   -> Go
     * 'a//' noun=ADirection           -> Go
@@ -429,11 +430,12 @@ Verb 'anda' 'camina' 'corre' 'ir' 've' 'vete' 'vuelve'
     * 'hacia' noun                      -> Enter
     * 'por' noun                        -> Enter;
 VerboIrregular "ir" with imperativo 've' 'vete' 'ir';
-VerboIrregular "volver" with imperativo 'vuelve';
+!! XXX - Se elimina el verbo vuelve/volver como sinónimo de la acción:
+!VerboIrregular "volver" with imperativo 'vuelve';
 
 Verb 'pasa'
     * 'por' noun            -> Enter;
-Verb 'inventario' 'inv' 'i//' 
+Verb 'inventario' 'inv' 'i//'
     *                                     -> Inv
     * 'breve'/'estrecho'                   -> InvTall
     * 'largo'/'ancho'                      -> InvWide;
@@ -637,7 +639,7 @@ Verb 'duerme' 'ronca' 'descansa'
 VerboIrregular "dormir" with imperativo 'duerme';
 Verb 'canta'
     *                    -> Sing;
-Verb 'escala' 'trepa' 
+Verb 'escala' 'trepa'
     * 'a//' noun            -> Climb
     * noun                                -> Climb
     * 'por' noun                          -> Climb;
@@ -671,7 +673,7 @@ Verb 'sopla'
     * noun                               -> Blow;
 Verb 'reza' 'ora'
     *                                    -> Pray;
-Verb 'despierta' 'espabila' 
+Verb 'despierta' 'espabila'
     *                                    -> Wake
     * creature                           -> WakeOther
     * 'a//' creature                    -> WakeOther;
@@ -722,7 +724,7 @@ Verb 'bebe'
     * noun                               -> Drink;
 Verb 'llena' 'rellena'
     * noun                           -> Fill;
-Verb 'corta' 'rasga' 
+Verb 'corta' 'rasga'
     * noun                               -> Cut
     * noun 'con' held                    -> Cut;
 Verb 'salta' 'brinca'
@@ -753,7 +755,7 @@ endif;  ! ADMITIR_COMANDO_SALIDAS
 ! en la lista los objetos de librería ni los verbos irregulares
 #ifdef DEBUG;
 [ XlistaSub i;
-    objectloop(i) 
+    objectloop(i)
           if (i ofclass Object && parent(i)==0){
          if (i ofclass VerboIrregular) continue;
         if (i==compass or InformParser
@@ -837,7 +839,7 @@ Verb meta 'xlista'
     {
       p=NextWord();
       if ((p=='de')&&(n==0)) return 0;
-    
+
 !     if (WordInProperty(p, obj, name))
 !         ! Una palabra que se refiere al objeto
 !     {
@@ -881,7 +883,7 @@ Verb meta 'xlista'
         continue;       ! volvemos al while
       }
     ! [I7] se cambio de lugar este if para buscar el name_m (o name)
-    ! en ultimo lugar, debido a una interferencia q provoca la asignacion 'automatica' de 
+    ! en ultimo lugar, debido a una interferencia q provoca la asignacion 'automatica' de
     ! plural en los objetos I7
       if (WordInProperty(p, obj, name_m))
             ! Una palabra que se refiere al objeto
@@ -905,7 +907,7 @@ Verb meta 'xlista'
 !        print (the) obj," --> adjetivo detectado....^" ; !infsp debug
         continue;       ! volvemos al while
       }
-        
+
     ! Si la palabra no fue reconocida, miraremos si se trata
     ! de 'de' o un artículo. En este caso mantenemos la duda y
     ! seguimos mirando palabras, hasta que una de ellas encaje
@@ -917,11 +919,11 @@ Verb meta 'xlista'
          'de')
       {
         dudas++; continue;
-      }        
+      }
       else seguir=0;   ! Si no fue reconocida, ni un articulo, ni "de"
                        ! nos damos por vencidos
    }! while block
-    
+
     if (obj provides gender)
         switch(gen)
         { ! Los casos del switch estaban mal.
@@ -933,9 +935,9 @@ Verb meta 'xlista'
         }
 
     if (gen<5) give obj nombreusado; !si el matcheo fue por adjetives, entonces gen=5
-                                     !   y nombreusado no se pone.                            
+                                     !   y nombreusado no se pone.
 !!    if (obj provides gender) obj.gender=gen; ! esta linea siempre esta comentariada
-    
+
 #ifdef DEBUG;
     debug_flag=aux;
 #endif;
@@ -943,10 +945,10 @@ Verb meta 'xlista'
 !    {
 !          print "^[ ParseNoun:  ";
 !          print "^      consulta por ", (the) obj, " --> palabras reconocidas ",n ;
-!    } 
+!    }
     return n; !retornar numero de palabras reconocidas
     !return -1;
-];    
+];
 
 #Endif; ! def ParseNoun
 

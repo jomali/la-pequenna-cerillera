@@ -1,0 +1,541 @@
+
+
+!!==============================================================================
+!!
+!!	LA PEQUEÑA CERILLERA
+!!	Definición de localidades y objetos
+!!
+!!==============================================================================
+!!
+!!	Archivo:		cerillera_objects.inf
+!!	Autor(es):		J. Francisco Martín <jfm.lisaso@gmail.com>
+!!	Idioma:			ES (Español)
+!!	Sistema:		Inform-INFSP 6
+!!	Plataforma:		Máquina-Z/Glulx
+!!	Versión:		3.0
+!!	Fecha:			2018/05/11
+!!
+!!------------------------------------------------------------------------------
+!!
+!!	Este archivo forma parte del relato interactivo
+!!	LA PEQUEÑA CERILLERA.
+!!
+!!	LA PEQUEÑA CERILLERA es software libre: usted puede redistribuirlo
+!!	y/o modificarlo bajo los términos de la Licencia Pública General
+!!	GNU publicada por la Fundación para el Software Libre, ya sea la
+!!	versión 3 de la Licencia, o (a su elección) cualquier versión
+!!	posterior.
+!!
+!!	LA PEQUEÑA CERILLERA se distribuye con la esperanza de que sea
+!!	útil, pero SIN GARANTíA ALGUNA; ni siquiera la garantía implícita
+!!	MERCANTIL o de APTITUD PARA UN PROPÓSITO DETERMINADO. Consulte los
+!!	detalles de la Licencia Pública General GNU para más información.
+!!
+!!	Debería haber recibido una copia de la Licencia Pública General GNU
+!!	junto a LA PEQUEÑA CERILLERA. En caso contrario, consulte
+!!	<http://www.gnu.org/licenses/>.
+!!
+!!	Copyright (c) 2010-2018, J. Francisco Martín
+!!
+!!------------------------------------------------------------------------------
+!!
+!!	TABLA DE CONTENIDOS
+!!
+!!	1)	Limbo
+!!	2)	Esquina
+!!
+!!------------------------------------------------------------------------------
+
+
+!!==============================================================================
+!!
+!!	1)	Limbo
+!!
+!!------------------------------------------------------------------------------
+
+Room	Limbo "En algún lugar"
+ with	name_f	'babia' 'parte',
+		name_m	'limbo' 'lugar' 'sueno' 'vacio',
+		gender	G_MASCULINO,
+		adjectives 'algun' 'alguna',
+		description [;
+			O__M(self, 1);
+			if (self hasnt visited) O__M(self, 2);
+			new_line;
+			return true;
+		],
+		clarification 0,
+ has	male;
+
+Class	Match
+ class	Item,
+ with	short_name "cerilla",
+		plural "cerillas",
+		parse_name [
+			i j j2 j3 j4;
+			j = NextWord();
+			if ( j == 'cerilla' or 'fosforo' ) i++;
+			if ( j == 'cerillas' or 'fosforos' ) {
+				i++; parser_action = ##PluralFound;
+			}
+			if ( i>0 && action_to_be ~= ##Take or ##Remove ) {
+				j2 = NextWord(); j3 = NextWord(); j4 = NextWord();
+				if ( j2 == 'de' ) {
+					if ( j3 == 'la' && j4 == 'caja' ) i = i+3;
+					if ( j3 == 'caja' ) i = i+2;
+				}
+			}
+			return i;
+		],
+		description [;
+			if (self hasnt light) {
+				return O__M(Cerilla, 1);
+			} else if (self in player) {
+				return O__M(Cerilla, 2);
+			} else {
+				return O__M(Cerilla, 3);
+			}
+		],
+		before [;
+			DefaultAction:
+				<<Burn self>>;
+			Burn:
+				if (~~IndirectlyContains(player, self)) {
+					return O__M(Cerilla, 4);
+				}
+				if (~~IndirectlyContains(player, CajaCerillas)) {
+					return O__M(Cerilla, 5);
+				}
+				self.light_match();
+				return true;
+			Take:
+				if (IndirectlyContains(CajaCerillas, self)
+					&& CajaCerillas hasnt open) {
+					<Open CajaCerillas>;
+					new_line;
+				}
+				if (IndirectlyContains(player, self)) {
+					return O__M(Cerilla, 6);
+				}
+		],
+		light_match [
+			previous_style;
+			if (IndirectlyContains(CajaCerillas, Cerilla)
+				&& CajaCerillas hasnt open) {
+				if (Esquina.scene == 1) return O__M(Cerilla, 7);
+				give CajaCerillas open;
+			}
+			switch (Esquina.scene) {
+				1:
+					Esquina.scene++;
+					move RestosCalcinados to Esquina;
+					move Cerilla to CajaCerillas;
+					O__M(Cerilla, 8);
+					new_line;
+					<<Look>>;
+				2:
+					Esquina.scene++;
+					move Cerilla to CajaCerillas;
+					O__M(Cerilla, 9);
+					new_line;
+					<<Look>>;
+				3:
+					Esquina.scene++;
+					move Cerilla to CajaCerillas;
+					give location general;
+					O__M(Cerilla, 10);
+					new_line;
+					<<Look>>;
+				4:
+					Esquina.scene++;
+					move Cerilla to CajaCerillas;
+					O__M(Cerilla, 11);
+					KeyCharPrimitive();
+					FadeInTrack(MUS_FINAL, -1, 10000);
+					new_line;
+					O__M(Cerilla, 12);
+					KeyCharPrimitive();
+					new_line;
+					O__M(Cerilla, 13);
+					KeyCharPrimitive();
+					new_line;
+					O__M(Cerilla, 14);
+					KeyCharPrimitive();
+					new_line;
+					O__M(Cerilla, 15);
+					KeyCharPrimitive();
+					new_line;
+					HorizontalRule();
+					KeyCharPrimitive();
+					new_line;
+					previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+					print (string) TEXT_STYLE_PARSER_PREFIX;
+					print "Si quieres volver a empezar el cuento pulsa ~";
+					Hyperlink("R");
+					print "~. Cualquier otra tecla para salir.";
+					print (string) TEXT_STYLE_PARSER_SUFIX;
+					UseTextStyle(previous_style);
+					if (KeyCharPrimitive() == 'r' or 'R') {
+						FadeOutTrack(MUS_FINAL, 0, 1000, 0, true);
+						@restart;
+						L__M(##Restart, 2);
+					}
+					else quit;
+			}
+		],
+ has	female;
+
+Atrezzo	-> RestosCalcinados "restos calcinados"
+ with	name_mp	'restos',
+		!! name_m	'fosforo' 'palillo',
+		!! name_f	'cerilla',
+		!! name_mp	'fosforos' 'palillos' 'restos',
+		!! name_fp	'cerillas',
+		gender	G_MASCULINO + G_PLURAL,
+		adjectives
+			'consumido' 'calcinado' 'quemado' 'extinguido' 'ennegrecido'
+			!! 'consumida' 'calcinada' 'quemada' 'extinguida' 'ennegrecida'
+			'consumidos' 'calcinados' 'quemados' 'extinguidos' 'ennegrecidos'
+			!! 'consumidas' 'calcinadas' 'quemadas' 'extinguidas' 'ennegrecidas'
+			'inservible' 'inservibles',
+		description [;
+			if (Esquina.scene == 2) return O__M(self, 2);
+			else return O__M(self, 1);
+		],
+ has	male pluralname;
+
+NPC		-> Alba "cerillera"
+ with	name_f	'cerillera' 'chavala' 'chavalilla' 'chica' 'chiquilla' 'cria'
+				'muchacha' 'nina' 'pequena' 'personaje' 'protagonista',
+		name_m	'cabello' 'cuello' 'pelo',
+		name_mp	'cabellos' 'rizos',
+		gender	G_FEMENINO,
+		adjectives
+			'asustada' 'congelada' 'hambrienta' 'helada' 'hermoso' 'hermosos'
+			'pobre' 'principal' 'rubio' 'rubios',
+		description [;
+			O__M(self, 1);
+			new_line;
+			<<Inv>>;
+		],
+	!! 	react_before [;
+	!! 		Burn:
+	!! 			if (noun == Cerilla && ~~self.hint_burn_a_explained) {
+	!! 				self.hint_burn_a_explained = true;
+	!! 			}
+	!! 			if (noun == Cerilla && ~~self.hint_burn_b_explained) {
+	!! 				self.hint_burn_b_explained = true;
+	!! 			}
+	!! 		Inv:
+	!! 			if (~~self.hint_inv_explained) {
+	!! 				self.hint_inv_explained = true;
+	!! 			}
+	!! 			if (self.hint_inv_active) {
+	!! 				self.hint_inv_active = false;
+	!! 				O__M(self, FIXME);
+	!! 			}
+	!! 		Look:
+	!! 			if (self.hint_look_active && ~~self.hint_look_explained) {
+	!! 				self.hint_look_active = false;
+	!! 				self.hint_look_explained = true;
+	!! 				O__M(self, FIXME);
+	!! 			}
+	!! 		Examine:
+	!! 			if (~~self.hint_examine_explained) {
+	!! 				self.hint_examine_explained = true;
+	!! 			}
+	!! 			if (self.hint_examine_active) {
+	!! 				self.hint_examine_active = false;
+	!! 				O__M(self, FIXME);
+	!! 			}
+	!! 		Open:
+	!! 			if (noun has openable && ~~self.hint_open_explained) {
+	!! 				self.hint_open_explained = true;
+	!! 			}
+	!! 			if (self.hint_open_active) {
+	!! 				self.hint_open_active = false;
+	!! 				O__M(self, FIXME);
+	!! 			}
+	!! 		Use:
+	!! 			return O__M(self, FIXME);
+	!! 	],
+	!! 	react_after [;
+	!! 		if (~~self.first_hint_explained) {
+	!! 			self.first_hint_explained = true;
+	!! 			new_line;
+	!! 			return O__M(self, FIXME);
+	!! 		}
+	!! 	],
+ private
+		!! hint_manager [;
+		!! 	!! Comando ##Look
+		!! 	if (~~self.hint_look_explained) {
+		!! 		self.hint_look_active = true;
+		!! 		return O__M(self, FIXME);
+		!! 	}
+		!! 	!! Comando ##Examine
+		!! 	if (~~self.hint_examine_explained) {
+		!! 		self.hint_examine_active = true;
+		!! 		return O__M(self, FIXME);
+		!! 	}
+		!! 	!! Comando ##Inv
+		!! 	if (~~self.hint_inv_explained) {
+		!! 		self.hint_inv_active = true;
+		!! 		return O__M(self, FIXME);
+		!! 	}
+		!! 	!! Comando ##Open
+		!! 	if (~~self.hint_open_explained) {
+		!! 		self.hint_open_active = true;
+		!! 		return O__M(self, FIXME);
+		!! 	}
+		!! 	!! Comando ##Burn
+		!! 	if (~~self.hint_burn_a_explained) {
+		!! 		self.hint_burn_a_explained = true;
+		!! 		return O__M(self, FIXME);
+		!! 	}
+		!! 	if (~~self.hint_burn_b_explained) {
+		!! 		self.hint_burn_b_explained = true;
+		!! 		return O__M(self, FIXME);
+		!! 	}
+		!! 	!! Meta comandos
+		!! 	if (~~self.hint_meta_commands_explained) {
+		!! 		self.hint_meta_commands_explained = true;
+		!! 		return O__M(self, FIXME);
+		!! 	}
+		!! 	!! Ayuda genérica
+		!! 	return O__M(self, FIXME);
+		!! ],
+		!! !!----------------------------------------------------------------------
+		!! first_hint_explained	false,
+		!! hint_burn_a				false,
+		!! hint_burn_b				false,
+		!! hint_examine			false,
+		!! hint_examine_explained	false,
+		!! hint_inv				false,
+		!! hint_inv_explained		false,
+		!! hint_look				false,
+		!! hint_look_explained		false,
+		!! hint_meta_command		false,
+		!! hint_open				false,
+		!! hint_open_explained		false,
+		!! hint_use_explained		false,
+		!! contador_visiones 0,
+ has	female remarkable;
+
+Item	-> -> CajaCerillas "caja de cerillas"
+ with	invent [;
+			if ( inventory_stage == 1 && self hasnt open )
+				O__M(self, 3);
+			if ( inventory_stage == 1 && self has open )
+				O__M(self, 4);
+			return true;
+		],
+		parse_name [ i j j2 j3 j4;
+			j = NextWord();
+			if( j == 'cerillas' ) i++;
+			if( j == 'caja' or 'cajita' ) {
+				i++;
+				j2 = NextWord(); j3 = NextWord(); j4 = NextWord();
+				if ( j2 == 'de') {
+					if( j3 == 'las' or 'los' && j4 == 'cerillas' or 'fosforos' )
+						i = i+3;
+					if( j3 == 'cerillas' or 'fosforos')
+						i = i+2;
+				}
+				if ( j2 == 'cerillas' or 'fosforos' ) i++;
+			}
+			return i;
+		],
+		description [;
+			SetPronoun('-lo', self);
+			O__M(self, 1);
+			if (self hasnt open) O__M(self, 2);
+			new_line;
+			return true;
+		],
+		before [;
+			Drop, Insert, PutOn, Transfer:
+				return O__M(self, 5);
+			LetGo:
+				if (noun == Cerilla) {
+					move Cerilla to player;
+					return O__M(self, 6);
+ 				}
+				if (~~IndirectlyContains(self, Cerilla))
+					return O__M(self, 7);
+		],
+		after [;
+			Open: if ( ~~self.flag_open ) {
+				SetPronoun('-lo', self);
+				self.flag_open = true;
+				return O__M(self, 8);
+			}
+		],
+		flag_open	false,
+ has	female transparent container openable ~open;
+
+Match	-> -> -> Cerilla;
+
+
+!!==============================================================================
+!!
+!!	2)	Esquina
+!!
+!!------------------------------------------------------------------------------
+
+!!	-	'general' se activa cuando aparece la estrella fugaz en el cielo
+Room	Esquina "Acurrucada en una esquina"
+ with	name_f	'esquina',
+		gender	G_FEMENINO,
+		description [;
+			switch (self.scene) {
+				1:	return O__M(self, 1);
+				2:	return O__M(self, 2);
+				3:	return O__M(self, 3);
+				4:	return O__M(self, 4);
+			}
+		],
+		before [;
+			Listen:
+				if (noun == nothing)
+					return O__M(self, 5);
+			Smell:
+				if (noun == nothing)
+					return O__M(self, 6, (self.scene == 2));
+		],
+		in_to [;
+			<<Open Puertas>>;
+		],
+		out_to [;
+			return self.cant_go();
+		],
+		cant_go [;
+			O__M(self, 7);
+			if (self.try_to_go_home == false) {
+				self.try_to_go_home = true;
+				O__M(self, 8);
+			}
+			new_line;
+			return true;
+		],
+		scene 1,
+		try_to_go_home false,
+ has	female;
+
+Atrezzo	-> Adoquines "adoquines"
+ with	name_m	'adoquin' 'manto' 'pavimento' 'suelo',
+		name_mp	'adoquines',
+		name_f	'capa',
+		gender	G_MASCULINO + G_PLURAL,
+		adjectives
+			'nieve' 'blanca' 'blanco' 'helado' 'helada' 'gelido'
+			'gelida' 'frio' 'fria',
+		description [; return O__M(self, 1); ],
+		react_before [; Examine: if (noun == d_obj) <<Examine self>>; ],
+ has	male pluralname;
+
+Atrezzo	-> Calle "calle"
+ with	name_m	'paseo' 'frio',
+		name_f	'calle' 'via',
+		name_fp	'tinieblas',
+		gender	G_FEMENINO,
+		adjectives 'adoquinado' 'adoquinada',
+		description [; return O__M(self, 1); ],
+		before [;
+			Listen:	<<Listen>>;
+			Smell:	<<Smell>>;
+		],
+ has	female;
+
+Atrezzo	-> Casas "casas"
+ with	name_m	'edificio',
+		name_mp	'edificios',
+		name_f	'casa' 'ventana',
+		name_fp	'casas' 'ventanas',
+		gender	G_FEMENINO + G_PLURAL,
+		description [; return O__M(self, 1); ],
+ has	female pluralname;
+
+Atrezzo	-> Cielo "cielo"
+ with	name_m	'cielo' 'firmamento',
+		name_f	'estrella' 'nube',
+		name_fp	'estrellas' 'nubes',
+		gender	G_MASCULINO,
+		adjectives
+			'rutilante' 'rutilantes' 'lejana' 'lejanas' 'titilante'
+			'titilantes' 'tinta' 'jiron' 'jirones',
+		description [; return O__M(self, 1); ],
+		react_before [; Examine: if ( noun == u_obj) <<Examine self>>; ],
+ has	male;
+
+Atrezzo	-> Faroles "faroles"
+ with	name_f	'farola' 'lucecilla' 'lucecita' 'noche' 'oscuridad' 'sombra'
+				'tiniebla',
+ 		name_fp	'farolas' 'lucecillas' 'lucecitas' 'sombras' 'tinieblas',
+		name_m	'farol' 'luz',
+		name_mp	'faroles' 'luces',
+		gender	G_MASCULINO + G_PLURAL,
+		adjectives 'debil' 'debiles' 'temblorosa' 'temblorosas',
+		description [; return O__M(self, 1); ],
+ has	male pluralname;
+
+Atrezzo	-> Nieve "nieve"
+ with	name_m	'copo' 'nevazo',
+		name_mp	'copos',
+		name_f	'nieve' 'nevada' 'nevisca' 'cellisca',
+		gender	G_FEMENINO,
+		adjectives
+			'blanco' 'blanca' 'frio' 'fria' 'helado' 'helada' 'gelido' 'gelida',
+		description [; return O__M(self, 1); ],
+ has	female;
+
+Atrezzo	-> Pared "pared"
+ with	name_m	'muro',
+		muro_mp	'muros',
+		name_f	'pared',
+		name_fp	'paredes',
+		gender	G_FEMENINO,
+		adjectives
+			'piedra' 'frio' 'frios' 'fria' 'frias' 'incomodo'
+			'incomodos' 'incomoda' 'incomodas',
+		description [; return O__M(self, 1); ],
+		before [; Touch: return self.description(); ],
+ has	female;
+
+Atrezzo	-> Puertas "puertas"
+ with	name_m	'porton',
+		name_f	'puerta' 'cancela' 'entrada',
+		name_mp	'portones',
+		name_fp	'puertas' 'cancelas' 'entradas',
+		gander	G_FEMENINO + G_PLURAL,
+		adjectives
+			'madera' 'tallada' 'talladas' 'oscura' 'oscuras' 'grande'
+			'grandes' 'bonita' 'bonitas',
+		description [; O__M(self, 1); new_line; return true; ],
+		before [;
+			Pull, Push, PushDir, Turn:
+				return O__M(self, 2);
+			KnockOn, Open:
+				if (self hasnt described) { O__M(self, 1); print " "; }
+				return O__M(self, 3);
+		],
+ has	female pluralname door transparent;
+
+Atrezzo	-> -> Aldabas "aldabas"
+ with	name_m	'aldabon' 'llamador' 'picaporte',
+		name_f	'aldaba',
+		name_mp	'aldabones' 'llamadores' 'picaportes',
+		name_fp	'aldabas',
+		gender	G_FEMENINO + G_PLURAL,
+		adjectives
+			'metal' 'metalica' 'metalicas' 'metalico' 'metalicos' 'cara'
+			'caras' 'de' 'leon' 'leones' 'aguila' 'aguilas' 'oso' 'osos',
+		before [;
+			DefaultAction, Examine, Look, Search:
+				<<Examine Puertas>>;
+			Pull:
+				<<Open Puertas>>;
+			Use:
+				<<Open Puertas>>;
+		],
+ has	female pluralname;

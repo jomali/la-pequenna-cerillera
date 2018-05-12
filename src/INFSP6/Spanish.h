@@ -17,10 +17,6 @@
 ! Definición de todo lo relacionado con el idioma Español (artículos,
 ! nombres, pre-parsing, mensajes estandares, etc.)
 !
-! XXX MODIFICACIÓN: Las modificaciones sobre la librería original se han 
-! marcado con el código XXX, de forma que se pueda navegar rápidamente 
-! hasta ellas utilizando una herramienta de búsqueda.
-!
 !  InformATE es (c) de Zak
 !  Re-edicion INFSP by Sarganar. Nuevas mejoras by colaboradores varios.
 !  caad.es/informate/infsp/
@@ -101,20 +97,6 @@ Global quitacentos = 1;
 Array  texto_impreso --> 52;
 
 Global dialecto_sudamericano = 0;
-
-! XXX MODIFICACIÓN: Las constantes FORMER__TX, YOURSELF__TX, ..., PARTICULA_TE 
-! pasan a declararse como variables para permitir cambios en la flexión 
-! gramatical de los mensajes de la lib. en tiempo de ejecución.
-Global FORMER__TX    = "tu antiguo ~yo~";
-Global YOURSELF__TX  = "ti mismo";
-Global CANTGO__TX    = "No puedes ir por ahí.";
-Global IS__TX        = " ves";
-Global ARE__TX       = " ves";
-Global IS2__TX       = "ves ";
-Global ARE2__TX      = "ves ";
-Global YOU__TX       = "Tú";
-Global PARTICULA_TE  = "te";
-! FIN DE LA MODIFICACIÓN
 
 !---------------------------------------------------------------------------
 ! Atributos y propiedades específicas de InformatE!, tambien usados en INFSP
@@ -1235,7 +1217,7 @@ print "cientos"; rfalse;
     j=j;
     first_word=first_word;
     if (w == 'long' or 'short' or 'normal'
-                    or 'brief' or 'full' or 'verbose' or 'saltar')
+                    or 'brief' or 'full' or 'verbose')
         rtrue;
 
 
@@ -1785,12 +1767,23 @@ Constant COMMA__TX     = ", ";
 ! entonces no se incluiran en el codigo del juego los mensajes estandares
 ! de la libreria. De esta manera se le permite al programador implementar
 ! sus propios mensajes de la libreria en el codigo del juego o mediante
+! alguna libreria de extension. Recuerda que si solo vas a redefinir unos
 ! pocos mensajes y no todos es siempre mejor usar el mecanismo de
 ! "LibraryMessages". Consulta el manual de Inform para mayores detalles.
 !-------------------------------------------------------------------------------
 #ifdef SIN_MENSAJES;
   Message "> Spanish: AVISO - Omitiendo los mensajes estandares de la libreria";
 #ifnot; 
+
+Constant FORMER__TX    = "tu antiguo ~yo~";
+Constant YOURSELF__TX  = "ti mismo";
+Constant CANTGO__TX    = "No puedes ir por ahí.";
+Constant IS__TX        = " ves";
+Constant ARE__TX       = " ves";
+Constant IS2__TX       = "ves ";
+Constant ARE2__TX      = "ves ";
+Constant YOU__TX       = "Tú";
+Constant PARTICULA_TE  = "te";
 
 [ LanguageLM n x1;
  ! Answer:   " ",(The) second , " no te responde."; ! esto sera sólo para I6?
@@ -1976,7 +1969,7 @@ Constant COMMA__TX     = ", ";
     !    contrario es cuando se genera este error]
     ! 2: Error, el jugador está dentro de un recipiente cerrado.
     ! 3: Exito, el jugador sale/baja del objeto
-    ! 4: Error, más específico. [6/11]
+    ! 4: Error, mas especifico. [6/11]
     switch(n)
     {
      1: print "No estás en ningún sitio del que debas ";
@@ -1985,12 +1978,9 @@ Constant COMMA__TX     = ", ";
      3: if (x1 has supporter) print "Bajas ";
     else print "Sales ";
     print_ret (del) x1, ".";
-! XXX MODIFICACIÓN: Ahora el mensaje de error hace uso de la contracción "del", 
-! en lugar del "'encima/dentro de ', (the) x1" original.
      4:  print "Pero es que no estás ";
-            if (x1 has supporter) print "encima "; else print "dentro ";
-			print_ret (del) x1, ".";
-! FIN DE LA MODIFICACIÓN
+            if (x1 has supporter) print "encima de  "; else print "dentro de ";
+            print_ret (the) x1, ".";
     }
 
   Fill:      "No puedes llenar", (lo) x1, ".";
@@ -2096,9 +2086,7 @@ Constant COMMA__TX     = ", ";
           " donde sea.";
      2: "No se pueden meter cosas dentro ", (del) x1, ".";
      3: print_ret (The) x1, " ", (esta) x1, " cerrad", (o) x1, ".";
-! XXX MODIFICACIÓN: Se le ha añadido el acento a "'quitárte', (lo) x1"
-     4: "Tienes que quitárte", (lo) x1, " antes.";
-! FIN DE LA MODIFICACIÓN
+     4: "Tienes que quitarte", (lo) x1, " antes.";
      5: "No puedes poner un objeto dentro de sí mismo.";
      6: "(primero te ", (lo) x1, " quitas)^";
      7: "No queda sitio en ", (the) x1, ".";

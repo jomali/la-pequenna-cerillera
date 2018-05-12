@@ -1,4 +1,3 @@
-CODE	../cerillera.z5
-BIBLIO	cerillera.ifiction
-COVER	../cerillera.png
+Code cerillera.ulx
 
+Sound	MUS_FINAL		resources/kevin-macleod_silent-night.ogg
