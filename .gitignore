@@ -1,0 +1,38 @@
+
+# Ramas del árbol de directorios:
+/doc/icons
+/doc/miscellany
+/doc/musica
+/doc/ref
+/ejecutable
+/empaquetador
+/font/*.zip
+
+# Ficheros multimedia:
+*.ico
+*.ogg
+*.png
+*.psd
+
+# Ejecutables Máquina-Z/Glulx/Windows:
+*.z5
+*.z8
+*.zblorb
+*.ulx
+*.blb
+*.gblorb
+*.exe
+
+# Documentación y ficheros creados al generar la documentación con 'pdflatex':
+/doc/memoria/notas
+*.aux
+*.bbl
+*.blg
+*.doc
+*.dvi
+*.lof
+*.log
+*.lot
+*.out
+*.pdf
+*.toc
