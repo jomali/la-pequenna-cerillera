@@ -714,7 +714,7 @@ CompassDirection d_obj "abajo" compass
 !!
 !!	@returns {boolean} Verdadero
 !!	@override parserm.h
-!!	@version 1.0
+!!	@version 1.1
 !!------------------------------------------------------------------------------
 [ PSN__ obj;
     if (obj == 0) { print (string) NOTHING__TX; rtrue; }
@@ -723,7 +723,7 @@ CompassDirection d_obj "abajo" compass
 	    String:   print "<string ~", (string) obj, "~>"; rtrue;
 	    nothing:  print "<illegal object number ", obj, ">"; rtrue;
     }
-    if (obj == player) { print (string) YOURSELF__TX; rtrue; }
+    !! if (obj == player) { print (string) YOURSELF__TX; rtrue; }
     #Ifdef LanguagePrintShortName;
     if (LanguagePrintShortName(obj)) rtrue;
     #Endif; ! LanguagePrintShortName
@@ -737,7 +737,8 @@ CompassDirection d_obj "abajo" compass
 !!	@override verblibm.h
 !!	@version 1.0
 !!------------------------------------------------------------------------------
-[ VersionSub ix;
+[ VersionSub
+	ix;
 	new_line;
 	Banner();
 	print "Versión de la librería Inform ", (string) LibRelease;
@@ -774,4 +775,12 @@ CompassDirection d_obj "abajo" compass
 	print "VM ", ix / $10000, ".", (ix & $FF00) / $100, ".", ix & $FF;
 	#Endif; ! TARGET_;
 	new_line;
+
+	new_line;
+	print "Relato original: ", (strong) "Hans Christian Andersen", ".^";
+	print "Diseño y programación: ", (strong) "José Fco. Martín Lisaso", ".^";
+	print "Composición musical: ", (strong) "Franz Xaver Gruber", ".^";
+	print "Grabación: ", (strong) "Kevin MacLeod", ".^";
+	print "Ilustración de portada: ", (strong) "Anne Anderson", ".^";
+	print "Icono original: ", (strong) "Roundicons", ".^";
 ];

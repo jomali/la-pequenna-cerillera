@@ -19,7 +19,6 @@ new_line;
 return true;
 }
 
-
 Alba: switch (n) {
 1:	! ##Examine
 print "Los copos de ", (name) Nieve, " caían sobre su largo cabello rubio, cuyos hermosos rizos le cubrían el cuello; pero no estaba ella para presumir.";
@@ -64,32 +63,46 @@ print "¡Qué frío hacía!; la nieve y la noche comenzaban a caer lentamente sobre 
 Y así la pobrecilla andaba descalza con los desnudos piececitos completamente amoratados por el frío. En un viejo delantal guardaba, como si de un tesoro se tratase, un paquete lleno de fósforos. Había intentado venderlos para conseguir algo de dinero que llevar a casa, sin embargo, en todo el santo día nadie le había comprado nada, no le habían dado ni un mísero chelín; volvíase a casa hambrienta y medio helada, ¡y parecía tan abatida! Rendida, se sentó en el suelo, en un ángulo que formaban dos casas ---una más saliente que la otra---, y se acurrucó hecha un ovillo.";
 new_line;
 return true;
-10:	! #Sleep (A)
+5:	! #Sleep (A)
 print "Quizá podría descansar en aquella esquina, sólo un momentito, lo justo para recuperar fuerzas y ponerse de nuevo en camino. Después podría irse a casa y seguro que por el camino se cruzaría a alguien que quisiera comprarle algunos fósforos para encender la chimenea porque se hubiese quedado sin ellos, y tal vez le diese monedas suficientes para comprar algo de comida y entonces todos se alegrarían al regresar a casa, incluído su padre. Pero primero tenía que descansar para recuperar fuerzas, sólo un momentito...";
 new_line;
 return true;
-11:	! #Wake (A)
+6:	! #Wake (A)
 print "¿Y si todo aquello no era más que un sueño? Se preguntaba la pequeña. En cualquier momento podría despertarse y descubrir que estaba en casa en realidad, envuelta en el calor de un rebujo de mantas...";
 new_line;
 return true;
-12:	! ##Wake (B)
+7:	! ##Wake (B)
 print "No debía ser un sueño del que pudiese despertar, sin embargo, se decidió al fin. En los sueños nunca podría hacer tanto frío, ¿verdad?";
+new_line;
+return true;
+8:
+print "", (emph) "La pequeña cerillera", " es un cuento breve del escritor danés ", (header) "Hans Christian Andersen", ", publicado por primera vez en diciembre de 1845.
+^^
+Diseño, programación y textos adicionales de la presente adaptación obra de ", (header) "José Francisco Martín Lisaso", ". Publicada por primera vez en diciembre de 2010. Tercera revisión de mayo de 2018.
+^^
+", (emph) "Stille Nacht, heilige Nacht", " es una melodía del compositor austríaco ", (header) "Franz Xaver Gruber", " (1818). La pista de audio utilizada ha sido grabada por ", (header) "Kevin MacLeod", " (", (emph) "incompetech.com", ") en 2010 y está publicada con licencia CC 3.0 BY: ", (emph) "http://creativecommons.org/licenses/by/3.0/", ".
+^^
+La ilustración de la portada ha sido creada por ", (header) "Anne Anderson", " (1874-1930) y forma parte del dominio público.
+^^
+El icono utilizado en la aplicación es una adaptación sobre un original diseñado por ", (header) "Roundicons", " para ", (emph) "www.flaticon.com", ". Publicado con licencia CC 3.0 BY: ", (emph) "http://creativecommons.org/licenses/by/3.0/", ".";
 new_line;
 return true;
 }
 
 CajaCerillas: switch (n) {
 1:	! ##Examine (A - general)
-print "Es todo cuanto tenía la pequeña; un pequeño estuche lleno de cerillas.";
+print "Es todo cuanto tenía la pequeña; un pequeño ";
+Hyperlink(CajaCerillas, "estuche", 0);
+print " lleno de cerillas.";
 return true;
 2:	! ##Examine (B - cerrada)
 print " Estaba cerrado.";
 return true;
 3:	! invent (A - cerrada)
-print "una caja de cerillas cerrada";
+print "", (a) CajaCerillas, " cerrad", (o) CajaCerillas, "";
 return true;
 4:	! invent (B - abierta)
-print "una caja de cerillas abierta";
+print "", (a) CajaCerillas, " abiert", (o) CajaCerillas, "";
 return true;
 5:	! ##Drop, ##Insert, ##PutOn, ##Transfer:
 print "Aquella ", (name) CajaCerillas, " era lo único que tenía. De ninguna forma iba a dejarla tirada por ahí.";
@@ -128,7 +141,7 @@ return true;
 
 Casas: switch (n) {
 1:	! ##Examine
-print "Desde las ventanas de las casas se esparcía sobre ", (the) Calle, " un resplandor anaranjado.";
+print "Las ventanas y la rendija bajo ", (the) Puerta, " que tenía junto a ella esparcían sobre ", (the) Calle, " un resplandor anaranjado.";
 new_line;
 return true;
 }
@@ -189,7 +202,7 @@ print " para calentarse los dedos! Nadie notaría la falta de uno solo de ellos, 
 Hyperlink(Alba, "pequeña", 0);
 print " que estaba sentada junto a una gran estufa de hierro, una con brillantes adornos y pies y campana de latón. El fuego ardía magníficamente en su interior, ¡y calentaba tan bien! La ";
 Hyperlink(Alba, "niña", 0);
-print " alargó los pies para calentárselos a su 	vez.
+print " alargó los pies para calentárselos a su vez.
 ^^
 Pero en ese momento se extinguió la llama, la estufa se desvaneció, y ella se encontró allí sentada, en mitad del frío, con los ";
 Hyperlink(RestosCalcinados, "restos", 0);
@@ -255,7 +268,7 @@ print "Pero la fría madrugada descubrió a la ";
 Hyperlink(Alba, "chiquilla", 0);
 print " en el ángulo de la ";
 Hyperlink(Casas, "casa", 0);
-print ", rojas las mejillas y con una sonrisa en los labios... muerta de frío en la última noche del año. El sol de la mañana iluminó el pequeño cadáver hecho aún un ovillo, con un círculo de cerillas consumidas a su alrededor. @<<Quiso calentarse@>>, es todo cuanto supo decir la gente.";
+print ", rojas las mejillas y con una sonrisa en los labios... muerta, muerta de frío en la última noche del año. El sol de la mañana iluminó el pequeño cadáver hecho aún un ovillo, con un círculo de cerillas consumidas a su alrededor. @<<Quiso calentarse@>>, es todo cuanto supo decir la gente.";
 new_line;
 return true;
 15:	! light_match (I)
@@ -283,7 +296,7 @@ return true;
 2:	! ##Examine (B)
 print "", (The) Nieve, " continuaba cayendo sobre ", (the) Calle, ", acumulándose en una capa cada vez más y más ancha. El aire era gélido y a la ";
 Hyperlink(Alba, "pequeña", 0);
-print " le dolía al respirar, pero traía consigo el agradable olor a leña quemada de las chimeneas, y el aún más agradable de la comida asada que se filtraba por las rendijas de ", (the) Puertas, " cercanas";
+print " le dolía al respirar, pero traía consigo el agradable olor a leña quemada de las chimeneas, y el aún más agradable de la comida asada que se filtraba por las rendijas de ", (the) Puerta, " cercanas";
 new_line;
 return true;
 3:	! ##Examine (C)
@@ -291,7 +304,9 @@ print "Las gélidas sombras de la noche lo envolvían ya todo. Solo el apagado res
 Hyperlink(Casas, "ventanas", 0);
 print " de ", (the) Casas, ", lograba alejar las tinieblas y arrojaba algo de luz sobre los grandes ";
 Hyperlink(Nieve, "copos de nieve", 0);
-print " que caían pausadamente sobre ", (the) Adoquines, " de la solitaria ", (name) Calle, " y sobre el cuerpo inmóvil de la ", (name) Alba, "niña.";
+print " que caían pausadamente sobre ", (the) Adoquines, " de la solitaria ", (name) Calle, " y sobre el cuerpo inmóvil de la ";
+Hyperlink(Alba, "pequeña", 0);
+print ".";
 new_line;
 return true;
 4:	! ##Examine (D)
@@ -314,10 +329,8 @@ return true;
 print "El aire era gélido y a la ";
 Hyperlink(Alba, "pequeña", 0);
 print " le dolía al respirar, pero traía consigo el agradable olor a leña quemada de las chimeneas";
-if (x1) print ", y el aún más agradable de la comida asada que se filtraba por las rendijas de la ";
-Hyperlink(Puertas, "puerta", 0);
-print " que tenía al lado";
-".";
+if (x1) { print ", y el aún más agradable de la comida asada que se filtraba por las rendijas de ", (the) Puerta, " que tenía al lado"; }
+print ".";
 new_line;
 return true;
 7:	! cant_go (A)
@@ -331,6 +344,81 @@ return true;
 Faroles: switch (n) {
 1:	! ##Examine
 print "Los faroles emitían una débil lucecilla temblorosa, apenas suficiente para ahuyentar las tinieblas a su alrededor.";
+new_line;
+return true;
+}
+
+HelpManager: switch (n) {
+1:	! (mensaje inicial)
+print (parser) "Si es la primera vez que experimentas la obra quizá quieras teclear AYUDA.";
+new_line;
+return true;
+2:	! (pista general - Máquina-Z)
+print (parser) "Es posible finalizar la historia simplemente tecleando el nombre de los objetos presentes en el entorno, pero hay muchas otras acciones que puedes utilizar para conocer más información acerca de la protagonista y del mundo que la rodea. No temas experimentar con nuevas instrucciones.";
+new_line;
+return true;
+3:	! (pista general - Glulx)
+print (parser) "Es posible finalizar la historia simplemente haciendo clic en el nombre de los objetos presentes en el entorno, pero hay muchas otras acciones que puedes teclear para conocer más información acerca de la protagonista y del mundo que la rodea. No temas experimentar con nuevas instrucciones.";
+new_line;
+return true;
+4:	! (hint: look a)
+print (parser) "Puedes volver a obtener una descripción de los alrededores tecleando MIRA A TU ALREDEDOR o simplemente MIRA.";
+new_line;
+return true;
+5:	! (hint: look b)
+print (parser) "En el futuro puedes usar indistintamente la instrucción MIRA o limitarte a pulsar la tecla @<<intro@>> cuando quieras ver de nuevo la descripción del lugar en que se encontraba la pequeña protagonista. Si te atascas y no sabes cómo continuar, puedes volver a teclear AYUDA en cualquier momento.";
+new_line;
+return true;
+6:	! (hint: examine a)
+print (parser) "Los objetos tienen sus propias descripciones también. Puedes averiguar más cosas sobre un objeto en particular usando la instrucción EXAMINA. Por ejemplo, prueba a teclear EXAMINA LA CALLE.";
+new_line;
+return true;
+7:	! (hint: examine b)
+print (parser) "Algunas instrucciones tienen formas abreviadas. En el caso de la instrucción EXAMINA, es posible abreviarla y teclear simplemente EX o X.";
+new_line;
+return true;
+8:	! (hint: default action a - Máquina-Z)
+print (parser) "También es posible interactuar con los objetos tecleando únicamente su nombre. Al hacerlo se ejecutará una acción por defecto sobre el objeto -- habitualmente la acción EXAMINA.";
+new_line;
+return true;
+9:	! (hint: defalut action a - Glulx)
+print (parser) "También es posible interactuar con los objetos tecleando únicamente su nombre o haciendo clic con el ratón en la propia palabra. Al hacerlo se ejecutará una acción por defecto sobre el objeto -- habitualmente la acción EXAMINA.";
+new_line;
+return true;
+10:	! (hint: default action b)
+print (parser) "Si bien la instrucción por defecto para la mayoría de los objetos suele ser EXAMINA, en algunos pocos casos se utiliza otra instrucción diferente que suele corresponderse con una acción evidente o razonable que puede realizarse sobre ese objeto. Por ejemplo, al teclear PUERTA no se ejecuta la instrucción EXAMINA PUERTA sino LLAMA A LA PUERTA.";
+new_line;
+return true;
+11:	! (hint: inventory)
+print (parser) "Para saber cuáles son las cosas que la niña llevaba encima, examínala.";
+new_line;
+return true;
+12:	! (hint: use)
+print (parser) "La instrucción USA resulta demasiado ambigua. Prueba a realizar una acción más concreta.";
+new_line;
+return true;
+13:	! (hint: open a)
+print (parser) "Puedes abrir la caja de cerillas tecleando ABRE LA CAJA DE CERILLAS o, sencillamente, CAJA DE CERILLAS.";
+new_line;
+return true;
+14:	! (hint: open b)
+print (parser) "De forma análoga, también podrás cerrarla con la instrucción CIERRA. Además, normalmente los objetos se pueden manipular de muchas otras maneras (puedes intentar coger y dejar, agitar, empujar, comer... cualquier objeto). Un mensaje te informará del efecto de la acción:";
+new_line;
+return true;
+15:	! (hint: burn a)
+print (parser) "Intenta encender una cerilla para que la pequeña se caliente con ella.";
+new_line;
+return true;
+16:	! (hint: burn b)
+print (parser) "Para encender una cerilla, ABRE LA CAJA y teclea ENCIENDE CERILLA.";
+new_line;
+return true;
+17:	! (hint: highlight)
+print (parser) "Es posible destacar más el nombre de los objetos interactivos presentes en el relato utilizando la instrucción RESALTADO.";
+new_line;
+return true;
+18:	! (hint: meta comandos)
+print (parser) "Si quieres salir del cuento, teclea TERMINA. Para guardar tu partida actual teclea GUARDA. CARGA te permitirá retomar una partida que hayas guardado previamente, y REINICIA comenzará el relato de nuevo desde el principio. Además, si en algún momento quieres volver @<<un paso atrás@>>, teclea DESHACER.";
 new_line;
 return true;
 }
@@ -358,7 +446,7 @@ new_line;
 return true;
 }
 
-Puertas: switch (n) {
+Puerta: switch (n) {
 1:	! ##Examine
 print "Las puertas de ", (the) Casas, " cercanas eran grandes y bonitas, con finos adornos tallados en oscura madera y brillantes ", (name) Aldabas, " de metal con rostros de bestia.";
 return true;
@@ -369,7 +457,7 @@ return true;
 3:	! ##KnockOn, ##Open
 print "Seguramente se tratasen de las casas de familias ricas e
 importantes. No iba a llamar. Tenía miedo de molestar y de que
-la echasen de allí.";
+la pudiesen echar de allí.";
 new_line;
 return true;
 }

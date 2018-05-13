@@ -117,13 +117,13 @@ Constant HYPERLINKS_COMMAND "";
 !! Inductor:
 Constant PS1 "> ";
 !! Color de fondo del estilo de texto Usuario 1:
-Constant USR1_STYLE_BGC	$405060;
+Constant USR1_STYLE_BGC	$2c2c2c;
 !! Color frontal del estilo de texto Usuario 2:
 Constant USR2_STYLE_FGC $808080;
 
 !! Variables globales con los estilos de texto para resaltar objetos:
 
-Global _highlight_style_1 = TEXT_STYLE_USER1;	! Objetos destacados
+Global _highlight_style_1 = TEXT_STYLE_STRESSED; ! Objetos destacados
 Global _highlight_style_2 = TEXT_STYLE_UPRIGHT;	! Direcciones y puertas
 Global _highlight_style_3 = TEXT_STYLE_UPRIGHT;	! Otros objetos
 
@@ -327,16 +327,6 @@ Include "gwincls.h";			! GWindows: Window Class Framework
 	Damusix.NotificarFade(ev);
 	!! Gestión de los eventos de selección de hipervínculo:
 	if (HandleHyperlinkEvent(ev, context, abortres)) {
-		!! XXX
-		previous_style = UseTextStyle(TEXT_STYLE_PARSER);
-		print (string) TEXT_STYLE_PARSER_PREFIX;
-		for (i = WORDSIZE : i < (abortres-->0) + WORDSIZE : i++) {
-			print (char) abortres->i;
-		}
-		print (string) TEXT_STYLE_PARSER_SUFIX;
-		UseTextStyle(previous_style);
-		new_line;
-		!! XXX
 		return 2; ! finaliza el turno
 	}
 	previous_style = i;
@@ -425,6 +415,11 @@ Include "gwincls.h";			! GWindows: Window Class Framework
 
 #Ifdef TARGET_ZCODE;
 Constant MUS_FINAL 1;
+Constant SFX_CAJA_CERILLAS 1;
+Constant SFX_CERILLA_1 2;
+Constant SFX_CERILLA_2 3;
+Constant SFX_CERILLA_3 4;
+Constant SFX_TORMENTA 5;
 #Ifnot; ! TARGET_GLULX;
 Include "damusix.h";			! Administrador unificado de sonido en GLULX
 Include "gwindows.h";			! GWindows: Reemplazos de la librería
@@ -531,12 +526,10 @@ Global _current_location = 0;
 
 	!! Inicializaciones de la obra ---------------------------------------------
 	!! Créditos:
-	FadeInTrack(MUS_FINAL, -1, 0);
 	new_line;
 	Banner();
-	PressAnyKey();
 	new_line;
-	print (parser) "Pulsa una tecla para continuar";
+	print (parser) "Pulsa una tecla para empezar";
 	PressAnyKey();
 	EraseWindow();
 	#Ifdef TARGET_ZCODE;
@@ -646,7 +639,6 @@ Global _current_location = 0;
 !!	-	HyperlinkSetStyle()
 !!	-	PressAnyKey()
 !!	-	SpanishNominativePronoun()
-!!	-	TopHolder()
 !!------------------------------------------------------------------------------
 
 !!------------------------------------------------------------------------------
@@ -857,25 +849,6 @@ Global _current_location = 0;
    }
 ];
 
-!!------------------------------------------------------------------------------
-!! Dado un objeto como parámetro, retorna su antecesor más lejano en el árbol
-!! de objetos del modelo de mundo.
-!!
-!!	@param {Object} obj - Objeto del que se desea averiguar su antecesor
-!!		más lejano
-!!	@returns {Object} Antecesor más lejano del objeto pasado como parámetro
-!!	@version 1.0
-!!------------------------------------------------------------------------------
-[ TopHolder obj
-	aux;
-	while (parent(obj) ~= 0) {
-		aux = ObjectScopedBySomething(obj);
-		if (aux == 0) aux = parent(obj);
-		obj = aux;
-	}
-	return obj;
-];
-
 
 !!==============================================================================
 !!
@@ -947,7 +920,14 @@ Verb 'no.verb'
 	* noun							-> DefaultAction
 ;
 
-[ DefaultActionSub;
+[ DefaultActionSub
+	previous_style;
+	previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+	print (string) TEXT_STYLE_PARSER_PREFIX;
+	print "examina ", (name) noun;
+	print (string) TEXT_STYLE_PARSER_SUFIX;
+	UseTextStyle(previous_style);
+	new_line;
 	<<Examine noun>>;
 ];
 
@@ -961,9 +941,7 @@ Verb meta 'ayuda' 'pista' 'pistas'
 VerboIrregular "mostrar ayuda" with imperativo 'ayuda';
 
 [ HelpSub;
-	!! FIXME
-	!! return Alba.gestor_pistas();
-	return true;
+	return HelpManager.new_hint();
 ];
 
 !!------------------------------------------------------------------------------
