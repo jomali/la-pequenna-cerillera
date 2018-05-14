@@ -91,7 +91,7 @@ Constant Story
 
 Constant Headline
 "Una ficción interactiva de J. Francisco Martín Lisaso, (c) 2010-18^
-Basada en el cuento homónimo de Hans Christian Andersen";
+Basada en el cuento breve del escritor Hans Christian Andersen";
 
 !! Constant Checking 1;
 !! Release 0; Serial "101209";
@@ -508,7 +508,7 @@ Include "VerbLib.h";			! Define cómo trabajan las acciones
 	!!	-	PORCENTAJE DE VOLUMEN: [0-100]. -1 para usar el volumen global
 	!!	-	NÚM. DE REPETICIONES: (Opcional) 1 por defecto. -1 para infinitas
 	Damusix.AsignarCanal(MUS_FINAL, 0, 100, 1);
-	Damusix.AsignarCanal(SFX_TORMENTA, 1, 0, -1);
+	Damusix.AsignarCanal(SFX_TORMENTA, 1, 100, -1);
 	Damusix.AsignarCanal(SFX_PASOS_NIEVE, 2, 100, 1);
 	#Endif; ! TARGET_
 
@@ -521,7 +521,7 @@ Include "VerbLib.h";			! Define cómo trabajan las acciones
 	PressAnyKey();
 	EraseWindow();
 	!! No se pueden realizar dos efectos de fade al mismo tiempo
-	FadeInTrack(SFX_TORMENTA, 50, 1000);
+	FadeInTrack(SFX_TORMENTA, 20, 1000);
 	#Ifdef TARGET_ZCODE;
 	O__M(Alba, 2);
 	#Ifnot; ! TARGET_GLULX;
@@ -965,34 +965,54 @@ VerboIrregular "establecer estilo de texto resaltado" with imperativo
 		print "1) Objetos importantes: ";
 		previous_style = UseTextStyle(_highlight_style_1);
 		switch (_highlight_style_1) {
-			TEXT_STYLE_UPRIGHT:		print "sin estilo";
-			TEXT_STYLE_STRESSED:	print "enfatizado";
-			TEXT_STYLE_IMPORTANT:	print "destacado";
-			TEXT_STYLE_MONOSPACED:	print "monoespaciado";
-			TEXT_STYLE_USER1:		print "color de fondo 1";
-			TEXT_STYLE_USER2:		print "color de fondo 2";
+			TEXT_STYLE_UPRIGHT:		Hyperlink("1", "sin estilo",
+				_highlight_style_1);
+			TEXT_STYLE_STRESSED:	Hyperlink("1", "enfatizado",
+				_highlight_style_1);
+			TEXT_STYLE_IMPORTANT:	Hyperlink("1", "destacado",
+				_highlight_style_1);
+			TEXT_STYLE_MONOSPACED:	Hyperlink("1", "monoespaciado",
+				_highlight_style_1);
+			TEXT_STYLE_USER1:		Hyperlink("1", "color de fondo 1",
+				_highlight_style_1);
+			TEXT_STYLE_USER2:		Hyperlink("1", "color de fondo 2",
+				_highlight_style_1);
 		}
 		UseTextStyle(previous_style);
 		print ".^";
 		print "2) Direcciones: ";
 		previous_style = UseTextStyle(_highlight_style_2);
 		switch (_highlight_style_2) {
-			TEXT_STYLE_UPRIGHT:		print "sin estilo";
-			TEXT_STYLE_STRESSED:	print "enfatizado";
-			TEXT_STYLE_IMPORTANT:	print "destacado";
-			TEXT_STYLE_MONOSPACED:	print "monoespaciado";
-			TEXT_STYLE_USER1:		print "color de fondo 1";
+			TEXT_STYLE_UPRIGHT:		Hyperlink("2", "sin estilo",
+				_highlight_style_2);
+			TEXT_STYLE_STRESSED:	Hyperlink("2", "enfatizado",
+				_highlight_style_2);
+			TEXT_STYLE_IMPORTANT:	Hyperlink("2", "destacado",
+				_highlight_style_2);
+			TEXT_STYLE_MONOSPACED:	Hyperlink("2", "monoespaciado",
+				_highlight_style_2);
+			TEXT_STYLE_USER1:		Hyperlink("2", "color de fondo 1",
+				_highlight_style_2);
+			TEXT_STYLE_USER2:		Hyperlink("2", "color de fondo 2",
+				_highlight_style_2);
 		}
 		UseTextStyle(previous_style);
 		print ".^";
 		print "3) Otros objetos: ";
 		previous_style = UseTextStyle(_highlight_style_3);
 		switch (_highlight_style_3) {
-			TEXT_STYLE_UPRIGHT:		print "sin estilo";
-			TEXT_STYLE_STRESSED:	print "enfatizado";
-			TEXT_STYLE_IMPORTANT:	print "destacado";
-			TEXT_STYLE_MONOSPACED:	print "monoespaciado";
-			TEXT_STYLE_USER1:		print "color de fondo 1";
+			TEXT_STYLE_UPRIGHT:		Hyperlink("3", "sin estilo",
+				_highlight_style_3);
+			TEXT_STYLE_STRESSED:	Hyperlink("3", "enfatizado",
+				_highlight_style_3);
+			TEXT_STYLE_IMPORTANT:	Hyperlink("3", "destacado",
+				_highlight_style_3);
+			TEXT_STYLE_MONOSPACED:	Hyperlink("3", "monoespaciado",
+				_highlight_style_3);
+			TEXT_STYLE_USER1:		Hyperlink("3", "color de fondo 1",
+				_highlight_style_3);
+			TEXT_STYLE_USER2:		Hyperlink("3", "color de fondo 2",
+				_highlight_style_3);
 		}
 		UseTextStyle(previous_style);
 		print ".^";

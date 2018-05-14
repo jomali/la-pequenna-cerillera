@@ -288,7 +288,9 @@ Item	-> -> CajaCerillas "caja de cerillas"
 		stop_shaking false,
  has	female openable ~open;
 
-Item	-> -> -> Cerilla "cerilla";
+Item	-> -> -> Cerilla "cerilla"
+ with	gender G_FEMENINO,
+ has	female;
 
 
 !!==============================================================================
@@ -299,7 +301,7 @@ Item	-> -> -> Cerilla "cerilla";
 
 !!	-	'general' se activa cuando aparece la estrella fugaz en el cielo
 Room	Esquina "Acurrucada en una esquina"
- with	name_f	'esquina',
+ with	name_f	'ciudad' 'esquina' 'urbe',
 		gender	G_FEMENINO,
 		description [;
 			!!
@@ -342,42 +344,42 @@ Room	Esquina "Acurrucada en una esquina"
 Object	-> HelpManager "(Help Manager)"
  with	react_before [;
 			Burn:
-				if (self.hint_burn_b && ~~self.hint_burn_b_shown
-					&& noun == Cerilla) {
-					self.hint_burn_b_shown = true;
+				if (self.hint_burn_active && noun == CajaCerillas or Cerilla) {
+					self.hint_burn_active = false;
+					self.hint_burn_shown_a = true;
+					self.hint_burn_shown_b = true;
 				}
 			DefaultAction:
-				if (self.hint_default_action
-					&& ~~self.hint_default_action_shown) {
+				if (self.hint_default_action_active) {
+					self.hint_default_action_active = false;
 					self.hint_default_action_shown = true;
-					O__M(self, 10);
+					O__M(self, 6);
 					new_line;
 				}
 			Examine:
-				if (self.hint_examine && ~~self.hint_examine_shown) {
-					self.hint_examine_shown = true;
-					O__M(self, 7);
-					new_line;
+				if (self.hint_inventory_active && noun == Alba) {
+					self.hint_inventory_active = false;
+					self.hint_inventory_shown_a = true;
+					self.hint_inventory_shown_b = true;
 				}
-				if (self.hint_inventory && ~~self.hint_inventory_shown
-					&& noun == Alba) {
-					self.hint_inventory_shown = true;
-				}
-			Inv:
-				if (self.hint_inventory && ~~self.hint_inventory_shown) {
-					self.hint_inventory_shown = true;
+			Inv, InvTall, InvWide:
+				if (self.hint_inventory_active) {
+					self.hint_inventory_active = false;
+					self.hint_inventory_shown_a = true;
+					self.hint_inventory_shown_b = true;
 				}
 			Look:
-				if (self.hint_look && ~~self.hint_look_shown) {
+				if (self.hint_look_active) {
+					self.hint_look_active = false;
 					self.hint_look_shown = true;
-					O__M(self, 5);
+					O__M(self, 4);
 					new_line;
 				}
 			Open:
-				if (self.hint_open && ~~self.hint_open_shown
-					&& noun == CajaCerillas) {
+				if (self.hint_open_active && noun == CajaCerillas) {
+					self.hint_open_active = false;
 					self.hint_open_shown = true;
-					O__M(self, 14);
+					O__M(self, 11);
 					new_line;
 				}
 			Use:
@@ -392,59 +394,54 @@ Object	-> HelpManager "(Help Manager)"
 		],
 		new_hint [;
 			if (~~self.hint_look_shown) {
-				self.hint_look = true;
-				return O__M(self, 4);
-			} else if (~~self.hint_examine_shown) {
-				self.hint_examine = true;
-				return O__M(self, 6);
+				self.hint_look_active = true;
+				return O__M(self, 3);
 			} else if (~~self.hint_default_action_shown) {
-				self.hint_default_action = true;
-				#Ifdef TARGET_ZCODE;
+				self.hint_default_action_active = true;
+				return O__M(self, 5);
+			} else if (~~self.hint_basic_commands_shown) {
+				self.hint_basic_commands_shown = true;
+				return O__M(self, 7);
+			} else if (~~self.hint_inventory_shown_a) {
+				self.hint_inventory_active = true;
+				self.hint_inventory_shown_a = true;
 				return O__M(self, 8);
-				#Ifnot; ! TARGET_GLULX;
+			} else if (~~self.hint_inventory_shown_b) {
 				return O__M(self, 9);
-				#Endif; ! TARGET_
-			} else if (~~self.hint_inventory_shown) {
-				self.hint_inventory = true;
-				return O__M(self, 11);
 			} else if (~~self.hint_open_shown) {
-				self.hint_open = true;
+				self.hint_open_active = true;
+				return O__M(self, 10);
+			} else if (~~self.hint_burn_shown_a) {
+				self.hint_burn_active = true;
+				self.hint_burn_shown_a = true;
+				return O__M(self, 12);
+			} else if (~~self.hint_burn_shown_b) {
 				return O__M(self, 13);
-			} else if (~~self.hint_burn_a_shown) {
-				self.hint_burn_a_shown = true;
-				return O__M(self, 15);
-			} else if (~~self.hint_burn_b_shown) {
-				self.hint_burn_b = true;
-				return O__M(self, 16);
 			} else if (~~self.hint_highlight_shown) {
 				self.hint_highlight_shown = true;
-				return O__M(self, 17);
+				return O__M(self, 14);
 			} else if (~~self.hint_meta_commands_shown) {
 				self.hint_meta_commands_shown = true;
-				return O__M(self, 18);
+				return O__M(self, 15);
 			} else {
-				#Ifdef TARGET_ZCODE;
 				return O__M(self, 2);
-				#Ifnot; ! TARGET_GLULX;
-				return O__M(self, 3);
-				#Endif; ! TARGET_
 			}
 		],
  private
-		hint_burn_a_shown false,
-		hint_burn_b false,
-		hint_burn_b_shown false,
-		hint_default_action false,
+		hint_basic_commands_shown false,
+		hint_burn_active false,
+		hint_burn_shown_a false,
+		hint_burn_shown_b false,
+		hint_default_action_active false,
 		hint_default_action_shown false,
-		hint_examine false,
-		hint_examine_shown false,
 		hint_highlight_shown false,
-		hint_inventory false,
-		hint_inventory_shown false,
-		hint_look false,
+		hint_inventory_active false,
+		hint_inventory_shown_a false,
+		hint_inventory_shown_b false,
+		hint_look_active false,
 		hint_look_shown false,
 		hint_meta_commands_shown false,
-		hint_open false,
+		hint_open_active false,
 		hint_open_shown false,
 		initial_hint true,
  has	scenery;

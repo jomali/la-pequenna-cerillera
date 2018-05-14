@@ -115,9 +115,9 @@ Concierto para la acumulación, 2010";
 new_line;
 return true;
 4:	! introducción
-print "¡Qué frío hacía!; la nieve y la noche comenzaban a caer lentamente sobre la ciudad aquel día de San Silvestre, el último del viejo año. En medio del frío y la oscuridad crecientes, una pobre niña vagaba sola por las calles, descalza y con la cabeza descubierta. Verdad es que al salir de su casa llevaba zapatillas, pero, ¡de qué sirvieron! Eran unas zapatillas que su madre había llevado últimamente, y a la pequeña le venían tan grandes, que las perdió al cruzar corriendo la calle para librarse de dos coches tirados por caballos que venían a toda velocidad. Una de las zapatillas no hubo medio de encontrarla, y la otra se la había puesto un mozalbete, que salió corriendo con ella mientras gritaba que la haría servir de cuna el día que tuviese hijos.
+print "¡Qué frío hacía!; [la Nieve] y la noche comenzaban a caer lentamente sobre la ciudad aquel día de San Silvestre, el último del viejo año. En medio del frío y la oscuridad crecientes, una pobre [Alba](niña) vagaba sola por las calles, descalza y con la cabeza descubierta. Verdad es que al salir de su casa llevaba zapatillas, pero, ¡de qué sirvieron! Eran unas zapatillas que su madre había llevado últimamente, y a la pequeña le venían tan grandes, que las perdió al cruzar corriendo la calle para librarse de dos coches tirados por caballos que venían a toda velocidad. Una de las zapatillas no hubo medio de encontrarla, y la otra se la había puesto un mozalbete que salió corriendo con ella mientras gritaba que la haría servir de cuna el día que tuviese hijos.
 ^^
-Y así la pobrecilla andaba descalza con los desnudos piececitos completamente amoratados por el frío. En un viejo delantal guardaba, como si de un tesoro se tratase, un paquete lleno de fósforos. Había intentado venderlos para conseguir algo de dinero que llevar a casa, sin embargo, en todo el santo día nadie le había comprado nada, no le habían dado ni un mísero chelín; volvíase a casa hambrienta y medio helada, ¡y parecía tan abatida! Rendida, se sentó en el suelo, en un ángulo que formaban dos casas ---una más saliente que la otra---, y se acurrucó hecha un ovillo.";
+Y así la pobrecilla andaba descalza con los desnudos piececitos completamente amoratados por el frío. En un viejo delantal guardaba, como si de un tesoro se tratase, un [CajaCerillas](paquete) lleno de fósforos. Había intentado venderlos para conseguir algo de dinero que llevar a casa, sin embargo, en todo el santo día nadie le había comprado nada, no le habían dado ni un mísero chelín; volvíase a casa hambrienta y medio helada, ¡y parecía tan abatida! Rendida, se sentó en el suelo, en un ángulo que formaban dos [Casas] ---una más saliente que la otra---, y se acurrucó hecha un ovillo.";
 new_line;
 return true;
 5:	! ##Sleep (A)
@@ -139,7 +139,7 @@ return true;
 9:
 print "*La pequeña cerillera* es un cuento breve del escritor danés ", (header) "Hans Christian Andersen", ", publicado por primera vez en diciembre de 1845.
 ^^
-Diseño, programación y textos adicionales de la presente adaptación obra de ", (header) "José Francisco Martín Lisaso", ". Publicada por primera vez en diciembre de 2010. Tercera revisión de mayo de 2018.
+Diseño, programación y textos adicionales de la presente adaptación obra de ", (header) "José Francisco Martín Lisaso", ". Publicada por primera vez en diciembre de 2010, con licencia GNU GPL v3. Tercera revisión de mayo de 2018.
 ^^
 *Stille Nacht, heilige Nacht* es una melodía del compositor austríaco ", (header) "Franz Xaver Gruber", " (1818). La pista de audio utilizada ha sido grabada por ", (header) "Kevin MacLeod", " (*incompetech.com*) en 2010 y está publicada con licencia CC 3.0 BY: *http://creativecommons.org/licenses/by/3.0/*.
 ^^
@@ -147,7 +147,7 @@ La ilustración de la portada ha sido creada por ", (header) "Anne Anderson", " (
 ^^
 El icono utilizado en la aplicación es una adaptación sobre un original diseñado por ", (header) "Roundicons", " y disponible desde *www.flaticon.com*. Publicado con licencia CC 3.0 BY: *http://creativecommons.org/licenses/by/3.0/*.
 ^^
-", (stressed) "Dedicado con cariño a ", (header) "Freire", (stressed) ", por haberme descubierto este cuento, y tantas otras cosas. (Como puedes ver, ¡yo ", (important) "si", (stressed) " incluyo tu nombre en los agradecimientos!)";
+", (stressed) "Dedicado con cariño a ", (header) "Freire", (stressed) ", por haberme descubierto este cuento y tantas otras cosas más. (Como puedes ver, ¡yo ", (important) "si", (stressed) " incluyo tu nombre al final de la obra!)";
 new_line;
 return true;
 10:	! ##Dance
@@ -311,7 +311,7 @@ new_line;
 return true;
 5:	! ##Listen
 print "[La Nieve] caía en el más completo silencio.";
-if (x1) { print " Sólo se oía, ahogado por los gruesos [Pared](muros), el rumor de las risas y las conversaciones, y el tintinear de los cubiertos chocando entre sí, que llegaban desde el interior de [las Casas]."; }
+if (x1) { print " Sólo se oía, ahogado por los gruesos [Pared](muros), el rumor de las risas y las conversaciones, y el tintinear de los cubiertos chocando entre sí que llegaban desde el interior de [las Casas]."; }
 new_line;
 return true;
 6:	! ##Smell
@@ -337,80 +337,75 @@ return true;
 }
 
 !!------------------------------------------------------------------------------
+#Ifdef TARGET_ZCODE;
+#Ifnot; ! TARGET_GLULX;
 HelpManager: switch (n) {
 1:	! (mensaje inicial)
-print (parser) "Si es la primera vez que experimentas la obra quizá quieras teclear AYUDA.";
+print (parser) "Si es la primera vez que experimentas las obra tal vez quieras teclear AYUDA.";
 new_line;
 return true;
-2:	! (pista general - Máquina-Z)
-print (parser) "Es posible finalizar la historia simplemente tecleando el nombre de los objetos presentes en el entorno, pero hay muchas otras acciones que puedes utilizar para conocer más información acerca de la protagonista y del mundo que la rodea. No temas experimentar con nuevas instrucciones.";
+2:	! (pista general)
+print (parser) "Es posible finalizar la historia simplemente pulsando @<<intro@>> para obtener una descripción del entorno de la protagonista, y tecleando el nombre de los objetos presentes en esa descripción ---o haciendo clic sobre ellos---. Hay, sin embargo, muchas otras accions que puedes utilizar para conocer más información acerca de la pequeña cerillera y del mundo que la rodeaba. No temas experimentar con nuevas instrucciones.";
 new_line;
 return true;
-3:	! (pista general - Glulx)
-print (parser) "Es posible finalizar la historia simplemente haciendo clic en el nombre de los objetos presentes en el entorno, pero hay muchas otras acciones que puedes teclear para conocer más información acerca de la protagonista y del mundo que la rodea. No temas experimentar con nuevas instrucciones.";
+3:	! (pista: look)
+print (parser) "Al iniciar el relato se ha mostrado una descripción del lugar en el que se encontraba la pequeña protagonista con un conjunto de palabras destacadas: @<<pequeña@>>, @<<nieve@>>, @<<edificios@>> y @<<adoquines@>>. Estas palabras destacadas hacen referencia a los objetos presentes en el entorno con los que debes interactuar para hacer que la historia avance. Siempre puedes volver a consultar la descripción del lugar, junto con los objetos interactivos presentes en él, introduciendo una línea en blanco ---pulsando la tecla @<<intro@>> sin escribir ningún comando---.";
 new_line;
 return true;
-4:	! (hint: look a)
-print (parser) "Puedes volver a obtener una descripción de los alrededores tecleando MIRA A TU ALREDEDOR o simplemente MIRA.";
+4:	! (pista: look)
+print (parser) "Introducir una línea en blanco es en realidad una abreviatura de la instrucción MIRA A TU ALREDEDOR. De este modo, pulsar la tecla @<<intro@>> tiene el mismo efecto que teclear MIRA o, simplemente, M: se vuelve a imprimir una descipción del entorno en el que se encontraba la protagonista. Si lo deseas, puedes volver a teclear AYUDA en cualquier momento para recibir más información sobre cómo avanzar en el relato.";
 new_line;
 return true;
-5:	! (hint: look b)
-print (parser) "En el futuro puedes usar indistintamente la instrucción MIRA o limitarte a pulsar la tecla @<<intro@>> cuando quieras ver de nuevo la descripción del lugar en que se encontraba la pequeña protagonista. Si te atascas y no sabes cómo continuar, puedes volver a teclear AYUDA en cualquier momento.";
+5:	! (pista: DefaultAction)
+print (parser) "Puedes interactuar con cualquiera de los objetos destacados presentes en la descripción que se imprime al pulsar @<<intro@>> ---aquellos que aparecen con un estilo diferente en el texto---. Para hacerlo, simplemente debes teclear el nombre del objeto, o hacer clic con el ratón sobre la propia palabra. Por ejemplo, prueba a teclear @<<edificios@>>.";
 new_line;
 return true;
-6:	! (hint: examine a)
-print (parser) "Los objetos tienen sus propias descripciones también. Puedes averiguar más cosas sobre un objeto en particular usando la instrucción EXAMINA. Por ejemplo, prueba a teclear EXAMINA LA CALLE.";
+6:	! (pista: DefaultAction)
+print (parser) "Al escribir el nombre de un objeto o hacer clic sobre él se lanza una acción por defecto sobre ese objeto. Esta acción es habitualmente EXAMINA <OBJETO>, pero hay ocasiones en las que en su lugar se lanza otra acción también lógica. Por ejemplo, si tecleas PUERTA, en lugar de ejecutarse la acción EXAMINA PUERTA, se ejecuta en su lugar LLAMA A LA PUERTA.";
 new_line;
 return true;
-7:	! (hint: examine b)
-print (parser) "Algunas instrucciones tienen formas abreviadas. En el caso de la instrucción EXAMINA, es posible abreviarla y teclear simplemente EX o X.";
+7:	! (hint: basic commands)
+print (parser) "Eso es todo lo que necesitas para terminar la historia: pulsa @<<intro@>> para obtener de nuevo una descripción del entorno; y teclea el nombre de un objeto o haz clic sobre él para ejecutar una acción por defecto sobre ese objeto. Si te bloqueas y no sabes cómo continuar recuerda que siempre puedes teclear AYUDA.";
 new_line;
 return true;
-8:	! (hint: default action a - Máquina-Z)
-print (parser) "También es posible interactuar con los objetos tecleando únicamente su nombre. Al hacerlo se ejecutará una acción por defecto sobre el objeto -- habitualmente la acción EXAMINA.";
-new_line;
-return true;
-9:	! (hint: defalut action a - Glulx)
-print (parser) "También es posible interactuar con los objetos tecleando únicamente su nombre o haciendo clic con el ratón en la propia palabra. Al hacerlo se ejecutará una acción por defecto sobre el objeto -- habitualmente la acción EXAMINA.";
-new_line;
-return true;
-10:	! (hint: default action b)
-print (parser) "Si bien la instrucción por defecto para la mayoría de los objetos suele ser EXAMINA, en algunos pocos casos se utiliza otra instrucción diferente que suele corresponderse con una acción evidente o razonable que puede realizarse sobre ese objeto. Por ejemplo, al teclear PUERTA no se ejecuta la instrucción EXAMINA PUERTA sino LLAMA A LA PUERTA.";
-new_line;
-return true;
-11:	! (hint: inventory)
+8:	! (hint: inventory)
 print (parser) "Para saber cuáles son las cosas que la niña llevaba encima, examínala.";
 new_line;
 return true;
-12:	! (hint: use)
-print (parser) "La instrucción USA resulta demasiado ambigua. Prueba a realizar una acción más concreta.";
+9:	! (hint: inventory)
+print (parser) "Puedes obtener una descripción de la pequeña tecleando NIÑA o EXAMINA A LA NIÑA.";
 new_line;
 return true;
-13:	! (hint: open a)
-print (parser) "Puedes abrir la caja de cerillas tecleando ABRE LA CAJA DE CERILLAS o, sencillamente, CAJA DE CERILLAS.";
+10:	! (hint: open)
+print (parser) "La descripción de la protagonista señala que llevaba consigo una caja de cerillas cerrada. Puedes abrirla con la instrucción ABRE LA CAJA o, simplemente, tecleando su nombre: CAJA.";
 new_line;
 return true;
-14:	! (hint: open b)
+11:
 print (parser) "De forma análoga, también podrás cerrarla con la instrucción CIERRA. Además, normalmente los objetos se pueden manipular de muchas otras maneras (puedes intentar coger y dejar, agitar, empujar, comer... cualquier objeto). Un mensaje te informará del efecto de la acción:";
 new_line;
 return true;
-15:	! (hint: burn a)
-print (parser) "Intenta encender una cerilla para que la pequeña se caliente con ella.";
+12:	! (hint: burn a)
+print (parser) "Intenta encender una cerilla para que la pequeña se pueda calentar con ella.";
 new_line;
 return true;
-16:	! (hint: burn b)
-print (parser) "Para encender una cerilla, ABRE LA CAJA y teclea ENCIENDE CERILLA.";
+13:	! (hint: burn b)
+print (parser) "Para encender una cerilla, asegúrate de que la CAJA está abierta y teclea: ENCIENDE CERILLA.";
 new_line;
 return true;
-17:	! (hint: highlight)
-print (parser) "Es posible destacar más el nombre de los objetos interactivos presentes en el relato utilizando la instrucción RESALTADO.";
+14:	! (hint: highlight)
+print (parser) "Existe una instrucción RESALTADO que te permite escoger el estilo con el que se imprime el nombre de los objetos interactivos del relato.";
 new_line;
 return true;
-18:	! (hint: meta comandos)
+15:	! (hint: meta comandos)
 print (parser) "Si quieres salir del cuento, teclea TERMINA. Para guardar tu partida actual teclea GUARDA. CARGA te permitirá retomar una partida que hayas guardado previamente, y REINICIA comenzará el relato de nuevo desde el principio. Además, si en algún momento quieres volver @<<un paso atrás@>>, teclea DESHACER.";
 new_line;
 return true;
+16:	! (hint: use)
+print (parser) "La instrucción USA resulta demasiado ambigua. Prueba a realizar una acción más concreta.";
+new_line;
+return true;
 }
+#Endif; ! TARGET_
 
 !!------------------------------------------------------------------------------
 Limbo: switch (n) {
