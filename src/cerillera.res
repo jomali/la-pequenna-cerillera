@@ -1,6 +1,7 @@
 Code cerillera.ulx
 
 Biblio	resources/cerillera.ifiction
+Cover	resources/cover.png
 
 Sound	MUS_FINAL			resources/kevin-macleod_silent-night.ogg
 Sound	SFX_CAJA_CERILLAS	resources/jarredgibb_matchbox-shake.ogg

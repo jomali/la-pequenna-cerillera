@@ -79,12 +79,12 @@
 	print "Versión ";
 	#Endif; ! DEBUG;
 	PrintVersionNumber();
-	print " / Núm. de serie ";
-	PrintSerialNumber();
-	print " / Creado con Inform "; inversion;
 	#Ifdef TARGET_ZCODE;
 	print " Z";
 	#Endif; ! TARGET_ZCODE;
+	print " / Núm. de serie ";
+	PrintSerialNumber();
+	print " / Creado con Inform "; inversion;
 	#Ifdef DEBUG;
 	print " ";
 	#Endif; ! DEBUG;
