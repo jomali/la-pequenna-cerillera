@@ -778,7 +778,7 @@ CompassDirection d_obj "abajo" compass
 
 	new_line;
 	print "Relato original: ", (strong) "Hans Christian Andersen", ".^";
-	print "Diseño y programación: ", (strong) "José Fco. Martín Lisaso", ".^";
+	print "Diseño y programación: ", (strong) "J. Francisco Martín Lisaso",".^";
 	print "Composición musical: ", (strong) "Franz Xaver Gruber", ".^";
 	print "Grabación: ", (strong) "Kevin MacLeod", ".^";
 	print "Ilustración de portada: ", (strong) "Anne Anderson", ".^";

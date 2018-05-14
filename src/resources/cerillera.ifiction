@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 <ifindex version="1.0" xmlns="http://babel.ifarchive.org/protocol/iFiction/">
     <story>
         <identification>
@@ -6,13 +6,13 @@
             <format>glulx</format>
         </identification>
         <bibliographic>
-            <title>La pequeÃ±a cerillera</title>
-            <author>J. Francisco MartÃ­n Lisaso</author>
+            <title>La pequeña cerillera</title>
+            <author>J. Francisco Martí­n Lisaso</author>
             <language>ES</language>
             <headline>Un cuento interactivo</headline>
             <genre>fiction</genre>
             <forgiveness>merciful</forgiveness>
-            <description>La pequeÃ±a cerillera es un cuento breve del escritor danÃ©s Hans Christian Andersen, publicado por primera vez en diciembre de 1845. En Ã©l, Andersen se acerca a la realidad de las clases sociales mÃ¡s humildes y nos habla de la miseria, el dolor y el hambre a travÃ©s de la historia de una niÃ±a anÃ³nima que intenta conseguir dinero para su familia vendiendo cerillas en las calles durante una Nochevieja.<br/><br/>Esta fiel adaptaciÃ³n te permite explorar la historia original desde la perspectiva de la ficciÃ³n interactiva.</description>
+            <description>La pequeña cerillera es un cuento breve del escritor danés Hans Christian Andersen, publicado por primera vez en diciembre de 1845. En él, Andersen se acerca a la realidad de las clases sociales más humildes y nos habla de la miseria, el dolor y el hambre a través de la historia de una niña anónima que intenta conseguir dinero para su familia vendiendo cerillas en las calles durante una Nochevieja.<br/><br/>Esta fiel adaptación te permite explorar la historia original desde la perspectiva de la ficción interactiva.</description>
         </bibliographic>
         <contacts>
             <authoremail>jfm.lisaso@gmail.com</authoremail>

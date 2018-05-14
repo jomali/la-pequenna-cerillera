@@ -147,7 +147,7 @@ La ilustración de la portada ha sido creada por ", (header) "Anne Anderson", " (
 ^^
 El icono utilizado en la aplicación es una adaptación sobre un original diseñado por ", (header) "Roundicons", " y disponible desde *www.flaticon.com*. Publicado con licencia CC 3.0 BY: *http://creativecommons.org/licenses/by/3.0/*.
 ^^
-", (stressed) "Dedicado con cariño a ", (header) "Freire", (stressed) ", por haberme descubierto este cuento, y tantas otras cosas. (Como puedes ver, yo ", (important) "si", (stressed) " incluyo tu nombre en los agradecimientos).";
+", (stressed) "Dedicado con cariño a ", (header) "Freire", (stressed) ", por haberme descubierto este cuento, y tantas otras cosas. (Como puedes ver, ¡yo ", (important) "si", (stressed) " incluyo tu nombre en los agradecimientos!)";
 new_line;
 return true;
 10:	! ##Dance

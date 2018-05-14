@@ -87,10 +87,11 @@
 !!------------------------------------------------------------------------------
 
 Constant Story
-"LA PEQUEÑA CERILLERA, de H.C. Andersen";
+"LA PEQUEÑA CERILLERA";
 
 Constant Headline
-"Un cuento interactivo por José Fco. Martín Lisaso, (c) 2010-2018";
+"Una ficción interactiva de J. Francisco Martín Lisaso, (c) 2010-18^
+Basada en el cuento homónimo de Hans Christian Andersen";
 
 !! Constant Checking 1;
 !! Release 0; Serial "101209";
