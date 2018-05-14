@@ -104,15 +104,8 @@ Object	LibraryMessages
 			#Endif; ! TARGET_
 		}
 
-	Dance: !! XXX - Mensaje personalizado del narrador
-		"Si bien la encantaba bailar, en aquel momento sencillamente no tenía
-		fuerzas.";
-
-	Dig: !! XXX - Mensaje personalizado del narrador
-		"No estaba ella para jugar con la nieve.";
-
 	Eat: !! XXX - Mensaje personalizado del narrador
-		switch (n) {
+		switch (lm_n) {
 			1: "Tenía muchísimo hambre pero eso era simplemente incomestible.";
 			2: "Se comió ", (the) lm_o, ".";
 		}
@@ -483,13 +476,6 @@ Object	LibraryMessages
 
 	Sing: !! XXX - Mensaje personalizado del narrador
 		"No tenía ánimos para cantar nada en aquel momento.";
-
-	Sit: !! XXX - Mensaje personalizado del narrador
-		"Ya estaba sentada.";
-
-	StandUp: !! XXX - Mensaje personalizado del narrador
-		"No tenía fuerzas suficientes para volver a levantarse en aquel
-		momento.";
 
 	Swim: !! XXX - Mensaje personalizado del narrador
 		"Nunca supo nadar y, en cualquier caso, no podría haberlo hecho allí.";

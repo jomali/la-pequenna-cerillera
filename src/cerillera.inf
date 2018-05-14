@@ -419,7 +419,8 @@ Constant SFX_CAJA_CERILLAS 1;
 Constant SFX_CERILLA_1 2;
 Constant SFX_CERILLA_2 3;
 Constant SFX_CERILLA_3 4;
-Constant SFX_TORMENTA 5;
+Constant SFX_PASOS_NIEVE 5;
+Constant SFX_TORMENTA 6;
 #Ifnot; ! TARGET_GLULX;
 Include "damusix.h";			! Administrador unificado de sonido en GLULX
 Include "gwindows.h";			! GWindows: Reemplazos de la librería
@@ -440,30 +441,12 @@ Include "VerbLib.h";			! Define cómo trabajan las acciones
 !!	6)	Puntos de entrada de la obra
 !!
 !!------------------------------------------------------------------------------
-!!	-	AfterPrompt()
 !!	-	BeforeParsing()
 !!	-	Initialise()
 !!	-	InScope()
 !!	-	PrintVerb()
 !!	-	UnknownVerb()
 !!------------------------------------------------------------------------------
-
-!!------------------------------------------------------------------------------
-!! Punto de entrada invocado justo tras la impresión del inductor (prompt); es
-!! decir, después de que todas las impresiones en pantalla derivadas del turno
-!! actual hayan finalizado.
-!!
-!! Se encarga de cambiar la imagen de la ventana gráfica cada vez que el PC
-!! entra en una localidad.
-!!
-!!	@returns Nada
-!!------------------------------------------------------------------------------
-Global _current_location = 0;
-[ AfterPrompt;
-	if (_current_location == real_location) return;
-	_current_location = real_location;
-	DrawRandomImage();
-];
 
 !!------------------------------------------------------------------------------
 !! Permite manipular la entrada de usuario antes de que sea analizada por la
@@ -476,6 +459,7 @@ Global _current_location = 0;
 !!	@returns Nada
 !!------------------------------------------------------------------------------
 [ BeforeParsing;
+	FadeOutTrack(SFX_PASOS_NIEVE, 0, 100);
 	#Ifdef TARGET_GLULX;
 	ParsingPreprocessor.run();
 	#Endif; ! TARGET_GLULX;
@@ -514,14 +498,14 @@ Global _current_location = 0;
 	#Ifdef TARGET_GLULX;
 	!! Establece la escucha de eventos glk para el uso de hipervínculos:
 	glk($0102, gg_mainwin); ! glk_request_hyperlink_event
-	!! Establece la imagen inicial presente durante el menu:
-	DrawRandomImage();
 	!! Inicializa los canales de audio (10 reales + 10 virtuales):
 	!!	-	SONIDO: Recurso de sonido declarado en el fichero '.res'
 	!!	-	CANAL: Número del canal [0-9]
 	!!	-	PORCENTAJE DE VOLUMEN: [0-100]. -1 para usar el volumen global
 	!!	-	NÚM. DE REPETICIONES: (Opcional) 1 por defecto. -1 para infinitas
 	Damusix.AsignarCanal(MUS_FINAL, 0, 100, 1);
+	Damusix.AsignarCanal(SFX_TORMENTA, 1, 0, -1);
+	Damusix.AsignarCanal(SFX_PASOS_NIEVE, 2, 100, 1);
 	#Endif; ! TARGET_
 
 	!! Inicializaciones de la obra ---------------------------------------------
@@ -532,6 +516,8 @@ Global _current_location = 0;
 	print (parser) "Pulsa una tecla para empezar";
 	PressAnyKey();
 	EraseWindow();
+	!! No se pueden realizar dos efectos de fade al mismo tiempo
+	FadeInTrack(SFX_TORMENTA, 50, 1000);
 	#Ifdef TARGET_ZCODE;
 	O__M(Alba, 2);
 	#Ifnot; ! TARGET_GLULX;
@@ -539,12 +525,12 @@ Global _current_location = 0;
 	#Endif; ! TARGET_
 	PressAnyKey();
 	EraseWindow();
+	FadeInTrack(SFX_PASOS_NIEVE, 100, 0);
 	new_line;
 	HorizontalRule();
 	new_line;
 	O__M(Alba, 4);
 	new_line;
-	FadeOutTrack(MUS_FINAL, 0, 100);
 	!! Narrador en presente y tercera persona
 	SetGrammaticalInflection(THIRD_PERSON_PAST);
 	!! Establece el estilo del inventario:
@@ -631,43 +617,15 @@ Global _current_location = 0;
 !!	7)	Otras rutinas
 !!
 !!------------------------------------------------------------------------------
-!!	-	DrawRandomImage()
 !!	-	EraseWindow()
 !!	-	FadeInTrack()
 !!	-	FadeOutTrack()
 !!	-	HorizontalRule()
 !!	-	HyperlinkSetStyle()
+!!	-	PlaySFX()
 !!	-	PressAnyKey()
 !!	-	SpanishNominativePronoun()
 !!------------------------------------------------------------------------------
-
-!!------------------------------------------------------------------------------
-!! Coloca una imagen aleatoria en la ventana gráfica de la interfaz.
-!!
-!!	@returns {boolean} Verdadero
-!!	@version 1.0
-!!------------------------------------------------------------------------------
-[ DrawRandomImage;
-	#Ifdef TARGET_GLULX;
-	!! switch (random(5)) {
-	!! 	1:
-	!! 		graphicWindowLeft.setImage(PIC_0001);
-	!! 		graphicWindowRight.setImage(PIC_0001);
-	!! 	2:
-	!! 		graphicWindowLeft.setImage(PIC_0002);
-	!! 		graphicWindowRight.setImage(PIC_0002);
-	!! 	3:
-	!! 		graphicWindowLeft.setImage(PIC_0003);
-	!! 		graphicWindowRight.setImage(PIC_0003);
-	!! 	4:
-	!! 		graphicWindowLeft.setImage(PIC_0004);
-	!! 		graphicWindowRight.setImage(PIC_0004);
-	!! 	5:
-	!! 		graphicWindowLeft.setImage(PIC_0005);
-	!! 		graphicWindowRight.setImage(PIC_0005);
-	!! }
-	#Endif; ! TARGET_GLULX;
-];
 
 !!------------------------------------------------------------------------------
 !! Deja la ventana en blanco.
@@ -707,16 +665,16 @@ Global _current_location = 0;
 !!		'fade in' desde un volumen del 0% al especificado por 'volume'
 !!	@returns {boolean} Falso si el volumen pasado como parámetro es inferior al
 !!		volumen actual del sonido. Verdadero en caso contrario
-!!	@version 1.0
+!!	@version 1.1
 !!------------------------------------------------------------------------------
 [ FadeInTrack track volume fade_time;
 	#Ifdef TARGET_GLULX;
-	if (Damusix.EnFade()) Damusix.AbortarFade();
 	if (volume == 0) volume = -1;
 	if (fade_time == 0) {
 		Damusix.Volumen(track, volume);
 		if (~~Damusix.SonandoDeFondo(track)) Damusix.Tocar(track);
 	} else {
+		if (Damusix.EnFade()) Damusix.AbortarFade();
 		if (~~Damusix.SonandoDeFondo(track)) {
 			Damusix.Volumen(track, 0);
 			Damusix.Tocar(track);
@@ -744,11 +702,13 @@ Global _current_location = 0;
 !!		el efecto de 'fade out' sobre el 'track'
 !!	@param {boolean} [simple_flag=false] - Si se invoca con un valor verdadero,
 !!		se hace un efecto de 'fade out' simple (no en tiempo real)
-!!	@returns {boolean} Verdadero
-!!	@version 1.0
+!!	@returns {boolean} Verdadero si el efecto se realiza con éxito. Falso en
+!!		caso contrario
+!!	@version 1.1
 !!------------------------------------------------------------------------------
 [ FadeOutTrack track volume fade_time post_track simple_flag;
 	#Ifdef TARGET_GLULX;
+	if (Damusix.QueVolumen(track) == 0) return false;
 	if (Damusix.EnFade()) Damusix.AbortarFade();
 	if (fade_time == 0) {
 		if (volume == 0) Damusix.Parar(track);
@@ -812,6 +772,25 @@ Global _current_location = 0;
 ];
 
 !!------------------------------------------------------------------------------
+!! Reproduce un efecto de audio por uno de los canales virtuales.
+!! (Sólo en GLULX).
+!!
+!!	@param {Sound} sound - Efecto de audio
+!!	@param {integer} [volume=100] - Volumen final en tanto por ciento con el
+!!		que se reproduce el efecto de audio
+!!	@returns {boolean} Verdadero
+!!	@version 1.0
+!!------------------------------------------------------------------------------
+[ PlaySFX sound volume;
+	#Ifdef TARGET_ZCODE;
+	sound = volume = 0;
+	#Ifnot; ! TARGET_GLULX;
+	if (volume == 0) volume = 100;
+	Damusix.TocarV(sound, volume);
+	#Endif; ! TARGET_
+];
+
+!!------------------------------------------------------------------------------
 !! Espera una pulsación de tecla del usuario o, si se introduce un valor
 !! 'delay', espera a que pase esa cantidad de décimas de segundo antes de
 !! continuar con la ejecución normal del relato.
@@ -859,6 +838,7 @@ Global _current_location = 0;
 !!	la extensión 'SpanishLM.h'. Acciones añadidas o modificadas:
 !!	-	##Audio / ##AudioOn / ##AudioOff
 !!	-	##DefaultAction
+!!	-	##Dig
 !!	-	##Help
 !!	-	##Highlight / ##HighlightOn / ##HighlightOff
 !!	-	##LMode2
@@ -930,6 +910,14 @@ Verb 'no.verb'
 	new_line;
 	<<Examine noun>>;
 ];
+
+!!------------------------------------------------------------------------------
+!! ##Dig
+!!------------------------------------------------------------------------------
+
+Extend 'cava' first
+	*								-> Dig
+;
 
 !!------------------------------------------------------------------------------
 !! ##Help

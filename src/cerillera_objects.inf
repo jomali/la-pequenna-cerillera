@@ -95,8 +95,22 @@ NPC		-> Alba "cerillera"
 			new_line;
 			<<Inv>>;
 		],
+		react_before [;
+			Dance:
+				if (noun == nothing) <<Dance self>>;
+			Sit:
+				if (noun == nothing) return O__M(self, 11);
+			Sleep:
+				if (noun == nothing) <<Sleep self>>;
+			StandUp:
+				if (noun == nothing) return O__M(self, 12);
+			Wake:
+				if (noun == nothing) <<Wake self>>;
+		],
 		before [
 			previous_style;
+			Dance:
+				return O__M(self, 10);
 			DefaultAction:
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
@@ -105,10 +119,25 @@ NPC		-> Alba "cerillera"
 				UseTextStyle(previous_style);
 				new_line;
 				<<Examine self>>;
+			Sleep:
+				O__M(self, 5);
+				KeyCharPrimitive();
+				new_line;
+				O__M(self, 6);
+				KeyCharPrimitive();
+				new_line;
+				HorizontalRule();
+				KeyCharPrimitive();
+				new_line;
+				return self.final_credits();
+			Wake:
+				if (self.try_to_wake_up) return O__M(self, 8);
+				self.try_to_wake_up = true;
+				return O__M(self, 7);
 		],
 		final_credits [
-			previous_style;
-			O__M(self, 8);
+			previous_style c;
+			O__M(self, 9);
 			KeyCharPrimitive();
 			new_line;
 			previous_style = UseTextStyle(TEXT_STYLE_PARSER);
@@ -117,22 +146,30 @@ NPC		-> Alba "cerillera"
 			Cualquier otra tecla para salir.";
 			print (string) TEXT_STYLE_PARSER_SUFIX;
 			UseTextStyle(previous_style);
-			if (KeyCharPrimitive() == 'r' or 'R') {
-				FadeOutTrack(MUS_FINAL, 0, 1000, 0, true);
+			c = KeyCharPrimitive();
+			FadeOutTrack(SFX_TORMENTA, 0, 1000, 0, true);
+			FadeOutTrack(MUS_FINAL, 0, 1000, 0, true);
+			if (c == 'r' or 'R') {
 				@restart;
 				L__M(##Restart, 2);
 			}
 			else quit;
 		],
+		try_to_wake_up false,
  has	female remarkable;
 
+Array matchFlags -> 2; ! hasta 8 flags
+!!	-	'general' se activa tras reproducir el efecto de audio agitando la
+!!		caja una vez
 Item	-> -> CajaCerillas "caja de cerillas"
- with	name_f	'caja' 'cajita',
+ with	name_f	'caja' 'cajita' 'cerilla',
 		name_fp	'cerillas',
-		name_m	'estuche' 'fosforo',
+		name_m	'estuche' 'fosforo' 'paquete',
 		name_mp	'fosforos',
 		gender	G_FEMENINO,
-		adjectives 'abierta' 'abierto' 'cerrada' 'cerrado',
+		adjectives
+			'abierta' 'abierto' 'apagada' 'apagado' 'cerrada' 'cerrado'
+			'encendida' 'encendido',
 		invent [;
 			if ( inventory_stage == 1 && self hasnt open )
 				O__M(self, 3);
@@ -158,111 +195,64 @@ Item	-> -> CajaCerillas "caja de cerillas"
 					UseTextStyle(previous_style);
 					new_line;
 					<<Open self>>;
-				} else if (IndirectlyContains(self, Cerilla)) {
+				} else {
 					previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 					print (string) TEXT_STYLE_PARSER_PREFIX;
-					print "coge ", (name) Cerilla;
+					print "enciende ", (name) Cerilla;
 					print (string) TEXT_STYLE_PARSER_SUFIX;
 					UseTextStyle(previous_style);
 					new_line;
-					<<Take Cerilla>>;
+					<<Burn self>>;
 				}
+			Burn:
+				if (self hasnt open) return O__M(self, 7);
+				self.light_match();
+				return true;
 			Drop, Insert, PutOn, Transfer:
 				return O__M(self, 5);
-			LetGo:
-				if (noun == Cerilla) {
-					move Cerilla to player;
-					return O__M(self, 6);
- 				}
-				if (~~IndirectlyContains(self, Cerilla))
-					return O__M(self, 7);
+			Examine:
+				if (self hasnt general) {
+					PlaySFX(SFX_CAJA_CERILLAS, 100);
+					give self general;
+				}
+				return false;
+			Take:
+				if (IndirectlyContains(player, self)) {
+					return O__M(self, 16);
+				}
+			Wave:
+				if (self hasnt general) {
+					PlaySFX(SFX_CAJA_CERILLAS, 100);
+					give self general;
+				}
+				return O__M(self, 17);
 		],
 		after [;
 			Open: if ( ~~self.flag_open ) {
 				SetPronoun('-lo', self);
 				self.flag_open = true;
-				return O__M(self, 8);
+				return O__M(self, 6);
 			}
 		],
-		flag_open	false,
- has	female transparent container openable ~open;
-
-Item	-> -> -> Cerilla "cerilla"
- with	name_f	'cerilla',
-		name_m	'fosforo' 'palillo' 'palito',
-		gender	G_FEMENINO,
-		adjectives 'apagada' 'apagado' 'encendida' 'encendido' 'madera',
-		description [;
-			if (self hasnt light) {
-				return O__M(self, 1);
-			} else if (self in player) {
-				return O__M(self, 2);
-			} else {
-				return O__M(self, 3);
-			}
-		],
-		before [
-			previous_style;
-			DefaultAction:
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
-				print (string) TEXT_STYLE_PARSER_PREFIX;
-				print "enciende ", (name) self;
-				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
-				new_line;
-				<<Burn self>>;
-			Burn:
-				if (~~IndirectlyContains(player, self)) {
-					return O__M(self, 4);
-				}
-				if (~~IndirectlyContains(player, CajaCerillas)) {
-					return O__M(self, 5);
-				}
-				self.light_match();
-				return true;
-			Take:
-				if (IndirectlyContains(CajaCerillas, self)
-					&& CajaCerillas hasnt open) {
-					<Open CajaCerillas>;
-					new_line;
-				}
-				if (IndirectlyContains(player, self)) {
-					return O__M(self, 6);
-				}
-		],
+ private
+		flag_open false,
 		light_match [;
-			if (IndirectlyContains(CajaCerillas, self)
-				&& CajaCerillas hasnt open) {
-				if (Esquina.scene == 1) return O__M(self, 7);
-				give CajaCerillas open;
+			switch (Shuffle(3, matchFlags)) {
+				1:	PlaySFX(SFX_CERILLA_1, 100);
+				2:	PlaySFX(SFX_CERILLA_2, 100);
+				3:	PlaySFX(SFX_CERILLA_3, 100);
 			}
 			switch (Esquina.scene) {
-				1:
-					Esquina.scene++;
-					move RestosCalcinados to Esquina;
-					move self to CajaCerillas;
+				1:	move RestosCalcinados to Esquina;
 					O__M(self, 8);
-					new_line;
-					<<Look>>;
-				2:
-					Esquina.scene++;
-					move self to CajaCerillas;
-					O__M(self, 9);
-					new_line;
-					<<Look>>;
-				3:
-					Esquina.scene++;
-					move self to CajaCerillas;
-					give location general;
+				2:	O__M(self, 9);
+				3:	give location general;
 					O__M(self, 10);
-					new_line;
-					<<Look>>;
-				4:
-					Esquina.scene++;
-					FadeInTrack(MUS_FINAL, -1, 10000);
-					move self to CajaCerillas;
-					O__M(self, 11);
+				4:	O__M(self, 11);
+					FadeOutTrack(SFX_TORMENTA, 0, 2000, 0, true);
+					FadeInTrack(MUS_FINAL, -1, 30000);
 					KeyCharPrimitive();
+					!! FadeOutTrack(SFX_TORMENTA, 0, 6000);
 					new_line;
 					O__M(self, 12);
 					KeyCharPrimitive();
@@ -281,8 +271,13 @@ Item	-> -> -> Cerilla "cerilla"
 					new_line;
 					return Alba.final_credits();
 			}
+			Esquina.scene++;
+			new_line;
+			<<Look>>;
 		],
- has	female;
+ has	female openable ~open;
+
+Item	-> -> -> Cerilla "cerilla";
 
 
 !!==============================================================================
@@ -505,6 +500,13 @@ Atrezzo	-> Nieve "nieve"
 		adjectives
 			'blanco' 'blanca' 'frio' 'fria' 'helado' 'helada' 'gelido' 'gelida',
 		description [; return O__M(self, 1); ],
+		react_before [;
+			Dig:
+				if (noun == nothing) <<Dig self>>;
+		],
+		before [;
+			Dig: return O__M(self, 2);
+		],
  has	female;
 
 Atrezzo	-> Pared "pared"
