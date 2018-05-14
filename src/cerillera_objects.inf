@@ -13,7 +13,7 @@
 !!	Sistema:		Inform-INFSP 6
 !!	Plataforma:		Máquina-Z/Glulx
 !!	Versión:		3.0
-!!	Fecha:			2018/05/11
+!!	Fecha:			2018/05/14
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -106,6 +106,8 @@ NPC		-> Alba "cerillera"
 				if (noun == nothing) return O__M(self, 12);
 			Wake:
 				if (noun == nothing) <<Wake self>>;
+			Wave:
+				if (noun == nothing) <<Wave self>>;
 		],
 		before [
 			previous_style;
@@ -134,6 +136,9 @@ NPC		-> Alba "cerillera"
 				if (self.try_to_wake_up) return O__M(self, 8);
 				self.try_to_wake_up = true;
 				return O__M(self, 7);
+			Wave:
+				if (self.stop_shivering) return O__M(self, 14);
+				else return O__M(self, 13);
 		],
 		final_credits [
 			previous_style c;
@@ -155,6 +160,7 @@ NPC		-> Alba "cerillera"
 			}
 			else quit;
 		],
+		stop_shivering false,
 		try_to_wake_up false,
  has	female remarkable;
 
@@ -211,7 +217,7 @@ Item	-> -> CajaCerillas "caja de cerillas"
 			Drop, Insert, PutOn, Transfer:
 				return O__M(self, 5);
 			Examine:
-				if (self hasnt general) {
+				if (self hasnt general && ~~self.stop_shaking) {
 					PlaySFX(SFX_CAJA_CERILLAS, 100);
 					give self general;
 				}
@@ -221,10 +227,11 @@ Item	-> -> CajaCerillas "caja de cerillas"
 					return O__M(self, 16);
 				}
 			Wave:
-				if (self hasnt general) {
+				if (self hasnt general && ~~self.stop_shaking) {
 					PlaySFX(SFX_CAJA_CERILLAS, 100);
 					give self general;
 				}
+				if (self.stop_shaking) return O__M(self, 18);
 				return O__M(self, 17);
 		],
 		after [;
@@ -246,7 +253,10 @@ Item	-> -> CajaCerillas "caja de cerillas"
 				1:	move RestosCalcinados to Esquina;
 					O__M(self, 8);
 				2:	O__M(self, 9);
-				3:	give location general;
+				3:	Alba.stop_shivering = true;
+					CajaCerillas.stop_shaking = true;
+					Casas.lights_out = true;
+					Cielo.falling_star = true;
 					O__M(self, 10);
 				4:	O__M(self, 11);
 					FadeOutTrack(SFX_TORMENTA, 0, 2000, 0, true);
@@ -275,6 +285,7 @@ Item	-> -> CajaCerillas "caja de cerillas"
 			new_line;
 			<<Look>>;
 		],
+		stop_shaking false,
  has	female openable ~open;
 
 Item	-> -> -> Cerilla "cerilla";
@@ -291,6 +302,9 @@ Room	Esquina "Acurrucada en una esquina"
  with	name_f	'esquina',
 		gender	G_FEMENINO,
 		description [;
+			!!
+			if (self has general) {
+			}
 			switch (self.scene) {
 				1:	return O__M(self, 1);
 				2:	return O__M(self, 2);
@@ -301,7 +315,7 @@ Room	Esquina "Acurrucada en una esquina"
 		before [;
 			Listen:
 				if (noun == nothing)
-					return O__M(self, 5);
+					return O__M(self, 5, (self.scene ~= 4));
 			Smell:
 				if (noun == nothing)
 					return O__M(self, 6, (self.scene == 2));
@@ -466,7 +480,15 @@ Atrezzo	-> Casas "casas"
 		name_f	'casa' 'ventana',
 		name_fp	'casas' 'ventanas',
 		gender	G_FEMENINO + G_PLURAL,
-		description [; return O__M(self, 1); ],
+		description [;
+			if (self.lights_out) return O__M(self, 2);
+			else return O__M(self, 1);
+		],
+		before [;
+			Listen: <<Listen>>;
+			Smell: <<Smell>>;
+		],
+		lights_out false,
  has	female pluralname;
 
 Atrezzo	-> Cielo "cielo"
@@ -477,8 +499,13 @@ Atrezzo	-> Cielo "cielo"
 		adjectives
 			'rutilante' 'rutilantes' 'lejana' 'lejanas' 'titilante'
 			'titilantes' 'tinta' 'jiron' 'jirones',
-		description [; return O__M(self, 1); ],
+		description [;
+			if (~~self.falling_star) return O__M(self, 1);
+			self.falling_star = false;
+			return O__M(self, 2);
+		],
 		react_before [; Examine: if ( noun == u_obj) <<Examine self>>; ],
+		falling_star false,
  has	male;
 
 Atrezzo	-> Faroles "faroles"
@@ -519,7 +546,11 @@ Atrezzo	-> Pared "pared"
 			'piedra' 'frio' 'frios' 'fria' 'frias' 'incomodo'
 			'incomodos' 'incomoda' 'incomodas',
 		description [; return O__M(self, 1); ],
-		before [; Touch: return self.description(); ],
+		before [;
+			Listen: <<Listen>>;
+			Smell: <<Smell>>;
+			Touch: return self.description();
+		],
  has	female;
 
 Atrezzo	-> Puerta "puerta"
@@ -542,11 +573,15 @@ Atrezzo	-> Puerta "puerta"
 				UseTextStyle(previous_style);
 				new_line;
 				<<KnockOn self>>;
-			Pull, Push, PushDir, Turn:
-				return O__M(self, 2);
 			KnockOn, Open:
 				if (self hasnt described) { O__M(self, 1); print " "; }
 				return O__M(self, 3);
+			Listen:
+				<<Listen>>;
+			Pull, Push, PushDir, Turn:
+				return O__M(self, 2);
+			Smell:
+				<<Smell>>;
 		],
  has	female door transparent;
 

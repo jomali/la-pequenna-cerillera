@@ -1,5 +1,5 @@
 !% -v8
-!% -SD
+!% -~S~D~X
 !% +language_name=Spanish
 !% $MAX_LABELS=5000
 !% $MAX_STATIC_DATA=15000
@@ -18,7 +18,7 @@
 !!	Sistema:		Inform-INFSP 6
 !!	Plataforma:		Máquina-Z/Glulx
 !!	Versión:		3.0
-!!	Fecha:			2018/05/12
+!!	Fecha:			2018/05/14
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -46,9 +46,8 @@
 !!
 !!	HISTORIAL DE VERSIONES
 !!
-!!	3.0: 2018/05/12	Nueva refactorización de código. Nueva versión Glulx con
-!!					efectos de audio. Adición de efectos gráficos a la versión
-!!					de Máquina-Z.
+!!	3.0: 2018/05/14	Nueva refactorización de código. Nueva versión Glulx con
+!!					efectos de audio.
 !!	2.0: 2013/06/02	Refactorización general de código.
 !!	1.2: 2010/12/13	Revisión con corrección de errores.
 !!	1.1: 2010/12/10	Revisión con corrección de errores.
@@ -101,7 +100,7 @@ Constant Headline
 !! Release 0; Serial "130602";
 
 Constant Checking 3;
-Release 0; Serial "180512";
+Release 0; Serial "180514";
 
 !!------------------------------------------------------------------------------
 !!	Definiciones generales
@@ -147,7 +146,11 @@ Constant WITHOUT_DIRECTIONS;	! Se omiten las dir. por defecto de la lib.
 !!	Definiciones de la extensión 'textStyles'
 !!------------------------------------------------------------------------------
 
+#Ifdef TARGET_ZCODE;
+Constant TEXT_STYLE_PARSER TEXT_STYLE_MONOSPACED;
+#Ifnot; ! TARGET_GLULX;
 Constant TEXT_STYLE_PARSER TEXT_STYLE_USER2;
+#Endif; ! TARGET_
 Constant TEXT_STYLE_PARSER_PREFIX "[";
 Constant TEXT_STYLE_PARSER_SUFIX "]";
 

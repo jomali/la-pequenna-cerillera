@@ -13,7 +13,7 @@
 !!	Sistema:		Inform-INFSP 6
 !!	Plataforma:		Máquina-Z/Glulx
 !!	Versión:		3.0
-!!	Fecha:			2018/05/12
+!!	Fecha:			2018/05/14
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -782,5 +782,5 @@ CompassDirection d_obj "abajo" compass
 	print "Composición musical: ", (strong) "Franz Xaver Gruber", ".^";
 	print "Grabación: ", (strong) "Kevin MacLeod", ".^";
 	print "Ilustración de portada: ", (strong) "Anne Anderson", ".^";
-	print "Icono original: ", (strong) "Roundicons", ".^";
+	print "Icono original: ", (strong) "Roundicons.com", ".^";
 ];

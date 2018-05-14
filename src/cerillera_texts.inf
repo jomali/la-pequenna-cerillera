@@ -13,7 +13,7 @@
 !!	Sistema:		Inform-INFSP 6
 !!	Plataforma:		Máquina-Z/Glulx
 !!	Versión:		3.0
-!!	Fecha:			2018/05/11
+!!	Fecha:			2018/05/14
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -125,7 +125,7 @@ print "Quizá podría descansar en aquella esquina, pensó, sólo un momentito, lo j
 new_line;
 return true;
 6:	! ##Sleep (B)
-print "Los rayos de sol de la mañana descubrieron a la [Alba](niñita) en el ángulo que formaban dos edificios ---uno más saliente que otro---, rojas las mejillas y con una sonrisa en los labios... muerta, muerta de frío en la última noche del año. Nadie pudo adivinar nunca el porqué de aquella sonrisa.";
+print "Los rayos de sol de la mañana descubrieron a la [Alba](niñita) en el ángulo que formaban dos edificios, uno más saliente que otro, rojas las mejillas y con una sonrisa en los labios... muerta, muerta de frío en la última noche del año. Nadie pudo adivinar nunca el porqué de aquella sonrisa.";
 new_line;
 return true;
 7:	! #Wake (A)
@@ -145,7 +145,9 @@ Diseño, programación y textos adicionales de la presente adaptación obra de ", (
 ^^
 La ilustración de la portada ha sido creada por ", (header) "Anne Anderson", " (1874-1930) y forma parte del dominio público.
 ^^
-El icono utilizado en la aplicación es una adaptación sobre un original diseñado por ", (header) "Roundicons", " para *www.flaticon.com*. Publicado con licencia CC 3.0 BY: *http://creativecommons.org/licenses/by/3.0/*.";
+El icono utilizado en la aplicación es una adaptación sobre un original diseñado por ", (header) "Roundicons", " y disponible desde *www.flaticon.com*. Publicado con licencia CC 3.0 BY: *http://creativecommons.org/licenses/by/3.0/*.
+^^
+", (stressed) "Dedicado con cariño a ", (header) "Freire", (stressed) ", por haberme descubierto este cuento, y tantas otras cosas. (Como puedes ver, yo ", (important) "si", (stressed) " incluyo tu nombre en los agradecimientos).";
 new_line;
 return true;
 10:	! ##Dance
@@ -158,6 +160,14 @@ new_line;
 return true;
 12:	! ##StandUp
 print "No tenía fuerzas suficientes para volver a levantarse en aquel momento.";
+new_line;
+return true;
+13:	! ##Wave
+print "No podía dejar de temblar, muerta de frío como estaba.";
+new_line;
+return true;
+14:	! ##Wave
+print "El frío era tan intenso que su cuerpo ni siquiera se molestaba en tiritar ya.";
 new_line;
 return true;
 }
@@ -236,8 +246,12 @@ return true;
 print "Ya las tenía todas consigo.";
 new_line;
 return true;
-17:	! ##Wave
+17:	! ##Wave (A)
 print "Las manos le temblaban de tal forma que no podía evitar hacerlo.";
+new_line;
+return true;
+18:	! ##Wave (B)
+print "Sus manos también se habían agotado y no temblaban ya.";
 new_line;
 return true;
 }
@@ -253,16 +267,26 @@ return true;
 
 !!------------------------------------------------------------------------------
 Casas: switch (n) {
-1:	! ##Examine
+1:	! ##Examine (A)
 print "Las ventanas y la rendija bajo [la Puerta] que tenía junto a ella esparcían sobre [la Calle] un resplandor anaranjado.";
+new_line;
+return true;
+2:	! ##Examine (B)
+print "Las luces tras las ventanas habían comenzado a apagarse, una tras otra, a medida que la gente en su interior terminaba de cenar y se iba retirando a dormir.";
 new_line;
 return true;
 }
 
 !!------------------------------------------------------------------------------
 Cielo: switch (n) {
-1:	! ##Examine
+1:	! ##Examine (A)
 print "Entre los jirones de nubes tenuemente anaranjadas por [los Faroles] se distinguía un cielo de tinta, un cielo salpicado de diminutos puntitos de luz lejana y titilante.";
+new_line;
+return true;
+2:	! ##Examine (B)
+print "En lo alto, una estrella se desprendió de su sitio y trazó en el [Cielo](firmamento) una larga estela de fuego. @<<Alguien se está muriendo@>> pensó la [Alba](pequeña), pues su abuela, la única persona que la había querido de verdad pero que había muerto ya, le había dicho una vez: @<<Cuando una estrella cae, un alma se eleva al cielo@>>.
+^^
+Su pobre abuela... ¡cuánto la echaba de menos!";
 new_line;
 return true;
 }
@@ -282,13 +306,12 @@ print "Las gélidas sombras de la noche lo envolvían ya todo. Solo el apagado res
 new_line;
 return true;
 4:	! ##Examine (D)
-print "En lo alto, una estrella se desprendió de su sitio y trazó en el [Cielo](firmamento) una larga estela de fuego. @<<Alguien se está muriendo@>> pensó la [Alba](pequeña), pues su abuela, la única persona que la había querido de verdad pero que había muerto ya, le había dicho una vez: @<<Cuando una estrella cae, un alma se eleva al cielo@>>.
-^^
-Su pobre abuela... ¡cuánto la echaba de menos!";
+print "Las luces de las [Casas](ventanas) habían comenzado a apagarse y la oscuridad en [la Calle] se hacía más y más espesa por momentos, rota tan sólo por el débil resplandor anaranjado de [los Faroles]. El frío se había vuelto tan intenso que el cuerpecito de la [Alba](pequeña), vencido, ni siquiera se molestaba en tiritar ya.";
 new_line;
 return true;
 5:	! ##Listen
-print "[La Nieve] caía en el más completo silencio. Solo se oía, ahogado por los gruesos [Pared](muros), el rumor de las risas y las conversaciones, y el tintinear de los cubiertos chocando entre si, que llegaban desde el interior de [las Casas].";
+print "[La Nieve] caía en el más completo silencio.";
+if (x1) { print " Sólo se oía, ahogado por los gruesos [Pared](muros), el rumor de las risas y las conversaciones, y el tintinear de los cubiertos chocando entre sí, que llegaban desde el interior de [las Casas]."; }
 new_line;
 return true;
 6:	! ##Smell

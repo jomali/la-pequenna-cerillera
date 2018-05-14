@@ -13,7 +13,7 @@
 !!	Sistema:		Inform-INFSP 6
 !!	Plataforma:		Máquina-Z/Glulx
 !!	Versión:		3.0
-!!	Fecha:			2018/05/11
+!!	Fecha:			2018/05/14
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -118,7 +118,7 @@ Object	LibraryMessages
 	LMode1:
 		!! La acción LMode1 se genera ante el comando BREVE. La librería
 		!! imprime la constante Story y a continuación este mensaje.
-		print_ret (parser) "La obra está ahora en su modo ~breve~, que da
+		print_ret (parser) "La obra está ahora en su modo @<<breve@>>, que da
 		sólo descripciones largas de los lugares la primera vez que son
 		visitadas, y descripciones cortas en otro caso.";
 
@@ -126,12 +126,12 @@ Object	LibraryMessages
 		!! La acción LMode2 se genera ante el comando LARGO (o NORMAL). La
 		!! librería imprime la constante Historia y a continuación este
 		!! mensaje.
-		print_ret (parser) "La obra está ahora en su modo normal ~largo~, que
+		print_ret (parser) "La obra está ahora en su modo normal @<<largo@>>, que
 		siempre da descripciones largas de los lugares (incluso si ya habías
 		estado antes).";
 
 	LMode3:
-		print_ret (parser) "La obra está ahora en su modo ~superbreve~, que
+		print_ret (parser) "La obra está ahora en su modo @<<superbreve@>>, que
 		siempre da descripciones cortas de los lugares (incluso si nunca habías
 		estado antes).";
 
@@ -159,16 +159,16 @@ Object	LibraryMessages
 				referido.";
 			6:
 				!! Error si el intérprete no tiene "undo"
-				print_ret (parser) "Tu intérprete no puede ~DESHACER~
+				print_ret (parser) "Tu intérprete no puede @<<DESHACER@>>
 				acciones.";
 			7:
 				#Ifdef TARGET_ZCODE; ![6/11]
 				!! Otro error si el intérprete no tiene "undo", pero no había
 				!! sido detectado correctamente.
-				print_ret (parser) "~DESHACER~ falló. (Puede que tu intérprete
-				no permita realizar esa acción).";
+				print_ret (parser) "@<<DESHACER@>> falló. (Puede que tu
+				intérprete no permita realizar esa acción).";
 				#Ifnot; ! TARGET_GLULX
-				print_ret (parser) "No puedes ~DESHACER~ más.";
+				print_ret (parser) "No puedes @<<DESHACER@>> más.";
 				#Endif; ! TARGET_
 			8:
 				!! Si el usuario no responde correctamente a la pregunta del
@@ -182,11 +182,12 @@ Object	LibraryMessages
 				return true;
 			11:
 				!! Si el usuario intenta "undo" al principio del juego
-				print_ret (parser) "No se puede ~DESHACER~ algo que no has
+				print_ret (parser) "No se puede @<<DESHACER@>> algo que no has
 				hecho.";
 			12:
 				!! Si el usuario pone "undo" dos veces.
-				print_ret (parser) "No se puede ~DESHACER~ dos veces seguidas.";
+				print_ret (parser) "No se puede @<<DESHACER@>> dos veces
+				seguidas.";
 			13:
 				!! Éxito en el "undo".
 				print_ret (parser) "Retrocediendo al turno anterior.";
@@ -201,19 +202,21 @@ Object	LibraryMessages
 				print_ret (parser) "Eso no puede corregirse.";
 			15:
 				!! Se usa EEPA sin especificar la palabra corregida.
-				print_ret (parser) "Has utilizado ~EEPA~ sin especificar qué
-				palabra deseabas corregir.";
+				print_ret (parser) "Has utilizado @<<EEPA@>> sin especificar
+				qué palabra deseabas corregir.";
 			16:
 				!! Si el usuario pone EEPA seguido de dos o más palabras.
-				print_ret (parser) "~EEPA~ sólo puede corregir una palabra.";
+				print_ret (parser) "@<<EEPA@>> sólo puede corregir una
+				palabra.";
 			19:
 				!! Descripción del personaje controlado por el usuario.
 				<<Inv>>;
 			20:
 				!! Cuando el usuario pone PNJ, REPITE para que el PNJ haga otra
 				!! vez la última acción.
-				print_ret (parser) "Para repetir un comando como ~PERSONAJE,
-				SALTA~, escribe ~REPITE~, en lugar de ~PERSONAJE, REPITE~.";
+				print_ret (parser) "Para repetir un comando como @<<PERSONAJE,
+				SALTA@>>, escribe @<<REPITE@>>, en lugar de @<<PERSONAJE,
+				REPITE@>>.";
 			21:
 				!! Cuando el usuario pone REPITE como primer commando del juego.
 				print_ret (parser) "No hay comando que repetir.";
@@ -507,7 +510,7 @@ Object	LibraryMessages
 		"Hacía más frío y todo estaba más oscuro por momentos.";
 
 	Yes:
-		print_ret (parser) "La instrucción ~SÍ~ no tiene sentido en esta
+		print_ret (parser) "La instrucción @<<SÍ@>> no tiene sentido en esta
 		situación.";
 
 ];
@@ -532,9 +535,9 @@ Object	LibraryMessages
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "Intenta de nuevo porque solo se pudo entender que
-				quieres ~";
+				quieres @<<";
 				PrintCommand();
-				print "~.";
+				print "@>>.";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
 				UseTextStyle(previous_style);
 				new_line;
@@ -562,8 +565,8 @@ Object	LibraryMessages
 				!! "TODO") con un verbo que en su gramática no lo admite.
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
-				print "No se pueden especificar objetos múltiples con ~",
-				(address) verb_word, "~.";
+				print "No se pueden especificar objetos múltiples con @<<",
+				(address) verb_word, "@>>.";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
 				UseTextStyle(previous_style);
 				new_line;
@@ -578,8 +581,8 @@ Object	LibraryMessages
 				!! parser no tiene asignado un valor a ese pronombre.
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
-				print "No está claro a qué te refieres con ~",
-				(address) pronoun_word ,"~.";
+				print "No está claro a qué te refieres con @<<",
+				(address) pronoun_word ,"@>>.";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
 				UseTextStyle(previous_style);
 				new_line;
@@ -604,10 +607,10 @@ Object	LibraryMessages
 				!! orden a un PNJ).
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
-				print "La instrucción ~";
+				print "La instrucción @<<";
 				for (j = 0: j < WordLength(1): j++)
 					print (char) WordAddress(1) -> j;
-				print "~ no está definida.";
+				print "@>> no está definida.";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
 				UseTextStyle(previous_style);
 				new_line;
@@ -622,8 +625,8 @@ Object	LibraryMessages
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "Ahora mismo no se puede encontrar lo que representa el
-				pronombre ~", (address) pronoun_word ,"~ (", (the) pronoun_obj,
-				").";
+				pronombre @<<", (address) pronoun_word ,"@>> (",
+				(the) pronoun_obj, ").";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
 				UseTextStyle(previous_style);
 				new_line;
