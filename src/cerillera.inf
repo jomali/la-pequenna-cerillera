@@ -424,7 +424,7 @@ Constant SFX_CERILLA_1 2;
 Constant SFX_CERILLA_2 3;
 Constant SFX_CERILLA_3 4;
 Constant SFX_PASOS_NIEVE 5;
-Constant SFX_TORMENTA 6;
+Constant SFX_VIENTO 6;
 #Ifnot; ! TARGET_GLULX;
 Include "damusix.h";			! Administrador unificado de sonido en GLULX
 Include "gwindows.h";			! GWindows: Reemplazos de la librería
@@ -508,7 +508,7 @@ Include "VerbLib.h";			! Define cómo trabajan las acciones
 	!!	-	PORCENTAJE DE VOLUMEN: [0-100]. -1 para usar el volumen global
 	!!	-	NÚM. DE REPETICIONES: (Opcional) 1 por defecto. -1 para infinitas
 	Damusix.AsignarCanal(MUS_FINAL, 0, 100, 1);
-	Damusix.AsignarCanal(SFX_TORMENTA, 1, 100, -1);
+	Damusix.AsignarCanal(SFX_VIENTO, 1, 100, -1);
 	Damusix.AsignarCanal(SFX_PASOS_NIEVE, 2, 100, 1);
 	#Endif; ! TARGET_
 
@@ -521,7 +521,7 @@ Include "VerbLib.h";			! Define cómo trabajan las acciones
 	PressAnyKey();
 	EraseWindow();
 	!! No se pueden realizar dos efectos de fade al mismo tiempo
-	FadeInTrack(SFX_TORMENTA, 20, 1000);
+	FadeInTrack(SFX_VIENTO, 100, 1000);
 	#Ifdef TARGET_ZCODE;
 	O__M(Alba, 2);
 	#Ifnot; ! TARGET_GLULX;

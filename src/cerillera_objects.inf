@@ -98,6 +98,8 @@ NPC		-> Alba "cerillera"
 		react_before [;
 			Dance:
 				if (noun == nothing) <<Dance self>>;
+			Masturbate, SleepWith:
+				return O__M(self, 15);
 			Sit:
 				if (noun == nothing) return O__M(self, 11);
 			Sleep:
@@ -152,7 +154,7 @@ NPC		-> Alba "cerillera"
 			print (string) TEXT_STYLE_PARSER_SUFIX;
 			UseTextStyle(previous_style);
 			c = KeyCharPrimitive();
-			FadeOutTrack(SFX_TORMENTA, 0, 1000, 0, true);
+			FadeOutTrack(SFX_VIENTO, 0, 1000, 0, true);
 			FadeOutTrack(MUS_FINAL, 0, 1000, 0, true);
 			if (c == 'r' or 'R') {
 				@restart;
@@ -259,10 +261,10 @@ Item	-> -> CajaCerillas "caja de cerillas"
 					Cielo.falling_star = true;
 					O__M(self, 10);
 				4:	O__M(self, 11);
-					FadeOutTrack(SFX_TORMENTA, 0, 2000, 0, true);
+					FadeOutTrack(SFX_VIENTO, 0, 2000, 0, true);
 					FadeInTrack(MUS_FINAL, -1, 30000);
 					KeyCharPrimitive();
-					!! FadeOutTrack(SFX_TORMENTA, 0, 6000);
+					!! FadeOutTrack(SFX_VIENTO, 0, 6000);
 					new_line;
 					O__M(self, 12);
 					KeyCharPrimitive();

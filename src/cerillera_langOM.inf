@@ -96,7 +96,7 @@ La ilustración de la portada ha sido creada por ", (header) "Anne Anderson", " (
 ^^
 El icono utilizado en la aplicación es una adaptación sobre un original diseñado por ", (header) "Roundicons", " y disponible desde ", (emph) "www.flaticon.com", ". Publicado con licencia CC 3.0 BY: ", (emph) "http://creativecommons.org/licenses/by/3.0/", ".
 ^^
-", (stressed) "Dedicado con cariño a ", (header) "Freire", (stressed) ", por haberme descubierto este cuento y tantas otras cosas más. (Como puedes ver, ¡yo ", (important) "si", (stressed) " incluyo tu nombre al final de la obra!)";
+", (stressed) "Dedicado con cariño a ", (header) "Freire", (stressed) ", por haberme descubierto este cuento ---y tantas otras cosas---. (Como ves, tu nombre ", (important) "si", (stressed) " aparece al final).";
 new_line;
 return true;
 10:	! ##Dance
@@ -117,6 +117,10 @@ new_line;
 return true;
 14:	! ##Wave
 print "El frío era tan intenso que su cuerpo ni siquiera se molestaba en tiritar ya.";
+new_line;
+return true;
+15:	! ##Masturbate/##SleepWith
+print (parser) "Ni aquel era el momento ni este el tipo de relato adecuado para eso.";
 new_line;
 return true;
 }
