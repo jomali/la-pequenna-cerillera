@@ -2,64 +2,64 @@
 
 !!==============================================================================
 !!
-!!	LA PEQUE—A CERILLERA
-!!	Personalizaciones sobre los mensajes de la librerÌa
+!!	LA PEQUE√ëA CERILLERA
+!!	Personalizaciones sobre los mensajes de la librer√≠a
 !!
 !!==============================================================================
 !!
 !!	Archivo:		cerillera_langLM.inf
-!!	Autor(es):		J. Francisco MartÌn <jfm.lisaso@gmail.com>
-!!	Idioma:			ES (EspaÒol)
+!!	Autor(es):		J. Francisco Mart√≠n <jfm.lisaso@gmail.com>
+!!	Idioma:			ES (Espa√±ol)
 !!	Sistema:		Inform-INFSP 6
-!!	Plataforma:		M·quina-Z/Glulx
-!!	VersiÛn:		3.0
-!!	Fecha:			2018/05/14
+!!	Plataforma:		M√°quina-Z/Glulx
+!!	Versi√≥n:		4.0
+!!	Fecha:			2018/09/21
 !!
 !!------------------------------------------------------------------------------
 !!
-!!	Este archivo forma parte del relato interactivo
-!!	LA PEQUE—A CERILLERA.
+!!	Este archivo forma parte de la ficci√≥n interactiva
+!!	LA PEQUE√ëA CERILLERA.
 !!
-!!	LA PEQUE—A CERILLERA es software libre: usted puede redistribuirlo
-!!	y/o modificarlo bajo los tÈrminos de la Licencia P˙blica General
-!!	GNU publicada por la FundaciÛn para el Software Libre, ya sea la
-!!	versiÛn 3 de la Licencia, o (a su elecciÛn) cualquier versiÛn
+!!	LA PEQUE√ëA CERILLERA es software libre: usted puede redistribuirlo
+!!	y/o modificarlo bajo los t√©rminos de la Licencia P√∫blica General
+!!	GNU publicada por la Fundaci√≥n para el Software Libre, ya sea la
+!!	versi√≥n 3 de la Licencia, o (a su elecci√≥n) cualquier versi√≥n
 !!	posterior.
 !!
-!!	LA PEQUE—A CERILLERA se distribuye con la esperanza de que sea
-!!	˙til, pero SIN GARANTÌA ALGUNA; ni siquiera la garantÌa implÌcita
-!!	MERCANTIL o de APTITUD PARA UN PROP”SITO DETERMINADO. Consulte los
-!!	detalles de la Licencia P˙blica General GNU para m·s informaciÛn.
+!!	LA PEQUE√ëA CERILLERA se distribuye con la esperanza de que sea
+!!	√∫til, pero SIN GARANT√çA ALGUNA; ni siquiera la garant√≠a impl√≠cita
+!!	MERCANTIL o de APTITUD PARA UN PROP√ìSITO DETERMINADO. Consulte los
+!!	detalles de la Licencia P√∫blica General GNU para m√°s informaci√≥n.
 !!
-!!	DeberÌa haber recibido una copia de la Licencia P˙blica General GNU
-!!	junto a LA PEQUE—A CERILLERA. En caso contrario, consulte
+!!	Deber√≠a haber recibido una copia de la Licencia P√∫blica General GNU
+!!	junto a LA PEQUE√ëA CERILLERA. En caso contrario, consulte
 !!	<http://www.gnu.org/licenses/>.
 !!
-!!	Copyright (c) 2010-2018, J. Francisco MartÌn
+!!	Copyright (c) 2010-2018, J. Francisco Mart√≠n
 !!
 !!------------------------------------------------------------------------------
 !!
 !!	TABLA DE CONTENIDOS
 !!
-!!	1)	Mensajes de la librerÌa
+!!	1)	Mensajes de la librer√≠a
 !!	2)	Mensajes de error del sistema
 !!
 !!------------------------------------------------------------------------------
 !!
 !!	MENSAJES PERSONALIZADOS
 !!
-!!	Gran parte de las modificaciones incluÌdas en este fichero afectan a los
-!!	mensajes emitidos por el sistema, para forzar la utilizaciÛn de un estilo
+!!	Gran parte de las modificaciones inclu√≠das en este fichero afectan a los
+!!	mensajes emitidos por el sistema para forzar la utilizaci√≥n de un estilo
 !!	de texto diferente al del resto de mensajes emitidos por el narrador. Todos
-!!	los mensajes modificados con no son emitidos por el sistema est·n marcados
-!!	con el cÛdigo XXX.
+!!	los mensajes modificados que no son emitidos por el sistema est√°n marcados
+!!	con la etiqueta XXX.
 !!
 !!------------------------------------------------------------------------------
 
 
 !!==============================================================================
 !!
-!!	1)	Mensajes de la librerÌa
+!!	1)	Mensajes de la librer√≠a
 !!
 !!------------------------------------------------------------------------------
 
@@ -68,107 +68,107 @@ Object	LibraryMessages
 			previous_style;
 
 	Answer, Ask, AskFor, Order, Tell:
-		print_ret (parser) "Para iniciar una conversaciÛn, usa simplemente la
+		print_ret (parser) "Para iniciar una conversaci√≥n, usa simplemente la
 		orden HABLA (a/con) PERSONAJE.";
 
 	Attack: !! XXX - Mensaje personalizado del narrador
-		"No tenÌa fuerzas para hacer eso.";
+		"No ten√≠a fuerzas para hacer eso.";
 
 	CommandsOff:
 		switch (lm_n) {
-			1:	print_ret (parser) "GrabaciÛn de Ûrdenes finalizada.";
+			1:	print_ret (parser) "Grabaci√≥n de √≥rdenes finalizada.";
 			#Ifdef TARGET_GLULX;
-			2:	print_ret (parser) "GrabaciÛn de Ûrdenes ya finalizada.";
+			2:	print_ret (parser) "Grabaci√≥n de √≥rdenes ya finalizada.";
 			#Endif; ! TARGET_
 		}
 
 	CommandsOn:
 		switch (lm_n) { ![6/11]
-			1:	print_ret (parser) "GrabaciÛn de Ûrdenes activada.";
+			1:	print_ret (parser) "Grabaci√≥n de √≥rdenes activada.";
 			#Ifdef TARGET_GLULX;
-			2:	print_ret (parser) "”rdenes relanzadas.";
-			3:	print_ret (parser) "GrabaciÛn de Ûrdenes ya activada.";
-			4:	print_ret (parser) "Fallo en la grabaciÛn de Ûrdenes.";
+			2:	print_ret (parser) "√ìrdenes relanzadas.";
+			3:	print_ret (parser) "Grabaci√≥n de √≥rdenes ya activada.";
+			4:	print_ret (parser) "Fallo en la grabaci√≥n de √≥rdenes.";
 			#Endif; ! TARGET_
 		}
 
 	CommandsRead:
 		switch (lm_n) {
-			1:	print_ret (parser) "Reejecutando Ûrdenes...";
+			1:	print_ret (parser) "Reejecutando √≥rdenes...";
 			#Ifdef TARGET_GLULX;
-			2:	print_ret (parser) "Las Ûrdenes ya est·n siendo relanzadas.";
-			3:	print_ret (parser) "Fallo en la reejecuciÛn de Ûrdenes:
-				grabaciÛn en curso.";
-			4:	print_ret (parser) "Fallo en la reejecuciÛn de Ûrdenes.";
-			5:	print_ret (parser) "ReejecuciÛn de Ûrdenes: fin del proceso.";
+			2:	print_ret (parser) "Las √≥rdenes ya est√°n siendo relanzadas.";
+			3:	print_ret (parser) "Fallo en la reejecuci√≥n de √≥rdenes:
+				grabaci√≥n en curso.";
+			4:	print_ret (parser) "Fallo en la reejecuci√≥n de √≥rdenes.";
+			5:	print_ret (parser) "Reejecuci√≥n de √≥rdenes: fin del proceso.";
 			#Endif; ! TARGET_
 		}
 
 	Eat: !! XXX - Mensaje personalizado del narrador
 		switch (lm_n) {
-			1: "TenÌa muchÌsimo hambre pero eso era simplemente incomestible.";
-			2: "Se comiÛ ", (the) lm_o, ".";
+			1: "Ten√≠a much√≠simo hambre pero eso era simplemente incomestible.";
+			2: "Se comi√≥ ", (the) lm_o, ".";
 		}
 
 !!	FullScore: ! TODO - Mensaje del parser
 
 	Jump: !! XXX - Mensaje personalizado del narrador
-		"Apenas podÌa ponerse en pie, mucho menos saltar.";
+		"Apenas pod√≠a ponerse en pie, mucho menos saltar.";
 
 	LMode1:
-		!! La acciÛn LMode1 se genera ante el comando BREVE. La librerÌa
-		!! imprime la constante Story y a continuaciÛn este mensaje.
-		print_ret (parser) "La obra est· ahora en su modo @<<breve@>>, que da
-		sÛlo descripciones largas de los lugares la primera vez que son
+		!! La acci√≥n LMode1 se genera ante el comando BREVE. La librer√≠a
+		!! imprime la constante Story y a continuaci√≥n este mensaje.
+		print_ret (parser) "La obra est√° ahora en su modo @<<breve@>>, que da
+		s√≥lo descripciones largas de los lugares la primera vez que son
 		visitadas, y descripciones cortas en otro caso.";
 
 	LMode2:
-		!! La acciÛn LMode2 se genera ante el comando LARGO (o NORMAL). La
-		!! librerÌa imprime la constante Historia y a continuaciÛn este
+		!! La acci√≥n LMode2 se genera ante el comando LARGO (o NORMAL). La
+		!! librer√≠a imprime la constante Historia y a continuaci√≥n este
 		!! mensaje.
-		print_ret (parser) "La obra est· ahora en su modo normal @<<largo@>>, que
-		siempre da descripciones largas de los lugares (incluso si ya habÌas
-		estado antes).";
+		print_ret (parser) "La obra est√° ahora en su modo normal @<<largo@>>,
+		que siempre da descripciones largas de los lugares (incluso si ya
+		hab√≠as estado antes).";
 
 	LMode3:
-		print_ret (parser) "La obra est· ahora en su modo @<<superbreve@>>, que
-		siempre da descripciones cortas de los lugares (incluso si nunca habÌas
+		print_ret (parser) "La obra est√° ahora en su modo @<<superbreve@>>, que
+		siempre da descripciones cortas de los lugares (incluso si nunca hab√≠as
 		estado antes).";
 
 	Mild, Strong: !! XXX - Mensaje personalizado del narrador
-		print_ret (parser) "No se deberÌa utilizar ese lenguaje en un cuento
+		print_ret (parser) "No se deber√≠a utilizar ese lenguaje en un cuento
 		infantil. Si tienes dificultades para continuar con la historia tal
 		vez quieras probar a teclear AYUDA.";
 
 	Miscellany:
-		!! Esta es una falsa acciÛn, que se usa simplemente para agrupar aquÌ
+		!! Esta es una falsa acci√≥n que se usa simplemente para agrupar aqu√≠
 		!! todos los mensajes de error del parser, los mensajes ante algunos
-		!! metacommandos, o algunos mensajes de librerÌa no relacionados con
-		!! acciÛn alguna.
+		!! metacommandos, o algunos mensajes de librer√≠a no relacionados con
+		!! acci√≥n alguna.
 		switch (lm_n) {
 			1:
 				!! El usuario ha especificado objetos multiples, pero el parser
-				!! tiene una lista que no admite m·s de 16, de modo que los
-				!! restantes objetos no ser·n procesados.
-				print_ret (parser) "SÛlo se consideran los diecisÈis
+				!! tiene una lista que no admite m√°s de 16, de modo que los
+				!! restantes objetos no ser√°n procesados.
+				print_ret (parser) "S√≥lo se consideran los diecis√©is
 				primeros objetos.";
 			2:
-				!! El usuario ha usado objetos m˙ltiples, pero por alguna razÛn
-				!! la lista del parser est· vacÌa.
-				print_ret (parser) "No se pudo determinar a quÈ objetos te has
+				!! El usuario ha usado objetos m√∫ltiples, pero por alguna raz√≥n
+				!! la lista del parser est√° vac√≠a.
+				print_ret (parser) "No se pudo determinar a qu√© objetos te has
 				referido.";
 			6:
-				!! Error si el intÈrprete no tiene "undo"
-				print_ret (parser) "Tu intÈrprete no puede @<<DESHACER@>>
+				!! Error si el int√©rprete no tiene "undo"
+				print_ret (parser) "Tu int√©rprete no puede @<<DESHACER@>>
 				acciones.";
 			7:
 				#Ifdef TARGET_ZCODE; ![6/11]
-				!! Otro error si el intÈrprete no tiene "undo", pero no habÌa
+				!! Otro error si el int√©rprete no tiene "undo", pero no hab√≠a
 				!! sido detectado correctamente.
-				print_ret (parser) "@<<DESHACER@>> fallÛ. (Puede que tu
-				intÈrprete no permita realizar esa acciÛn).";
+				print_ret (parser) "@<<DESHACER@>> fall√≥. (Puede que tu
+				int√©rprete no permita realizar esa acci√≥n).";
 				#Ifnot; ! TARGET_GLULX
-				print_ret (parser) "No puedes @<<DESHACER@>> m·s.";
+				print_ret (parser) "No puedes @<<DESHACER@>> m√°s.";
 				#Endif; ! TARGET_
 			8:
 				!! Si el usuario no responde correctamente a la pregunta del
@@ -189,31 +189,31 @@ Object	LibraryMessages
 				print_ret (parser) "No se puede @<<DESHACER@>> dos veces
 				seguidas.";
 			13:
-				!! …xito en el "undo".
+				!! √âxito en el "undo".
 				print_ret (parser) "Retrocediendo al turno anterior.";
 			14:
 				!! Si el usuario pone EEPA (verbo para corregir), pero el
 				!! parser no recordaba ninguna palabra mal. Ejmplo de uso del
 				!! comando EEPA:
 				!!		> SACA MAZANA VERDE DE LA CESTA
-				!!		No vqeo eso por aquÌ.
+				!!		No vqeo eso por aqu√≠.
 				!!		> EEPA MANZANA
 				!!		Sacas la manzana verde de la cesta de mimbre.
 				print_ret (parser) "Eso no puede corregirse.";
 			15:
 				!! Se usa EEPA sin especificar la palabra corregida.
 				print_ret (parser) "Has utilizado @<<EEPA@>> sin especificar
-				quÈ palabra deseabas corregir.";
+				qu√© palabra deseabas corregir.";
 			16:
-				!! Si el usuario pone EEPA seguido de dos o m·s palabras.
-				print_ret (parser) "@<<EEPA@>> sÛlo puede corregir una
+				!! Si el usuario pone EEPA seguido de dos o m√°s palabras.
+				print_ret (parser) "@<<EEPA@>> s√≥lo puede corregir una
 				palabra.";
 			19:
-				!! DescripciÛn del personaje controlado por el usuario.
+				!! Descripci√≥n del personaje controlado por el usuario.
 				<<Inv>>;
 			20:
 				!! Cuando el usuario pone PNJ, REPITE para que el PNJ haga otra
-				!! vez la ˙ltima acciÛn.
+				!! vez la √∫ltima acci√≥n.
 				print_ret (parser) "Para repetir un comando como @<<PERSONAJE,
 				SALTA@>>, escribe @<<REPITE@>>, en lugar de @<<PERSONAJE,
 				REPITE@>>.";
@@ -228,11 +228,11 @@ Object	LibraryMessages
 				!! Cuando el usuario pone, por ejemplo; PEPE, COGE HACHA, pero
 				!! no hay un objeto que responda al name PEPE.
 				print_ret (parser) "Parece que has tratado de hablar con
-				alguien, pero no se pudo identificar con quiÈn.";
+				alguien, pero no se pudo identificar con qui√©n.";
 			24:
 				!! Si el usuario intenta hablar con un objeto que no es
 				!! "animate" ni "talkable" ("talkable" debe ponerse a objetos
-				!! inanimates con los que se podrÌa hablar, como un micrÛfono).
+				!! inanimates con los que se podr√≠a hablar, como un micr√≥fono).
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "No es posible hablar con ", (the) lm_o, ".";
@@ -241,27 +241,26 @@ Object	LibraryMessages
 				new_line;
 				return true;
 			25:
-				!! XXX - Mensaje personalizado para el sistema de conversaciÛn.
 				!! Hay palabras no comprendidas entre el nombre de un PNJ y la
 				!! coma, ej: PEPE ZAFDSRGG, SALTA.
-				print_ret (parser) "Para iniciar una conversaciÛn, intenta
-				Ûrdenes del tipo: PERSONAJE, HOLA.";
+				print_ret (parser) "Para iniciar una conversaci√≥n, intenta
+				√≥rdenes del tipo: PERSONAJE, HOLA.";
 			47:
 				!! El usuario ha respondido "TODOS" o "AMBOS" a una pregunta
 				!! aclaratoria como la anterior, pero el verbo no admite
-				!! objetos m˙ltiples.
-				print (parser) "Desafortunadamente sÛlo puedes referirte a un
-				objeto en este caso. øCu·l exactamente?";
+				!! objetos m√∫ltiples.
+				print (parser) "Desafortunadamente s√≥lo puedes referirte a un
+				objeto en este caso. ¬øCu√°l exactamente?";
 				new_line;
 				PreguntaCualExactamente=1;
 			48:
-				!! El usuario ha escrito una frase u orden a PSI incompleta,
-				!! como BESA (verbo aplicado sobre PSIs normalmente). El parser
+				!! El usuario ha escrito una frase u orden a NPC incompleta,
+				!! como BESA (verbo aplicado sobre NPCs normalmente). El parser
 				!! le pregunta para que complete la frase.
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				PreguntaCualExactamente = 1;
-				if (IniciarPregunta() ==0 ) print "A quiÈn";
+				if (IniciarPregunta() ==0 ) print "A qui√©n";
 				if (actor ~= player) print " tiene que ";
 				else print " quieres ";
 				IdiomaImprimirComando();
@@ -278,7 +277,7 @@ Object	LibraryMessages
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				PreguntaCualExactamente = 1;
-				if (IniciarPregunta() ==0 ) print "QuÈ";
+				if (IniciarPregunta() ==0 ) print "Qu√©";
 				if (actor ~= player) print " tiene que ";
 				else print " quieres ";
 				IdiomaImprimirComando();
@@ -289,10 +288,10 @@ Object	LibraryMessages
 				new_line;
 				return true;
 			51:
-				!! El usuario ha intentado una acciÛn con objeto m˙ltiple
-				!! (como COGE TODO). Esta acciÛn es convertida por el parser en
+				!! El usuario ha intentado una acci√≥n con objeto m√∫ltiple
+				!! (como COGE TODO). Esta acci√≥n es convertida por el parser en
 				!! una serie de actiones COGE OBJETO1, COGE OBJETO2, etc... Si
-				!! en la ejecuciÛn de alguna de estas actiones encuentra que la
+				!! en la ejecuci√≥n de alguna de estas actiones encuentra que la
 				!! localidad del player ha cambiado, debe abortar el proceso.
 				!! Este mensaje informa de ello al usuario.
 				print_ret (parser) "Se ha producido un evento inesperado que ha
@@ -305,20 +304,20 @@ Object	LibraryMessages
 		}
 
 	NotifyOff:
-		print_ret (parser) "NotificaciÛn de puntuaciÛn desactivada.";
+		print_ret (parser) "Notificaci√≥n de puntuaci√≥n desactivada.";
 
 	Pray: !! XXX - Mensaje personalizado del narrador
-		"Se preguntÛ si Dios y si su abuela la estarÌan mirando desde el cielo
-		en aquel momento. ---Oh, abuelita... °cu·nto te echo de menos!";
+		"Se pregunt√≥ si Dios y si su abuela la estar√≠an mirando desde el cielo
+		en aquel momento. ---Oh, abuelita... ¬°cu√°nto te echo de menos!";
 
 	Pronouns:
-		!! Esta acciÛn (generada por el verbo PRONOMBRES) muestra una lista
-		!! de quÈ significa en ese momento para el parser cada pronombre:
+		!! Esta acci√≥n (generada por el verbo PRONOMBRES) muestra una lista
+		!! de qu√© significa en ese momento para el parser cada pronombre:
 		!! -lo, -la, -los, -las...
 		!!
 		!!	1:	Texto introductorio.
 		!!	2:	La palabra "es".
-		!!	3:	Texto a mostrar si el pronombre no est· definido.
+		!!	3:	Texto a mostrar si el pronombre no est√° definido.
 		!!	4:	Si el juego no define pronombres.
 		!!	5:	[6/11].
 		switch (lm_n) {
@@ -329,9 +328,9 @@ Object	LibraryMessages
 			2:
 				print "es ";
 			3:
-				print "no est· definido";
+				print "no est√° definido";
 			4:
-				print "el juego no conoce ning˙n pronombre.";
+				print "el juego no conoce ning√∫n pronombre.";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
 				UseTextStyle(previous_style);
 				new_line;
@@ -344,7 +343,7 @@ Object	LibraryMessages
 		return true;
 
 	Prompt:
-		!! El prompt aparece justo antes de pedir una nueva lÌnea al usuario.
+		!! El prompt aparece justo antes de pedir una nueva l√≠nea al usuario.
 		!! Puede definirse para que sea una frase, o se genere una frase
 		!! aleatoria en cada turno, por ejemplo.
 		new_line;
@@ -359,7 +358,7 @@ Object	LibraryMessages
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "Por favor, responde ";
-				print "SÕ"; ! Hyperlink("SÕ"); !! TODO
+				print "S√ç"; ! Hyperlink("S√ç"); !! TODO
 				print " o ";
 				print "NO"; ! Hyperlink("NO"); !! TODO
 				print ":";
@@ -369,8 +368,8 @@ Object	LibraryMessages
 			2:
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
-				print "øRealmente quieres abandonar el relato? (";
-				print "SÕ"; ! Hyperlink("SÕ"); !! TODO
+				print "¬øRealmente quieres abandonar el relato? (";
+				print "S√ç"; ! Hyperlink("S√ç"); !! TODO
 				print "/";
 				print "NO"; ! Hyperlink("NO"); !! TODO
 				print ")";
@@ -387,8 +386,8 @@ Object	LibraryMessages
 			1:
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
-				print "øRealmente quieres reiniciar el relato? (";
-				print "SÕ"; ! Hyperlink("SÕ"); !! TODO
+				print "¬øRealmente quieres reiniciar el relato? (";
+				print "S√ç"; ! Hyperlink("S√ç"); !! TODO
 				print "/";
 				print "NO"; ! Hyperlink("NO"); !! TODO
 				print ")";
@@ -402,8 +401,8 @@ Object	LibraryMessages
 
 	Restore:
 		!!	1:	Si no se pudo cargar la partida con LOAD.
-		!!	2:	…xito (no llega a mostrarse, porque en caso de Èxito el estado
-		!!		del juego cambia al momento en que se salvÛ. El "Ok" que se ve
+		!!	2:	√âxito (no llega a mostrarse, porque en caso de √©xito el estado
+		!!		del juego cambia al momento en que se salv√≥. El "Ok" que se ve
 		!!		entonces es el del comando Salvar.
 		switch (lm_n) {
 			1:
@@ -418,7 +417,7 @@ Object	LibraryMessages
 
 	Save:
 		!!	1:	Si no se pudo guardar el juego.
-		!!	2:	…xito.
+		!!	2:	√âxito.
 		switch (lm_n) {
 			1:
 				print_ret (parser) "Error. No se pudo guardar la partida.";
@@ -427,15 +426,15 @@ Object	LibraryMessages
 		}
 
 	Score:
-		!! PuntuaciÛn del juego. Puede activarse porque el usuario lo pide
+		!! Puntuaci√≥n del juego. Puede activarse porque el usuario lo pide
 		!! (con el verbo "PUNTUACION") o porque el juego ha terminado. En
-		!! este ultimo caso, la variable "deadflag" valdr· true.
+		!! este √∫ltimo caso, la variable "deadflag" ser√° igual a true.
 		switch (lm_n) {
 			1:
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
-				if (deadflag) print "En este juego, tu puntuaciÛn ha sido ";
-				else print "Hasta el momento tu puntuaciÛn es ";
+				if (deadflag) print "En este juego, tu puntuaci√≥n ha sido ";
+				else print "Hasta el momento tu puntuaci√≥n es ";
 				print score, " de un total de ", MAX_SCORE,
 				", en ", turns, " turno";
 				if (turns > 1) print "s";
@@ -446,72 +445,72 @@ Object	LibraryMessages
 				return true;
 			2:
 				print_ret (parser) "Este relato no tiene conteo de
-				puntuaciÛn.";
+				puntuaci√≥n.";
 		}
 
 	ScriptOff:
-		!!	1:	Error ya estaba desactivada la transcrcipciÛn.
-		!!	2:	…xito.
+		!!	1:	Error La transcrcipci√≥n ya estaba desactivada.
+		!!	2:	√âxito.
 		switch (lm_n) {
 			1:
-				print_ret (parser) "La transcripciÛn ya estaba desactivada.";
+				print_ret (parser) "La transcripci√≥n ya estaba desactivada.";
 			2:
 				new_line;
-				print_ret (parser) "Fin de la transcripciÛn.";
+				print_ret (parser) "Fin de la transcripci√≥n.";
 			3:
 				print_ret (parser) "Error al intentar finalizar la
-				transcripciÛn.";
+				transcripci√≥n.";
 		}
 
 	ScriptOn:
-		!!	1:	Error, ya estaba activada la transcrcipciÛn.
-		!!	2:	…xito (parte inicial del mensaje, la librerÌa imprime a
-		!!		continuaciÛn un 'Banner' con los crÈditos de la aplicaciÛn.
+		!!	1:	Error La transcrcipci√≥n ya estaba desactivada.
+		!!	2:	√âxito (parte inicial del mensaje, la librer√≠a imprime a
+		!!		continuaci√≥n un 'Banner' con los cr√©ditos de la aplicaci√≥n.
 		switch (lm_n) {
 			1:
-				print_ret (parser) "La transcripciÛn ya estaba activada.";
+				print_ret (parser) "La transcripci√≥n ya estaba activada.";
 			2:
-				print_ret (parser) "Iniciando transcripciÛn...";
+				print_ret (parser) "Iniciando transcripci√≥n...";
 			3:
 				print_ret (parser) "Error al intentar iniciar la
-				transcripciÛn.";
+				transcripci√≥n.";
 		}
 
 	Sing: !! XXX - Mensaje personalizado del narrador
-		"No tenÌa ·nimos para cantar nada en aquel momento.";
+		"No ten√≠a √°nimos para cantar nada en aquel momento.";
 
 	Swim: !! XXX - Mensaje personalizado del narrador
-		"Nunca supo nadar y, en cualquier caso, no podrÌa haberlo hecho allÌ.";
+		"Nunca supo nadar y, en cualquier caso, no podr√≠a haberlo hecho all√≠.";
 
 	Think: !! XXX - Mensaje personalizado del narrador
-		"Apenas podÌa pensar con claridad, agotada y completamente entumecida
-		por el frÌo como estaba.";
+		"Apenas pod√≠a pensar con claridad, agotada y completamente entumecida
+		por el fr√≠o como estaba.";
 
 	VagueGo:
-		!! El usuario ha dicho IR sin especificar a dÛnde
-		!! TODO - Se podrÌan mostrar las salidas
-		print_ret (parser) "Tienes que especificar en quÈ direcciÛn ir.";
+		!! El usuario ha dicho IR sin especificar a d√≥nde
+		!! TODO - Se podr√≠an mostrar las salidas
+		print_ret (parser) "Tienes que especificar en qu√© direcci√≥n ir.";
 
 	Verify:
-		!!	1:	…xito.
-		!!	2:	Error en la verificaciÛn.
+		!!	1:	√âxito.
+		!!	2:	Error en la verificaci√≥n.
 		switch (lm_n) {
 			1:
 				print_ret (parser) "Fichero de juego verificado e
 				intacto.";
 			2:
 				print_ret (parser) "El fichero de juego no parece intacto,
-				puede estar corrompido (a menos que estÈs jugando con un
-				intÈrprete muy primitivo que no sea capaz de realizar la
-				comprobaciÛn).";
+				puede estar corrompido (a menos que est√©s jugando con un
+				int√©rprete muy primitivo que no sea capaz de realizar la
+				comprobaci√≥n).";
 		}
 
 	Wait: !! XXX - Mensaje personalizado del narrador
-		"HacÌa m·s frÌo y todo estaba m·s oscuro por momentos.";
+		"Hac√≠a m√°s fr√≠o y todo estaba m√°s oscuro por momentos.";
 
 	Yes:
-		print_ret (parser) "La instrucciÛn @<<SÕ@>> no tiene sentido en esta
-		situaciÛn.";
+		print_ret (parser) "La instrucci√≥n @<<S√ç@>> no tiene sentido en esta
+		situaci√≥n.";
 
 ];
 
@@ -526,15 +525,15 @@ Object	LibraryMessages
 	previous_style j;
 	switch (pe) {
 		STUCK_PE:
-				!! #27: El parser se ha atascado. Es el tipo de error m·s
-				!! genÈrico. Si el parser puede, dar· un error m·s concreto.
-				print_ret (parser) "No se pudo entender esa instrucciÛn.";
+				!! #27: El parser se ha atascado. Es el tipo de error m√°s
+				!! gen√©rico. Si el parser puede, dar√° un error m√°s concreto.
+				print_ret (parser) "No se pudo entender esa instrucci√≥n.";
 		UPTO_PE:
 				!! #28: Al parser le sobran palabras, aunque ha entendido gran
 				!! parte de la orden.
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
-				print "Intenta de nuevo porque solo se pudo entender que
+				print "Intenta de nuevo porque s√≥lo se pudo entender que
 				quieres @<<";
 				PrintCommand();
 				print "@>>.";
@@ -543,45 +542,73 @@ Object	LibraryMessages
 				new_line;
 				return true;
 		NUMBER_PE:
-				!! #29: El parser esperaba un token de tipo n˙mero.
-				print_ret (parser) "No se pudo comprender ese n˙mero.";
+				!! #29: El parser esperaba un token de tipo n√∫mero.
+				print_ret (parser) "No se pudo comprender ese n√∫mero.";
 		CANTSEE_PE:
 				!! #30: El parser no ha comprendido el nombre del objeto al que
-				!! se refiere el usuario, o ese objeto no est· aquÌ.
+				!! se refiere el usuario, o ese objeto no est√° aqu√≠.
 				print_ret (parser) "Te has referido a algo con lo que
 				no se puede interactuar en este momento.";
 		TOOLIT_PE:
 				!! #31: Este error parece que no se genera nunca. Un posible
-				!! bug de libreria, o restos de versiones arcaicas.
-				print_ret (parser) "Parece que falta informaciÛn en esa
-				instrucciÛn.";
+				!! bug de librer√≠a, o restos de versiones arcaicas.
+				print_ret (parser) "Parece que falta informaci√≥n en esa
+				instrucci√≥n.";
 		NOTHELD_PE:
-				!! #32: El objeto que el usuario intenta usar no est· en su
-				!! poder. El parser ha intentado "cogerlo de forma automatica",
+				!! #32: El objeto que el usuario intenta usar no est√° en su
+				!! poder. El parser ha intentado "cogerlo de forma autom√°tica",
 				!! pero ha fallado.
-				"No ", (lm_tienes) player, " eso.";
+				switch (_grammatical_inflection) {
+					FIRST_PERSON_PRESENT:
+						if (IsPluralNoun(player)) "No tenemos eso.";
+						else "No tengo eso.";
+					FIRST_PERSON_PAST:
+						if (IsPluralNoun(player)) "No ten√≠amos eso.";
+						else "No ten√≠a eso.";
+					FIRST_PERSON_FUTURE:
+						if (IsPluralNoun(player)) "No tendremos eso.";
+						else "No tendr√© eso.";
+					SECOND_PERSON_PRESENT:
+						if (IsPluralNoun(player)) "No ten√©is eso.";
+						else "No tienes eso.";
+					SECOND_PERSON_PAST:
+						if (IsPluralNoun(player)) "No ten√≠ais eso.";
+						else "No ten√≠as eso.";
+					SECOND_PERSON_FUTURE:
+						if (IsPluralNoun(player)) "No tendr√©is eso.";
+						else "No tendr√°s eso.";
+					THIRD_PERSON_PRESENT:
+						if (IsPluralNoun(player)) "No tienen eso.";
+						else "No tiene eso.";
+					THIRD_PERSON_PAST:
+						if (IsPluralNoun(player)) "No ten√≠an eso.";
+						else "No ten√≠a eso.";
+					THIRD_PERSON_FUTURE:
+						if (IsPluralNoun(player)) "No tendr√°n eso.";
+						else "No tendr√° eso.";
+				}
 		MULTI_PE:
-				!! #33: El usuario ha intentado usar objetos m˙ltiples (o
-				!! "TODO") con un verbo que en su gram·tica no lo admite.
+				!! #33: El usuario ha intentado usar objetos m√∫ltiples (o
+				!! "TODO") con un verbo que en su gram√°tica no lo admite.
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
-				print "No se pueden especificar objetos m˙ltiples con @<<",
+				print "No se pueden especificar objetos m√∫ltiples con @<<",
 				(address) verb_word, "@>>.";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
 				UseTextStyle(previous_style);
 				new_line;
 				return true;
 		MMULTI_PE:
-				!! #34: El usuario ha intentado objetos multiples para "noun" y
+				!! #34: El usuario ha intentado objetos m√∫ltiples para "noun" y
 				!! para "second", como en METE TODO EN TODO.
-				print_ret (parser) "SÛlo se pueden especificar objetos
-				m˙ltiples una vez en cada lÌnea.";
+				print_ret (parser) "S√≥lo se pueden especificar objetos
+				m√∫ltiples una vez en cada l√≠nea.";
 		VAGUE_PE:
-				!! #35: El usuario ha usado un pronombre, como C”MELO, pero el
+				!! #35: El usuario ha usado un pronombre, como C√ìMELO, pero el
 				!! parser no tiene asignado un valor a ese pronombre.
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
-				print "No est· claro a quÈ te refieres con @<<",
+				print "No est√° claro a qu√© te refieres con @<<",
 				(address) pronoun_word ,"@>>.";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
 				UseTextStyle(previous_style);
@@ -595,33 +622,33 @@ Object	LibraryMessages
 				print_ret (parser) "Has exceptuado algo que no estaba
 				incluido.";
 		ANIMA_PE:
-				!! #37: La gram·tica de un verbo obliga a que el objeto sobre
-				!! el que se act˙e sea animate (tiene un token de tipo
+				!! #37: La gram√°tica de un verbo obliga a que el objeto sobre
+				!! el que se act√∫e sea animate (tiene un token de tipo
 				!! "creature"), pero el usuario lo ha intentado sobre un objeto
 				!! que no es animate.
-				print_ret (parser) "SÛlo se puede hacer eso con seres
+				print_ret (parser) "S√≥lo se puede hacer eso con seres
 				animados.";
 		VERB_PE:
 				!! #38: La primera palabra usada por el usuario es desconocida
-				!! (o la primera palabra tras la comma, si se trata de una
-				!! orden a un PNJ).
+				!! (o la primera palabra tras la coma, si se trata de una
+				!! orden a un NPC).
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
-				print "La instrucciÛn @<<";
+				print "La instrucci√≥n @<<";
 				for (j = 0: j < WordLength(1): j++)
 					print (char) WordAddress(1) -> j;
-				print "@>> no est· definida.";
+				print "@>> no est√° definida.";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
 				UseTextStyle(previous_style);
 				new_line;
 				return true;
 		SCENERY_PE:
-				!! #39: El usuario intenta actiones sobre las palabras que
-				!! est·n en la propiedad "irrelevante" de la localidad.
+				!! #39: El usuario intenta acciones sobre las palabras que
+				!! est√°n en la propiedad "irrelevante" de la localidad.
 				return Handle_SCENERY_PE();
 		ITGONE_PE:
-				!! #40: El usuario ha usado un proname, como EXAMÕNALO, pero el
-				!! pronombre se refiere a un objeto que ya no est· visible.
+				!! #40: El usuario ha usado un pronombre, como EXAM√çNALO, pero
+				!! el pronombre se refiere a un objeto que ya no est√° visible.
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "Ahora mismo no se puede encontrar lo que representa el
@@ -632,21 +659,21 @@ Object	LibraryMessages
 				new_line;
 				return true;
 		JUNKAFTER_PE:
-				!! #41: Este error no sale nunca. Probablemente sigue aquÌ por
-				!! razones de compatibilidad, o por despiste de Graham øTal vez
+				!! #41: Este error no sale nunca. Probablemente sigue aqu√≠ por
+				!! razones de compatibilidad, o por despiste de Graham ¬øTal vez
 				!! ha sido sustituido en versiones mas recientes por el mensaje
-				!! n˙mero 28?
-				print_ret (parser) "No se pudo entender la ˙ltima parte de
-				la instrucciÛn.";
+				!! n√∫mero 28?
+				print_ret (parser) "No se pudo entender la √∫ltima parte de
+				la instrucci√≥n.";
 		TOOFEW_PE:
-				!! #42: El usuario ha solicitado un n˙mero de objetos en una
-				!! lista de objetos m˙ltiples, pero el parser no es capaz de
+				!! #42: El usuario ha solicitado un n√∫mero de objetos en una
+				!! lista de objetos m√∫ltiples, pero el parser no es capaz de
 				!! encontrar tantos. Por ejemplo: COGE SEIS MONEDAS.
 				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				if (multi_had == 0) print "No hay suficientes disponibles.";
 				else {
-					print "SÛlo hay ", (number) multi_had ," disponible";
+					print "S√≥lo hay ", (number) multi_had ," disponible";
 					if ( multi_had ~= 1 ) print "s";
 					print ".";
 				}
@@ -655,9 +682,9 @@ Object	LibraryMessages
 				new_line;
 				return true;
 		NOTHING_PE:
-				!! #43: El usuario ha puesto TODO como objeto m˙ltiple, pero el
-				!! parser no ha encontrado ning˙n objeto. En realidad este
-				!! error parece no producirse nunca y el que acaba gener·ndose
+				!! #43: El usuario ha puesto TODO como objeto m√∫ltiple, pero el
+				!! parser no ha encontrado ning√∫n objeto. En realidad este
+				!! error parece no producirse nunca y el que acaba gener√°ndose
 				!! siempre es el siguiente (#44, ASKSCOPE_PE):
 				print_ret (parser) "No se puede encontrar nada con lo que
 				hacer eso.";
@@ -669,8 +696,8 @@ Object	LibraryMessages
 
 !!------------------------------------------------------------------------------
 !! Para errores SCENERY (el usuario a utilizado una palabra de la propiedad
-!! NAME de la localidad actual) provocados por una operaciÛn de tipo EXAMINAR,
-!! se lanza la acciÛn ##Look que imprime una descripciÛn de la localidad.
+!! NAME de la localidad actual) provocados por una operaci√≥n de tipo EXAMINAR,
+!! se lanza la acci√≥n ##Look que imprime una descripci√≥n de la localidad.
 !!------------------------------------------------------------------------------
 [ Handle_SCENERY_PE;
 	if (action_to_be == ##Examine or ##Search or ##Consult) {

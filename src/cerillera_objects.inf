@@ -2,40 +2,40 @@
 
 !!==============================================================================
 !!
-!!	LA PEQUE袮 CERILLERA
-!!	Definici髇 de localidades y objetos
+!!	LA PEQUE脩A CERILLERA
+!!	Definici贸n de localidades y objetos
 !!
 !!==============================================================================
 !!
 !!	Archivo:		cerillera_objects.inf
-!!	Autor(es):		J. Francisco Mart韓 <jfm.lisaso@gmail.com>
-!!	Idioma:			ES (Espa駉l)
+!!	Autor(es):		J. Francisco Mart铆n <jfm.lisaso@gmail.com>
+!!	Idioma:			ES (Espa帽ol)
 !!	Sistema:		Inform-INFSP 6
-!!	Plataforma:		M醧uina-Z/Glulx
-!!	Versi髇:		3.0
-!!	Fecha:			2018/05/14
+!!	Plataforma:		M谩quina-Z/Glulx
+!!	Versi贸n:		4.0
+!!	Fecha:			2018/09/21
 !!
 !!------------------------------------------------------------------------------
 !!
-!!	Este archivo forma parte del relato interactivo
-!!	LA PEQUE袮 CERILLERA.
+!!	Este archivo forma parte de la ficci贸n interactiva
+!!	LA PEQUE脩A CERILLERA.
 !!
-!!	LA PEQUE袮 CERILLERA es software libre: usted puede redistribuirlo
-!!	y/o modificarlo bajo los t閞minos de la Licencia P鷅lica General
-!!	GNU publicada por la Fundaci髇 para el Software Libre, ya sea la
-!!	versi髇 3 de la Licencia, o (a su elecci髇) cualquier versi髇
+!!	LA PEQUE脩A CERILLERA es software libre: usted puede redistribuirlo
+!!	y/o modificarlo bajo los t茅rminos de la Licencia P煤blica General
+!!	GNU publicada por la Fundaci贸n para el Software Libre, ya sea la
+!!	versi贸n 3 de la Licencia, o (a su elecci贸n) cualquier versi贸n
 !!	posterior.
 !!
-!!	LA PEQUE袮 CERILLERA se distribuye con la esperanza de que sea
-!!	鷗il, pero SIN GARANT鞟 ALGUNA; ni siquiera la garant韆 impl韈ita
-!!	MERCANTIL o de APTITUD PARA UN PROP覵ITO DETERMINADO. Consulte los
-!!	detalles de la Licencia P鷅lica General GNU para m醩 informaci髇.
+!!	LA PEQUE脩A CERILLERA se distribuye con la esperanza de que sea
+!!	煤til, pero SIN GARANT脥A ALGUNA; ni siquiera la garant铆a impl铆cita
+!!	MERCANTIL o de APTITUD PARA UN PROP脫SITO DETERMINADO. Consulte los
+!!	detalles de la Licencia P煤blica General GNU para m谩s informaci贸n.
 !!
-!!	Deber韆 haber recibido una copia de la Licencia P鷅lica General GNU
-!!	junto a LA PEQUE袮 CERILLERA. En caso contrario, consulte
+!!	Deber铆a haber recibido una copia de la Licencia P煤blica General GNU
+!!	junto a LA PEQUE脩A CERILLERA. En caso contrario, consulte
 !!	<http://www.gnu.org/licenses/>.
 !!
-!!	Copyright (c) 2010-2018, J. Francisco Mart韓
+!!	Copyright (c) 2010-2018, J. Francisco Mart铆n
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -53,7 +53,7 @@
 !!
 !!------------------------------------------------------------------------------
 
-Room	Limbo "En alg鷑 lugar"
+Room	Limbo "En alg煤n lugar"
  with	name_f	'babia' 'parte',
 		name_m	'limbo' 'lugar' 'sueno' 'vacio',
 		gender	G_MASCULINO,
@@ -170,9 +170,9 @@ Array matchFlags -> 2; ! hasta 8 flags
 !!	-	'general' se activa tras reproducir el efecto de audio agitando la
 !!		caja una vez
 Item	-> -> CajaCerillas "caja de cerillas"
- with	name_f	'caja' 'cajita' 'cerilla',
+ with	name_f	'caja' 'cajita',
 		name_fp	'cerillas',
-		name_m	'estuche' 'fosforo' 'paquete',
+		name_m	'estuche' 'paquete',
 		name_mp	'fosforos',
 		gender	G_FEMENINO,
 		adjectives
@@ -220,17 +220,21 @@ Item	-> -> CajaCerillas "caja de cerillas"
 				return O__M(self, 5);
 			Examine:
 				if (self hasnt general && ~~self.stop_shaking) {
-					PlaySFX(SFX_CAJA_CERILLAS, 100);
+					PlaySFX(SFX_CAJA_CERILLAS, 75);
 					give self general;
 				}
 				return false;
-			Take:
-				if (IndirectlyContains(player, self)) {
-					return O__M(self, 16);
+			Open:
+				if (self has open) {
+					return O__M(self, 19);
 				}
+			!! Take:
+			!! 	if (IndirectlyContains(player, self)) {
+			!! 		return O__M(self, 16);
+			!! 	}
 			Wave:
 				if (self hasnt general && ~~self.stop_shaking) {
-					PlaySFX(SFX_CAJA_CERILLAS, 100);
+					PlaySFX(SFX_CAJA_CERILLAS, 75);
 					give self general;
 				}
 				if (self.stop_shaking) return O__M(self, 18);
@@ -247,9 +251,9 @@ Item	-> -> CajaCerillas "caja de cerillas"
 		flag_open false,
 		light_match [;
 			switch (Shuffle(3, matchFlags)) {
-				1:	PlaySFX(SFX_CERILLA_1, 100);
-				2:	PlaySFX(SFX_CERILLA_2, 100);
-				3:	PlaySFX(SFX_CERILLA_3, 100);
+				1:	PlaySFX(SFX_CERILLA_1, 75);
+				2:	PlaySFX(SFX_CERILLA_2, 75);
+				3:	PlaySFX(SFX_CERILLA_3, 75);
 			}
 			switch (Esquina.scene) {
 				1:	move RestosCalcinados to Esquina;
@@ -288,10 +292,23 @@ Item	-> -> CajaCerillas "caja de cerillas"
 			<<Look>>;
 		],
 		stop_shaking false,
- has	female openable ~open;
+ has	container female openable ~open remarkable transparent;
 
 Item	-> -> -> Cerilla "cerilla"
- with	gender G_FEMENINO,
+ with	name_f	'cerilla',
+		name_m	'fosforo',
+		gender G_FEMENINO,
+		react_before [;
+			Remove:
+				if (noun == self) <<Burn CajaCerillas>>;
+		],
+		before [;
+			Remove, Take:
+				<<Burn CajaCerillas>>;
+			default:
+				noun = CajaCerillas;
+				return CajaCerillas.before();
+		],
  has	female;
 
 

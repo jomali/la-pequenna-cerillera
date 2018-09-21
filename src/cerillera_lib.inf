@@ -2,40 +2,40 @@
 
 !!==============================================================================
 !!
-!!	LA PEQUE—A CERILLERA
-!!	Personalizaciones a la librerÌa Inform
+!!	LA PEQUE√ëA CERILLERA
+!!	Personalizaciones a la librer√≠a Inform
 !!
 !!==============================================================================
 !!
 !!	Archivo:		cerillera_lib.inf
-!!	Autor(es):		J. Francisco MartÌn <jfm.lisaso@gmail.com>
-!!	Idioma:			ES (EspaÒol)
+!!	Autor(es):		J. Francisco Mart√≠n <jfm.lisaso@gmail.com>
+!!	Idioma:			ES (Espa√±ol)
 !!	Sistema:		Inform-INFSP 6
-!!	Plataforma:		M·quina-Z/Glulx
-!!	VersiÛn:		3.0
-!!	Fecha:			2018/05/14
+!!	Plataforma:		M√°quina-Z/Glulx
+!!	Versi√≥n:		4.0
+!!	Fecha:			2018/09/21
 !!
 !!------------------------------------------------------------------------------
 !!
-!!	Este archivo forma parte del relato interactivo
-!!	LA PEQUE—A CERILLERA.
+!!	Este archivo forma parte de la ficci√≥n interactiva
+!!	LA PEQUE√ëA CERILLERA.
 !!
-!!	LA PEQUE—A CERILLERA es software libre: usted puede redistribuirlo
-!!	y/o modificarlo bajo los tÈrminos de la Licencia P˙blica General
-!!	GNU publicada por la FundaciÛn para el Software Libre, ya sea la
-!!	versiÛn 3 de la Licencia, o (a su elecciÛn) cualquier versiÛn
+!!	LA PEQUE√ëA CERILLERA es software libre: usted puede redistribuirlo
+!!	y/o modificarlo bajo los t√©rminos de la Licencia P√∫blica General
+!!	GNU publicada por la Fundaci√≥n para el Software Libre, ya sea la
+!!	versi√≥n 3 de la Licencia, o (a su elecci√≥n) cualquier versi√≥n
 !!	posterior.
 !!
-!!	LA PEQUE—A CERILLERA se distribuye con la esperanza de que sea
-!!	˙til, pero SIN GARANTÌA ALGUNA; ni siquiera la garantÌa implÌcita
-!!	MERCANTIL o de APTITUD PARA UN PROP”SITO DETERMINADO. Consulte los
-!!	detalles de la Licencia P˙blica General GNU para m·s informaciÛn.
+!!	LA PEQUE√ëA CERILLERA se distribuye con la esperanza de que sea
+!!	√∫til, pero SIN GARANT√çA ALGUNA; ni siquiera la garant√≠a impl√≠cita
+!!	MERCANTIL o de APTITUD PARA UN PROP√ìSITO DETERMINADO. Consulte los
+!!	detalles de la Licencia P√∫blica General GNU para m√°s informaci√≥n.
 !!
-!!	DeberÌa haber recibido una copia de la Licencia P˙blica General GNU
-!!	junto a LA PEQUE—A CERILLERA. En caso contrario, consulte
+!!	Deber√≠a haber recibido una copia de la Licencia P√∫blica General GNU
+!!	junto a LA PEQUE√ëA CERILLERA. En caso contrario, consulte
 !!	<http://www.gnu.org/licenses/>.
 !!
-!!	Copyright (c) 2010-2018, J. Francisco MartÌn
+!!	Copyright (c) 2010-2018, J. Francisco Mart√≠n
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -50,7 +50,7 @@
 !!	-	ExamineSub()
 !!	-	GetGNAOfObject()
 !!	-	GetActionVerb()
-!!	-	LanguageDirection() / RedefiniciÛn de direcciones
+!!	-	LanguageDirection() / Redefinici√≥n de direcciones
 !!	-	LMode1Sub()
 !!	-	LMode2Sub()
 !!	-	LMode3Sub()
@@ -63,26 +63,27 @@
 
 
 !!==============================================================================
-!! Conjunto de rutinas para imprimir los crÈditos de la aplicaciÛn en
+!! Conjunto de rutinas para imprimir los cr√©ditos de la aplicaci√≥n en
 !! castellano. Lista de rutinas incluidas: Banner(), PrintHeadline(),
 !! PrintSerialNumber(), PrintStoryTitle() y PrintVersionNumber().
 !!
 !!	@override verblibm.h
 !!	@version 1.1
 !!------------------------------------------------------------------------------
+!! FIXME - Vorple / m√≥vil
 [ Banner;
 	PrintStoryTitle();
 	PrintHeadline();
 	#Ifdef DEBUG;
-	print "ALFA ";
+	print "DEBUG ";
 	#Ifnot;
-	print "VersiÛn ";
+	print "Versi√≥n ";
 	#Endif; ! DEBUG;
 	PrintVersionNumber();
 	#Ifdef TARGET_ZCODE;
 	print " Z";
 	#Endif; ! TARGET_ZCODE;
-	print " / N˙m. de serie ";
+	print " / N√∫m. de serie ";
 	PrintSerialNumber();
 	print " / Creado con Inform "; inversion;
 	#Ifdef DEBUG;
@@ -105,7 +106,7 @@
 	}
 ];
 
-!! Imprime el n˙mero de serie
+!! Imprime el n√∫mero de serie
 [ PrintSerialNumber
 	i;
 	#Ifdef	TARGET_ZCODE;
@@ -115,7 +116,7 @@
 	#Endif;	! TARGET_
 ];
 
-!! Imprime el tÌtulo
+!! Imprime el t√≠tulo
 [ PrintStoryTitle;
 	if (Story ~= 0) {
 		#Ifdef TARGET_ZCODE;
@@ -131,7 +132,7 @@
 	}
 ];
 
-!! Imprime el n˙mero de versiÛn
+!! Imprime el n√∫mero de versi√≥n
 [ PrintVersionNumber
 	i;
 	i = 0;  ! shut up compiler warning
@@ -146,8 +147,8 @@
 
 
 !!==============================================================================
-!! Elimina la barra de estado (crea una barra de estado sin altura). SÛlo en
-!! M·quina-Z, en Glulx se utiliza la configuraciÛn de ventanas de GWindows.
+!! Elimina la barra de estado (crea una barra de estado sin altura). S√≥lo en
+!! M√°quina-Z, en Glulx se utiliza la configuraci√≥n de ventanas de GWindows.
 !!
 !!	@override parserm.h
 !!	@version 1.0
@@ -159,7 +160,7 @@
 
 
 !!==============================================================================
-!! Rutina para obtener la descripciÛn de un objeto. Es idÈntica a la rutina
+!! Rutina para obtener la descripci√≥n de un objeto. Es id√©ntica a la rutina
 !! original implementada en 'verblibm.h' salvo por un detalle: al examinar un
 !! objeto por primera vez se le asigna el nuevo atributo 'described'.
 !!
@@ -186,8 +187,8 @@ Attribute described; ! Indica si un objeto ha sido descrito al jugador
 
 
 !!==============================================================================
-!! Determina el cÛdigo GNA ('gender-number-animation') del nombre corto del
-!! objeto 'obj' pasado como par·metro. El cÛdigo GNA es un n˙mero entero entre
+!! Determina el c√≥digo GNA ('gender-number-animation') del nombre corto del
+!! objeto 'obj' pasado como par√°metro. El c√≥digo GNA es un n√∫mero entero entre
 !! 0 y 11:
 !!
 !!		0	animate		singular	masculine
@@ -203,24 +204,24 @@ Attribute described; ! Indica si un objeto ha sido descrito al jugador
 !!		10							feminine
 !!		11							neuter
 !!
-!! Para determinar el cÛdigo GNA de un objeto en INFSP6 se pueden seguir dos
+!! Para determinar el c√≥digo GNA de un objeto en INFSP6 se pueden seguir dos
 !! estrategias: 1) utilizar sus atributos 'animate', 'male', 'female', 'neuter'
 !! y 'pluralname' o, 2) si el objeto tiene definida una propiedad 'gender',
-!! utlizando esta ˙ltima. La rutina original hace uso ˙nicamente de esa primera
+!! utlizando esta √∫ltima. La rutina original hace uso √∫nicamente de esa primera
 !! estrategia, pero presenta el inconveniente de que el resultado no es siempre
-!! el mismo para un objeto dado, puesto que la librerÌa modifica sus atributos
-!! autom·ticamente en tiempo de ejecuciÛn. La segunda estrategia, por su parte,
-!! arroja siempre el mismo resultado. Esta implementaciÛn de la rutina incluye
-!! un par·metro opcional booleano que permite seleccionar el tipo de estrategia
+!! el mismo para un objeto dado, puesto que la librer√≠a modifica sus atributos
+!! autom√°ticamente en tiempo de ejecuci√≥n. La segunda estrategia, por su parte,
+!! arroja siempre el mismo resultado. Esta implementaci√≥n de la rutina incluye
+!! un par√°metro opcional booleano que permite seleccionar el tipo de estrategia
 !! utilizado para determinar el GNA: el valor falso por defecto para usar la
 !! estrategia 1 de la rutina original; verdadero para usar la estrategia 2.
 !!
-!!	@param {Object} obj - Objeto del que se desea conocer su cÛdigo GNA
-!!	@param {boolean} [flag=false] - Si se invoca con este par·metro activado
+!!	@param {Object} obj - Objeto del que se desea conocer su c√≥digo GNA
+!!	@param {boolean} [flag=false] - Si se invoca con este par√°metro activado
 !!		(==true), el GNA se calcula utilizando el atributo 'animate' y la
-!!		propiedad 'gender' del objeto. En caso contrario lo hace bas·ndose en
+!!		propiedad 'gender' del objeto. En caso contrario lo hace bas√°ndose en
 !!		sus atributos 'animate', 'male', 'female', 'neuter' y 'pluralname'
-!!	@returns {integer} CÛdigo GNA del objeto [0-11]
+!!	@returns {integer} C√≥digo GNA del objeto [0-11]
 !!	@override parserm.h
 !!	@version 1.0
 !!------------------------------------------------------------------------------
@@ -253,10 +254,10 @@ Attribute described; ! Indica si un objeto ha sido descrito al jugador
 
 
 !!==============================================================================
-!! Retorna el verbo que se corresponde a la acciÛn dada como par·metro.
+!! Retorna el verbo que se corresponde a la acci√≥n dada como par√°metro.
 !!
-!!	@param {Object} x - Constante con una acciÛn
-!!	@returns {string} Una palabra que se corresponde con la acciÛn 'x'
+!!	@param {Object} x - Constante con una acci√≥n
+!!	@returns {string} Una palabra que se corresponde con la acci√≥n 'x'
 !!	@version 1.0
 !!------------------------------------------------------------------------------
 !! [ GetActionVerb x;
@@ -278,7 +279,7 @@ Attribute described; ! Indica si un objeto ha sido descrito al jugador
 !! 		##Insert:		return "Meter";
 !! 		##Inv:			return "Inventario";
 !! 		##InvTall:		return "Inventario (lista)";
-!! 		##InvWide:		return "Inventario (descripciÛn)";
+!! 		##InvWide:		return "Inventario (descripci√≥n)";
 !! 		##Lock:			return "Bloquear";
 !! 		##Look:			return "Mirar";
 !! 		##Open:			return "Abrir";
@@ -286,7 +287,7 @@ Attribute described; ! Indica si un objeto ha sido descrito al jugador
 !! 		##PutOn:		return "Poner encima";
 !! 		##Remove:		return "Quitar";
 !! 		##Search:		return "Buscar";
-!! 		##Show:			return "EnseÒar";
+!! 		##Show:			return "Ense√±ar";
 !! 		##SwitchOff:	return "Apagar";
 !! 		##SwitchOn:		return "Encender";
 !! 		##Take:			return "Coger";
@@ -345,7 +346,7 @@ Attribute described; ! Indica si un objeto ha sido descrito al jugador
 !! 		##Wave:			return "Gesticular";
 !! 		##WaveHands:	return "Gesticular con las manos";
 !! 		##Yes:			return "Si";
-!! 		!! GRAM¡TICA ESPA—OLA EXTENDIDA:
+!! 		!! GRAM√ÅTICA ESPA√ëOLA EXTENDIDA:
 !! 		##Dance:		return "Bailar";
 !! 		##GoDown:		return "Descender";
 !! 		##GoUp:			return "Ascender";
@@ -367,20 +368,20 @@ Attribute described; ! Indica si un objeto ha sido descrito al jugador
 
 
 !!==============================================================================
-!! RedefiniciÛn de los 8 puntos cardinales ---norte, sur, este, oeste,
+!! Redefinici√≥n de los 8 puntos cardinales ---norte, sur, este, oeste,
 !! nordeste, noroeste, sudeste, sudoeste--- y las direcciones 'arriba' y
 !! 'abajo' (se mantienen las definiciones 'interior' y 'exterior' por defecto
 !! de la 'Spanish.h'), para eliminar los nombres 'cielo' 'techo', 'piso' y
 !! 'suelo', de forma que puedan ser utilizados por otros objetos del relato.
 !!
-!! Se abre la posibilidad de aÒadir aquÌ direcciones nuevas, por ejemplo:
-!! 'adelante' y 'atr·s'. Para ello se redefine tambiÈn la runtina
+!! Se abre la posibilidad de a√±adir aqu√≠ direcciones nuevas, por ejemplo:
+!! 'adelante' y 'atr√°s'. Para ello se redefine tambi√©n la runtina
 !! 'LanguageDirection()', usada a su vez en la rutina 'PrintCommand()' para
-!! imprimir el nombre de las nuevas direcciones aÒadidas.
+!! imprimir el nombre de las nuevas direcciones a√±adidas.
 !!
 !! Para utilizar las redefiniciones es necesario declarar la constante
 !! WITHOUT_DIRECTIONS, de forma que se omiten los puntos cardinales por defecto
-!! de la librerÌa, junto con el reemplazo de la rutina 'LanguageDirection()'.
+!! de la librer√≠a, junto con el reemplazo de la rutina 'LanguageDirection()'.
 !!
 !!	@override Spanish.h
 !!	@version 1.0
@@ -419,7 +420,7 @@ CompassDirection d_obj "abajo" compass
  has	proper;
 
 !! Property b_to;
-!! CompassDirection b_obj "atr·s" compass
+!! CompassDirection b_obj "atr√°s" compass
 !!  with	name 'b//' 'atras', door_dir b_to,
 !!  has	proper;
 !!
@@ -442,7 +443,7 @@ CompassDirection d_obj "abajo" compass
 		d_to:	print "abajo";
 		in_to:	print "dentro";
 		out_to:	print "fuera";
-		!! b_to:	print "atr·s";
+		!! b_to:	print "atr√°s";
 		!! f_to:	print "adelante";
 		default: return RunTimeError(9, dir);
 	}
@@ -450,7 +451,7 @@ CompassDirection d_obj "abajo" compass
 
 
 !!==============================================================================
-!! RedefiniciÛn de los 'lookmode': Breve, Largo y Superbreve.
+!! Redefinici√≥n de los 'lookmode': Breve, Largo y Superbreve.
 !!
 !!	@override verblibm.h
 !!	@version 1.0
@@ -461,8 +462,8 @@ CompassDirection d_obj "abajo" compass
 
 
 !!==============================================================================
-!! RedefiniciÛn de la rutina 'LookSub' para evitar que se imprima el nombre de
-!! la localidad actual antes de su descripciÛn.
+!! Redefinici√≥n de la rutina 'LookSub' para evitar que se imprima el nombre de
+!! la localidad actual antes de su descripci√≥n.
 !!
 !!	@override verblibm.h
 !!	@version 1.0
@@ -542,42 +543,42 @@ CompassDirection d_obj "abajo" compass
 
 !!==============================================================================
 !! La rutina ParseNoun se ocupa de ignorar "de" cuando aparece entre dos
-!! palabras reconocidas como names de un mismo objeto. AsÌ, si un objeto tiene
-!! en su campo "name" los valores "caja" "madera" "caoba" ParseNoun aceptar·
+!! palabras reconocidas como names de un mismo objeto. As√≠, si un objeto tiene
+!! en su campo "name" los valores "caja" "madera" "caoba" ParseNoun aceptar√°
 !! "caja de madera" "caja de caoba" e incluso "caja de madera de caoba". En
-!! cambio, ante la cadena "caja de bolsa", sÛlo aceptar· la primera palabra
+!! cambio, ante la cadena "caja de bolsa", s√≥lo aceptar√° la primera palabra
 !! (caja) dejando sin procesar "de bolsa", lo que permite la posterior
 !! interpretacion de frases como "saca caja de bolsa" e incluso "saca caja de
-!! madera de caoba de bolsa". De paso tambiÈn ignora artÌculos con lo que
-!! tambiÈn se admite: "saca la caja de madera de caoba de la bolsa".
+!! madera de caoba de bolsa". De paso tambi√©n ignora art√≠culos con lo que
+!! tambi√©n se admite: "saca la caja de madera de caoba de la bolsa".
 !!
-!! ParseNoun debe retornar un n˙mero que indica cu·ntas palabras admite como
+!! ParseNoun debe retornar un n√∫mero que indica cu√°ntas palabras admite como
 !! pertenecientes al objeto. En nuestro ejemplo, ante "caja de madera" debe
 !! retornar 3, pero ante "caja de bolsa" debe retornar 1.
 !!
-!! MODIFICACI”N: Si usamos la rutina original y redefinimos el objeto con el
+!! MODIFICACI√ìN: Si usamos la rutina original y redefinimos el objeto con el
 !! valor "caja" en sus campos "name" (name, name_m, name_f, name_mp y name_fp)
 !! y los valores "madera" y "caoba" en el campo "adjectives", ParseNoun
-!! aceptarÌa las cadenas "caja", "caja de madera", "caja de madera de caoba",
+!! aceptar√≠a las cadenas "caja", "caja de madera", "caja de madera de caoba",
 !! "madera", "caoba",... para referirse al objeto. Con la rutina modificada se
 !! permite hacer parseado estricto de forma que las cadenas "madera" y "caoba"
-!! no sean cadenas v·lidas. Es decir, de manera que sea precisa la existencia
+!! no sean cadenas v√°lidas. Es decir, de manera que sea precisa la existencia
 !! de al menos una coincidencia con los valores de los campos "name" del
 !! objeto.
 !!
-!!	@returns {integer} N˙mero de palabras reconocidas en la entrada del usuario
+!!	@returns {integer} N√∫mero de palabras reconocidas en la entrada del usuario
 !!	@override SpanishG.h
 !!	@version 1.0
 !!------------------------------------------------------------------------------
 [ ParseNoun obj n dudas seguir gen p aux m nm nf nmp nfp a;
 
-	n	= 0;	! n˙m. de palabras reconocidas de momento
-	m	= 0;	! n˙m. de nombres reconocidos de momento
-	nm	= 0;	! n˙m. de nombres masculinos reconocidos de momento
-	nf	= 0;	! n˙m. de nombres femeninos reconocidos de momento
-	nmp	= 0;	! n˙m. de nombres masculinos plurales reconocidos de momento
-	nfp	= 0;	! n˙m. de nombres femeninos plurales reconocidos de momento
-	a	= 0;	! n˙m. de adjetivos reconocidos de momento
+	n	= 0;	! n√∫m. de palabras reconocidas de momento
+	m	= 0;	! n√∫m. de nombres reconocidos de momento
+	nm	= 0;	! n√∫m. de nombres masculinos reconocidos de momento
+	nf	= 0;	! n√∫m. de nombres femeninos reconocidos de momento
+	nmp	= 0;	! n√∫m. de nombres masculinos plurales reconocidos de momento
+	nfp	= 0;	! n√∫m. de nombres femeninos plurales reconocidos de momento
+	a	= 0;	! n√∫m. de adjetivos reconocidos de momento
 
 	! Indica si hay que seguir mirando palabras para comprobar si las
 	! siguientes se refieren o no a este mismo objeto
@@ -609,7 +610,7 @@ CompassDirection d_obj "abajo" compass
 			n++;		! la contamos
 			m++;
 			nf++;
-			n=n+dudas;	! aÒadimos todos los "de" "la"... que estaban sin contar
+			n=n+dudas;	! a√±adimos todos los "de" "la"... que estaban sin contar
 			dudas=0;	! y resetamos el contador de "de"s
 !			print " --> es ahora femenino...." ; !infsp debug
 			continue;	! volvemos al while
@@ -622,7 +623,7 @@ CompassDirection d_obj "abajo" compass
 			n++;		! la contamos
 			m++;
 			nmp++;
-			n=n+dudas;	! aÒadimos todos los "de" "la"... que estaban sin contar
+			n=n+dudas;	! a√±adimos todos los "de" "la"... que estaban sin contar
 			dudas=0;	! y resetamos el contador de "de"s
 			continue;	! volvemos al while
 		}
@@ -634,7 +635,7 @@ CompassDirection d_obj "abajo" compass
 			n++;		! la contamos
 			m++;
 			nfp++;
-			n=n+dudas;	! aÒadimos todos los "de" "la"... que estaban sin contar
+			n=n+dudas;	! a√±adimos todos los "de" "la"... que estaban sin contar
 			dudas=0;	! y resetamos el contador de "de"s
 			continue;	! volvemos al while
 		}
@@ -649,7 +650,7 @@ CompassDirection d_obj "abajo" compass
 			n++;		! la contamos
 			m++;
 			nm++;
-			n=n+dudas;	! aÒadimos todos los "de" "la"... que estaban sin contar
+			n=n+dudas;	! a√±adimos todos los "de" "la"... que estaban sin contar
 			dudas=0;	! y resetamos el contador de "de"s
 !			print " --> es ahora masculino...." ; !infsp debug
 			continue;	! volvemos al while
@@ -659,25 +660,25 @@ CompassDirection d_obj "abajo" compass
 			if (p) dict_flags_of_noun = (p->#dict_par1) & $$01110100;
 			n++;		! la contamos
 			a++;
-			n=n+dudas;	! aÒadimos todos los "de" "la"... que estaban sin contar
+			n=n+dudas;	! a√±adimos todos los "de" "la"... que estaban sin contar
 			dudas = 0;	! y resetamos el contador de "de"s
 !			print (the) obj," --> adjetivo detectado....^" ; !infsp debug
 			continue;	! volvemos al while
 		}
 
 		! Si la palabra no fue reconocida, miraremos si se trata
-		! de 'de' o un artÌculo. En este caso mantenemos la duda y
+		! de 'de' o un art√≠culo. En este caso mantenemos la duda y
 		! seguimos mirando palabras, hasta que una de ellas encaje
 		! en este objeto$ en cuyo caso se retornan todas las que se
 		! han leido, o bien se encuentre una que no encaja en cuyo
-		! caso se retorna las que se habÌan encontrado antes del "de"
+		! caso se retorna las que se hab√≠an encontrado antes del "de"
 
 		else if (p== 'el' or 'la' or 'los' or 'las' or 'de')
 		{
 			dudas++; continue;
 		}
-		! Si la palabra no fue reconocida, ni se trata de un artÌculo o de un
-		! "de", se da la b˙squeda por finalizada y se sale del bucle
+		! Si la palabra no fue reconocida, ni se trata de un art√≠culo o de un
+		! "de", se da la b√∫squeda por finalizada y se sale del bucle
 		else seguir = 0;
 
 	}! while block
@@ -703,13 +704,13 @@ CompassDirection d_obj "abajo" compass
 	! si no ha sido referenciado al menos por uno de sus nombres
 	if (m == 0) return 0;
 
-	return n; ! Se retorna n˙mero de palabras reconocidas
+	return n; ! Se retorna n√∫mero de palabras reconocidas
 ];
 
 
 !!==============================================================================
-!! Rutina para imprimir el nombre corto de un objeto. Adem·s, crea un
-!! hipervÌnculo relacionado con el objeto y, si el objeto tiene el atributo
+!! Rutina para imprimir el nombre corto de un objeto. Adem√°s, crea un
+!! hiperv√≠nculo relacionado con el objeto y, si el objeto tiene el atributo
 !! 'remarkable' utiliza un estilo resaltado para imprimir el nombre.
 !!
 !!	@returns {boolean} Verdadero
@@ -732,7 +733,7 @@ CompassDirection d_obj "abajo" compass
 
 
 !!==============================================================================
-!! CrÈditos detallados de la aplicaciÛn.
+!! Cr√©ditos detallados de la aplicaci√≥n.
 !!
 !!	@override verblibm.h
 !!	@version 1.0
@@ -741,8 +742,8 @@ CompassDirection d_obj "abajo" compass
 	ix;
 	new_line;
 	Banner();
-	print "VersiÛn de la librerÌa Inform ", (string) LibRelease;
-	print " / N˙m. de serie librerÌa ", (string) LibSerial;
+	print "Versi√≥n de la librer√≠a Inform ", (string) LibRelease;
+	print " / N√∫m. de serie librer√≠a ", (string) LibSerial;
 	new_line;
 	#Ifdef LanguageVersion;
 	print (string) LanguageVersion, "^";
@@ -750,7 +751,7 @@ CompassDirection d_obj "abajo" compass
 	#Ifdef TARGET_ZCODE;
 	ix = 0; ! shut up compiler warning
 	if (standard_interpreter > 0) {
-		print "Est·ndar del intÈrprete ", standard_interpreter/256, ".",
+		print "Est√°ndar del int√©rprete ", standard_interpreter/256, ".",
 			standard_interpreter%256, " (", HDR_TERPNUMBER->0;
 		#Iftrue (#version_number == 6);
 		print (char) '.', HDR_TERPVERSION->0;
@@ -759,7 +760,7 @@ CompassDirection d_obj "abajo" compass
 		#Endif;
 		print ") / ";
 	} else {
-		print "IntÈrprete ", HDR_TERPNUMBER->0, " VersiÛn ";
+		print "Int√©rprete ", HDR_TERPNUMBER->0, " Versi√≥n ";
 		#Iftrue (#version_number == 6);
 		print HDR_TERPVERSION->0;
 		#Ifnot;
@@ -769,7 +770,7 @@ CompassDirection d_obj "abajo" compass
 	}
 	#Ifnot; ! TARGET_GLULX;
 	@gestalt 1 0 ix;
-	print "VersiÛn del intÈrprete ", ix / $10000, ".", (ix & $FF00) / $100,
+	print "Versi√≥n del int√©rprete ", ix / $10000, ".", (ix & $FF00) / $100,
 	".", ix & $FF, " / ";
 	@gestalt 0 0 ix;
 	print "VM ", ix / $10000, ".", (ix & $FF00) / $100, ".", ix & $FF;
@@ -778,27 +779,28 @@ CompassDirection d_obj "abajo" compass
 
 	new_line;
 	print "Relato original: ", (strong) "Hans Christian Andersen", ".^";
-	print "DiseÒo y programaciÛn: ", (strong) "J. Francisco MartÌn Lisaso",".^";
-	print "ComposiciÛn musical: ", (strong) "Franz Xaver Gruber", ".^";
-	print "GrabaciÛn: ", (strong) "Kevin MacLeod", ".^";
-	print "IlustraciÛn de portada: ", (strong) "Anne Anderson", ".^";
+	print "Dise√±o y programaci√ßon: ",
+		(strong) "J. Francisco Mart√≠n Lisaso",".^";
+	print "Composici√≥n musical: ", (strong) "Franz Xaver Gruber", ".^";
+	print "Grabaci√≥n: ", (strong) "Kevin MacLeod", ".^";
+	print "Ilustraci√≥n de portada: ", (strong) "Anne Anderson", ".^";
 	print "Icono original: ", (strong) "Roundicons.com", ".^";
 
 	new_line;
 	print "Este programa es software libre: usted puede redistribuirlo y/o
-	modificarlo bajo los tÈrminos de la Licencia P˙blica General GNU publicada
-	por la FundaciÛn para el Software Libre, ya sea la versiÛn 3 de la
-	Licencia, o (a su elecciÛn) cualquier versiÛn posterior.
+	modificarlo bajo los t√©rminos de la Licencia P√∫blica General GNU publicada
+	por la Fundaci√≥n para el Software Libre, ya sea la versi√≥n 3 de la
+	Licencia, o (a su elecci√≥n) cualquier versi√≥n posterior.
 	^^
-	Este programa se distribuye con la esperanza de que sea ˙til, pero SIN
-	GARANTÕA ALGUNA; ni siquiera la garantÌa implÌcita MERCANTIL o de APTITUD
-	PARA UN PROP”SITO DETERMINADO. Consulte los detalles de la Licencia P˙blica
-	General GNU para m·s informaciÛn.
+	Este programa se distribuye con la esperanza de que sea √∫til, pero SIN
+	GARANT√çA ALGUNA; ni siquiera la garant√≠a impl√≠cita MERCANTIL o de APTITUD
+	PARA UN PROP√ìSITO DETERMINADO. Consulte los detalles de la Licencia P√∫blica
+	General GNU para m√°s informaci√≥n.
 	^^
-	DeberÌa haber recibido una copia de la Licencia P˙blica General GNU junto a
+	Deber√≠a haber recibido una copia de la Licencia P√∫blica General GNU junto a
 	este programa. En caso contrario, consulte <http://www.gnu.org/licenses/>.
 	^^
-	Copyright (c) 2010-2018, J. Francisco MartÌn";
+	Copyright (c) 2010-2018, J. Francisco Mart√≠n";
 	new_line;
 	return true;
 ];

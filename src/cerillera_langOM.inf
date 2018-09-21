@@ -248,6 +248,12 @@ return true;
 print "Sus manos también se habían agotado y no temblaban ya.";
 new_line;
 return true;
+19:	! ##Open
+print "La ";
+Hyperlink(CajaCerillas, "caja", 0);
+print " ya estaba abierta.";
+new_line;
+return true;
 }
 
 
@@ -357,7 +363,7 @@ return true;
 
 HelpManager: switch (n) {
 1:	! (mensaje inicial)
-print (parser) "Si es la primera vez que experimentas las obra tal vez quieras teclear AYUDA.";
+print (parser) "Si es la primera vez que experimentas la obra tal vez quieras teclear AYUDA.";
 new_line;
 return true;
 2:	! (pista general)
