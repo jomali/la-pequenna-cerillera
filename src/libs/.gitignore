@@ -1,0 +1,21 @@
+# Excluye los ficheros creados al generar la documentación con 'pdflatex':
+*.aux
+*.log
+*.out
+*.pdf
+
+# Excluye los ejecutables de Máquina-Z y Glulx:
+*.z5
+*.z8
+*.zblorb
+*.ulx
+*.blb
+*.gblorb
+
+# Excluye directorios de Vorple no relacionados con sus extensiones:
+Vorple6/examples
+Vorple6/interpreter
+Vorple6/resources
+Vorple6/JustEnoughGlulx/*.aif
+Vorple6/*.html
+Vorple6/*.txt

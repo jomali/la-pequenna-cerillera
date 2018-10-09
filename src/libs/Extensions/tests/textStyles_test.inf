@@ -1,0 +1,183 @@
+!% +language_name=Spanish
+
+
+!!==============================================================================
+!!
+!!	TEXT STYLES: PRUEBAS
+!!	Interfaz biplataforma para la selección de estilos de texto
+!!
+!!==============================================================================
+!!
+!!	Archivo:		textStyles_test.inf
+!!	Autor(es):		J. Francisco Martín <jfm.lisaso@gmail.com>
+!!	Idioma:			ES (Español)
+!!	Sistema:		Inform-INFSP 6
+!!	Platforma:		Máquina-Z/Glulx
+!!	Versión:		2.0
+!!	Fecha:			2018/03/XX
+!!
+!!------------------------------------------------------------------------------
+!!
+!!	Copyright (c) 2018, J. Francisco Martín
+!!
+!!	Este programa es software libre: usted puede redistribuirlo y/o
+!!	modificarlo bajo los términos de la Licencia Pública General GNU
+!!	publicada por la Fundación para el Software Libre, ya sea la versión
+!!	3 de la Licencia, o (a su elección) cualquier versión posterior.
+!!
+!!	Este programa se distribuye con la esperanza de que sea útil, pero
+!!	SIN GARANTÍA ALGUNA; ni siquiera la garantía implícita MERCANTIL o
+!!	de APTITUD PARA UN PROPÓSITO DETERMINADO. Consulte los detalles de
+!!	la Licencia Pública General GNU para más información.
+!!
+!!	Debería haber recibido una copia de la Licencia Pública General GNU
+!!	junto a este programa. En caso contrario, consulte
+!!	<http://www.gnu.org/licenses/>.
+!!
+!!------------------------------------------------------------------------------
+!!
+!!	HISTORIAL DE VERSIONES
+!!
+!!	2.0: 2018/03/XX
+!!	1.0: 2018/02/28	Versión inicial.
+!!
+!!------------------------------------------------------------------------------
+
+
+Constant Story
+"~Text Styles~: Pruebas";
+
+Constant Headline
+"^Interfaz biplataforma para la selección de estilos de texto^";
+
+Constant TEXT_STYLE_PARSER = TEXT_STYLE_MONOSPACED;
+Constant TEXT_STYLE_PARSER_PREFIX = "-- ";
+
+Include "Parser.h";
+Include ">textStyles.h";
+
+Include "VerbLib.h";
+
+#Ifdef TARGET_GLULX;
+!!------------------------------------------------------------------------------
+!! Este punto de entrada es invocado por la librería cuando establece las
+!! ventanas estándar: la ventana de texto principal, la ventana de estado y, si
+!! se utilizan "cajas de citas", la ventana para citas. Las ventanas
+!! principal y de estado son creadas al inicio de la aplicación (antes del
+!! punto de entrada 'Initialise()'). La ventana para citas es creada y
+!! destruida según resulta necesario.
+!!
+!! Es importante tener en cuenta que la librería requiere de la existencia de
+!! una ventana de texto principal, registrada en la variable 'gg_mainwin'. Si
+!! se impide a la librería crear esta ventana y no se crea manualmente en su
+!! lugar, la aplicación se cerrará. Las ventanas de estado y la ventana para
+!! citas, en cambio, son opcionales.
+!!
+!!	@param {integer} winrock - Código numérico que indica la fase en que se
+!!		llama a la rutina: 0) inicio de la aplicación, antes incluso de
+!!		llamar al punto de entrada 'Initialise()'. GG_MAINWIN_ROCK) antes de
+!!		crear la ventana de texto principal. GG_STATUSWIN_ROCK) antes de crear
+!!		la ventana de estado. 1) final del proceso de establecimiento de las
+!!		ventanas estándar. Se trata de un momento adecuado para abrir otras
+!!		posibles ventanas no estándar. GG_QUOTEWIN_ROCK) antes de la creación
+!!		de la ventana para citas. A diferencias de las otras fases, esta
+!!		ventana no se crea en la inicialización de la obra, sino durante su
+!!		ejecución, al imprimir una cita, y es destruida un turno después. El
+!!		número de líneas objetivo de la ventana para citas está registrado en
+!!		'gg_arguments-->0'
+!!	@returns {integer} 0 para continuar con la ejecución normal de la librería.
+!!		1 para interrumpirla en alguna de las fases (cuando se quiere realizar
+!!		la creación manual de alguna de las ventanas)
+!!------------------------------------------------------------------------------
+[ InitGlkWindow winrock;
+	InitialiseStyleHints(winrock);
+
+	return false;
+];
+#Endif; ! TARGET_GLULX;
+
+[ Initialise
+	i;
+	Banner();
+	new_line;
+
+	for (i = 0 : i <= TEXT_STYLE_USER2 : i++) {
+		UseTextStyle(i);
+		switch (i) {
+			TEXT_STYLE_HEADER:
+				print "Ejemplo de estilo ", (emph) "header";
+			TEXT_STYLE_IMPORTANT:
+				print "Ejemplo de estilo ", (emph) "important";
+			TEXT_STYLE_INPUT:
+				print "Ejemplo de estilo ", (emph) "input";
+			TEXT_STYLE_MONOSPACED:
+				print "Ejemplo de estilo ", (emph) "monospaced";
+			TEXT_STYLE_NOTE:
+				print "Ejemplo de estilo ", (emph) "note";
+			TEXT_STYLE_QUOTE:
+				print "Ejemplo de estilo ", (emph) "quoted";
+			TEXT_STYLE_REVERSED:
+				print "Ejemplo de estilo ", (emph) "reversed";
+			TEXT_STYLE_STRESSED:
+				print "Ejemplo de estilo ", (emph) "stressed";
+			TEXT_STYLE_UPRIGHT:
+				print "Ejemplo de estilo ", (emph) "upright";
+			TEXT_STYLE_USER1:
+				print "Ejemplo de estilo ", (emph) "user 1";
+			TEXT_STYLE_USER2:
+				print "Ejemplo de estilo ", (emph) "user 2";
+		}
+		print " con el nombre del estilo enfatizado.^";
+	}
+	new_line;
+
+	for (i = 0 : i <= TEXT_STYLE_USER2 : i++) {
+		UseTextStyle(i);
+		print "Ejemplo de estilo ";
+		switch (i) {
+			TEXT_STYLE_HEADER:
+				print (strong) "header";
+			TEXT_STYLE_IMPORTANT:
+				print (strong) "important";
+			TEXT_STYLE_INPUT:
+				print (strong) "input";
+			TEXT_STYLE_MONOSPACED:
+				print (strong) "monospaced";
+			TEXT_STYLE_NOTE:
+				print (strong) "note";
+			TEXT_STYLE_QUOTE:
+				print (strong) "quote";
+			TEXT_STYLE_REVERSED:
+				print (strong) "reversed";
+			TEXT_STYLE_STRESSED:
+				print (strong) "stressed";
+			TEXT_STYLE_UPRIGHT:
+				print (strong) "upright";
+			TEXT_STYLE_USER1:
+				print (strong) "user 1";
+			TEXT_STYLE_USER2:
+				print (strong) "user 2";
+		}
+		print " con el nombre del estilo destacado.^";
+	}
+	new_line;
+
+	print "Regla de impresión ", (header) "header", ".^";
+	print "Regla de impresión ", (important) "important", ".^";
+	print "Regla de impresión ", (input) "input", ".^";
+	print "Regla de impresión ", (monospaced) "monospaced", ".^";
+	print "Regla de impresión ", (note) "note", ".^";
+	print "Regla de impresión ", (quote) "quote", ".^";
+	print "Regla de impresión ", (reversed) "reversed", ".^";
+	print "Regla de impresión ", (stressed) "stressed", ".^";
+	print "Regla de impresión ", (upright) "upright", ".^";
+	print "Regla de impresión ", (user1) "user1", ".^";
+	print "Regla de impresión ", (user2) "user2", ".^";
+	new_line;
+
+	print (parser) "Pulsa una tecla para salir.";
+	KeyCharPrimitive();
+	quit;
+];
+
+Include "SpanishG.h";

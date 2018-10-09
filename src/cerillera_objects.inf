@@ -111,27 +111,18 @@ NPC		-> Alba "cerillera"
 			Wave:
 				if (noun == nothing) <<Wave self>>;
 		],
-		before [
-			previous_style;
+		before [;
 			Dance:
 				return O__M(self, 10);
-			DefaultAction:
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
-				print (string) TEXT_STYLE_PARSER_PREFIX;
-				print "examina ", (name) self;
-				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
-				new_line;
-				<<Examine self>>;
 			Sleep:
 				O__M(self, 5);
-				KeyCharPrimitive();
+				Util.press_any_key();
 				new_line;
 				O__M(self, 6);
-				KeyCharPrimitive();
+				Util.press_any_key();
 				new_line;
-				HorizontalRule();
-				KeyCharPrimitive();
+				Util.horizontal_rule();
+				Util.press_any_key();
 				new_line;
 				return self.final_credits();
 			Wake:
@@ -145,22 +136,32 @@ NPC		-> Alba "cerillera"
 		final_credits [
 			previous_style c;
 			O__M(self, 9);
-			KeyCharPrimitive();
+			Util.press_any_key();
 			new_line;
-			previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+			#Ifdef VERSION_DESKTOP;
+			previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 			print (string) TEXT_STYLE_PARSER_PREFIX;
 			print "Si quieres volver a empezar el cuento pulsa @<<R@>>.
 			Cualquier otra tecla para salir.";
 			print (string) TEXT_STYLE_PARSER_SUFIX;
-			UseTextStyle(previous_style);
-			c = KeyCharPrimitive();
-			FadeOutTrack(SFX_VIENTO, 0, 1000, 0, true);
-			FadeOutTrack(MUS_FINAL, 0, 1000, 0, true);
+			Util.set_text_style(previous_style);
+			c = Util.press_any_key();
+			Util.fade_out(SFX_VIENTO, 0, 1000, 0, true);
+			Util.fade_out(MUS_FINAL, 0, 1000, 0, true);
 			if (c == 'r' or 'R') {
 				@restart;
 				L__M(##Restart, 2);
 			}
 			else quit;
+			#Ifnot; ! VERSION_WEB_MOBILE;
+			print (header) "FIN";
+			new_line;
+			new_line;
+			print (parser) "Pulsa cualquier tecla para volver a empezar.";
+			PressAnyKey();
+			@restart;
+			L__M(##Restart, 2);
+			#Endif; ! VERSION_
 		],
 		stop_shivering false,
 		try_to_wake_up false,
@@ -196,19 +197,19 @@ Item	-> -> CajaCerillas "caja de cerillas"
 			previous_style;
 			DefaultAction:
 				if (self hasnt open) {
-					previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+					previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 					print (string) TEXT_STYLE_PARSER_PREFIX;
 					print "abre ", (name) self;
 					print (string) TEXT_STYLE_PARSER_SUFIX;
-					UseTextStyle(previous_style);
+					Util.set_text_style(previous_style);
 					new_line;
 					<<Open self>>;
 				} else {
-					previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+					previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 					print (string) TEXT_STYLE_PARSER_PREFIX;
 					print "enciende ", (name) Cerilla;
 					print (string) TEXT_STYLE_PARSER_SUFIX;
-					UseTextStyle(previous_style);
+					Util.set_text_style(previous_style);
 					new_line;
 					<<Burn self>>;
 				}
@@ -220,7 +221,7 @@ Item	-> -> CajaCerillas "caja de cerillas"
 				return O__M(self, 5);
 			Examine:
 				if (self hasnt general && ~~self.stop_shaking) {
-					PlaySFX(SFX_CAJA_CERILLAS, 75);
+					Util.play_sfx(SFX_CAJA_CERILLAS, 75);
 					give self general;
 				}
 				return false;
@@ -234,7 +235,7 @@ Item	-> -> CajaCerillas "caja de cerillas"
 			!! 	}
 			Wave:
 				if (self hasnt general && ~~self.stop_shaking) {
-					PlaySFX(SFX_CAJA_CERILLAS, 75);
+					Util.play_sfx(SFX_CAJA_CERILLAS, 75);
 					give self general;
 				}
 				if (self.stop_shaking) return O__M(self, 18);
@@ -251,9 +252,9 @@ Item	-> -> CajaCerillas "caja de cerillas"
 		flag_open false,
 		light_match [;
 			switch (Shuffle(3, matchFlags)) {
-				1:	PlaySFX(SFX_CERILLA_1, 75);
-				2:	PlaySFX(SFX_CERILLA_2, 75);
-				3:	PlaySFX(SFX_CERILLA_3, 75);
+				1:	Util.play_sfx(SFX_CERILLA_1, 75);
+				2:	Util.play_sfx(SFX_CERILLA_2, 75);
+				3:	Util.play_sfx(SFX_CERILLA_3, 75);
 			}
 			switch (Esquina.scene) {
 				1:	move RestosCalcinados to Esquina;
@@ -265,25 +266,33 @@ Item	-> -> CajaCerillas "caja de cerillas"
 					Cielo.falling_star = true;
 					O__M(self, 10);
 				4:	O__M(self, 11);
-					FadeOutTrack(SFX_VIENTO, 0, 2000, 0, true);
-					FadeInTrack(MUS_FINAL, -1, 30000);
-					KeyCharPrimitive();
-					!! FadeOutTrack(SFX_VIENTO, 0, 6000);
+					#Ifndef USE_VORPLE;
+					Util.fade_out(SFX_VIENTO, 0, 2000, 0, true);
+					Util.fade_in(MUS_FINAL, -1, 30000);
+					#Endif; ! USE_VORPLE;
+					Util.press_any_key();
+					#Ifdef USE_VORPLE;
+					VorpleStopMusic();
+					#Endif; ! USE_VORPLE;
+					!! Util.fade_out(SFX_VIENTO, 0, 6000);
 					new_line;
 					O__M(self, 12);
-					KeyCharPrimitive();
+					Util.press_any_key();
+					#Ifdef USE_VORPLE;
+					Util.fade_in(MUS_FINAL, -1, 30000);
+					#Endif; ! USE_VORPLE;
 					new_line;
 					O__M(self, 13);
-					KeyCharPrimitive();
+					Util.press_any_key();
 					new_line;
 					O__M(self, 14);
-					KeyCharPrimitive();
+					Util.press_any_key();
 					new_line;
 					O__M(self, 15);
-					KeyCharPrimitive();
+					Util.press_any_key();
 					new_line;
-					HorizontalRule();
-					KeyCharPrimitive();
+					Util.horizontal_rule();
+					Util.press_any_key();
 					new_line;
 					return Alba.final_credits();
 			}
@@ -582,11 +591,11 @@ Atrezzo	-> Puerta "puerta"
 		before [
 			previous_style;
 			DefaultAction:
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "llama a la ", (name) self;
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				new_line;
 				<<KnockOn self>>;
 			KnockOn, Open:

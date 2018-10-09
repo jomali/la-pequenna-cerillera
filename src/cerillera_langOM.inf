@@ -14,93 +14,101 @@
 
 Adoquines: switch (n) {
 1:	! ##Examine
-print "Un manto helado y blanco cubría ya casi todos los adoquines del suelo.";
+print "Un manto helado y blanco cubrÃ­a ya casi todos los adoquines del suelo.";
 new_line;
 return true;
 }
 
 Alba: switch (n) {
 1:	! ##Examine
-print "Los copos de ", (name) Nieve, " caían sobre su largo cabello rubio, cuyos hermosos rizos le cubrían el cuello; pero no estaba ella para presumir.";
+print "Los copos de ", (name) Nieve, " caÃ­an sobre su largo cabello rubio, cuyos hermosos rizos le cubrÃ­an el cuello; pero no estaba ella para presumir.";
 new_line;
 return true;
-2:	 ! cita (Máquina-Z)
+2:	 ! cita (MÃ¡quina-Z)
 box	""
-	"-- ¿Tú crees que hay gente que sobra?       "
+	"-- Â¿TÃº crees que hay gente que sobra?       "
 	"-- Los mendigos.                            "
 	"-- Los que se mean en el portal.            "
-	"-- Los que no me dan la razón.              "
+	"-- Los que no me dan la razÃ³n.              "
 	"-- Los que no me dan.                       "
 	"-- Definitivamente los mendigos sobran.     "
-	"-- Pero si quitamos a los mendigos... ¿quién"
+	"-- Pero si quitamos a los mendigos... Â¿quiÃ©n"
 	"   va a protagonizar los cuentos y las      "
-	"   películas y los documentales?            "
+	"   pelÃ­culas y los documentales?            "
 	"-- Sobre todo en Navidad.                   "
 	""
 	"                          CRISTINA PEREGRINA"
-	"         Concierto para la acumulación, 2010"
+	"         Concierto para la acumulaciÃ³n, 2010"
 	"";
 new_line;
 return true;
 3:	! cita (Glulx)
-print (stressed) "---¿Tú crees que hay gente que sobra?^
+print (stressed) "---Â¿TÃº crees que hay gente que sobra?^
 ---Los mendigos.^
 ---Los que se mean en el portal.^
----Los que no me dan la razón.^
+---Los que no me dan la razÃ³n.^
 ---Los que no me dan.^
 ---Definitivamente los mendigos sobran.^
----Pero si quitamos a los mendigos... ¿quién va a protagonizar los cuentos y las películas y los documentales?^
+---Pero si quitamos a los mendigos... Â¿quiÃ©n va a protagonizar los cuentos y las pelÃ­culas y los documentales?^
 ---Sobre todo en Navidad.";
 new_line;
 new_line;
 print "CRISTINA PEREGRINA^
-Concierto para la acumulación, 2010";
+Concierto para la acumulaciÃ³n, 2010";
 new_line;
 return true;
-4:	! introducción
-print "¡Qué frío hacía!; ", (the) Nieve, " y la noche comenzaban a caer lentamente sobre la ciudad aquel día de San Silvestre, el último del viejo año. En medio del frío y la oscuridad crecientes, una pobre ";
-Hyperlink(Alba, "niña", 0);
-print " vagaba sola por las calles, descalza y con la cabeza descubierta. Verdad es que al salir de su casa llevaba zapatillas, pero, ¡de qué sirvieron! Eran unas zapatillas que su madre había llevado últimamente, y a la pequeña le venían tan grandes, que las perdió al cruzar corriendo la calle para librarse de dos coches tirados por caballos que venían a toda velocidad. Una de las zapatillas no hubo medio de encontrarla, y la otra se la había puesto un mozalbete que salió corriendo con ella mientras gritaba que la haría servir de cuna el día que tuviese hijos.
+4:	! introducciÃ³n
+print "Â¡QuÃ© frÃ­o hacÃ­a!; ", (the) Nieve, " y la noche comenzaban a caer lentamente sobre la ciudad aquel dÃ­a de San Silvestre, el Ãºltimo del viejo aÃ±o. En medio del frÃ­o y la oscuridad crecientes, una pobre ";
+Util.extended_print(Alba, "niÃ±a", 0);
+print " vagaba sola por las calles, descalza y con la cabeza descubierta. Verdad es que al salir de su casa llevaba zapatillas, pero, Â¡de quÃ© sirvieron! Eran unas zapatillas que su madre habÃ­a llevado Ãºltimamente, y a la pequeÃ±a le venÃ­an tan grandes, que las perdiÃ³ al cruzar corriendo la calle para librarse de dos coches tirados por caballos que venÃ­an a toda velocidad. Una de las zapatillas no hubo medio de encontrarla, y la otra se la habÃ­a puesto un mozalbete que saliÃ³ corriendo con ella mientras gritaba que la harÃ­a servir de cuna el dÃ­a que tuviese hijos.
 ^^
-Y así la pobrecilla andaba descalza con los desnudos piececitos completamente amoratados por el frío. En un viejo delantal guardaba, como si de un tesoro se tratase, un ";
-Hyperlink(CajaCerillas, "paquete", 0);
-print " lleno de fósforos. Había intentado venderlos para conseguir algo de dinero que llevar a casa, sin embargo, en todo el santo día nadie le había comprado nada, no le habían dado ni un mísero chelín; volvíase a casa hambrienta y medio helada, ¡y parecía tan abatida! Rendida, se sentó en el suelo, en un ángulo que formaban dos ", (name) Casas, " ---una más saliente que la otra---, y se acurrucó hecha un ovillo.";
+Y asÃ­ la pobrecilla andaba descalza con los desnudos piececitos completamente amoratados por el frÃ­o. En un viejo delantal guardaba, como si de un tesoro se tratase, un ";
+Util.extended_print(CajaCerillas, "paquete", 0);
+print " lleno de fÃ³sforos. HabÃ­a intentado venderlos para conseguir algo de dinero que llevar a casa, sin embargo, en todo el santo dÃ­a nadie le habÃ­a comprado nada, no le habÃ­an dado ni un mÃ­sero chelÃ­n; volvÃ­ase a casa hambrienta y medio helada, Â¡y parecÃ­a tan abatida! Rendida, se sentÃ³ en el suelo, en un Ã¡ngulo que formaban dos ", (name) Casas, " ---una mÃ¡s saliente que la otra---, y se acurrucÃ³ hecha un ovillo.";
 new_line;
 return true;
 5:	! ##Sleep (A)
-print "Quizá podría descansar en aquella esquina, pensó, sólo un momentito, lo justo para recuperar fuerzas y ponerse de nuevo en camino...";
+print "QuizÃ¡ podrÃ­a descansar en aquella esquina, pensÃ³, sÃ³lo un momentito, lo justo para recuperar fuerzas y ponerse de nuevo en camino...";
 new_line;
 return true;
 6:	! ##Sleep (B)
-print "Los rayos de sol de la mañana descubrieron a la ";
-Hyperlink(Alba, "niñita", 0);
-print " en el ángulo que formaban dos edificios, uno más saliente que otro, rojas las mejillas y con una sonrisa en los labios... muerta, muerta de frío en la última noche del año. Nadie pudo adivinar nunca el porqué de aquella sonrisa.";
+print "Los rayos de sol de la maÃ±ana descubrieron a la ";
+Util.extended_print(Alba, "niÃ±ita", 0);
+print " en el Ã¡ngulo que formaban dos edificios, uno mÃ¡s saliente que otro, rojas las mejillas y con una sonrisa en los labios... muerta, muerta de frÃ­o en la Ãºltima noche del aÃ±o. Nadie pudo adivinar nunca el porquÃ© de aquella sonrisa.";
 new_line;
 return true;
 7:	! #Wake (A)
-print "¿Y si todo aquello no era más que un sueño? Se preguntaba la pequeña. De un momento a otro podría despertarse y descubrir que estaba en casa en realidad, envuelta en el calor de un rebujo de mantas...";
+print "Â¿Y si todo aquello no era mÃ¡s que un sueÃ±o? Se preguntaba la pequeÃ±a. De un momento a otro podrÃ­a despertarse y descubrir que estaba en casa en realidad, envuelta en el calor de un rebujo de mantas...";
 new_line;
 return true;
 8:	! ##Wake (B)
-print "No debía ser un sueño, sin embargo, se decidió al fin. En los sueños nunca podría hacer un frío semejante.";
+print "No debÃ­a ser un sueÃ±o, sin embargo, se decidiÃ³ al fin. En los sueÃ±os nunca podrÃ­a hacer un frÃ­o semejante.";
 new_line;
 return true;
 9:
-print "", (emph) "La pequeña cerillera", " es un cuento breve del escritor danés ", (header) "Hans Christian Andersen", ", publicado por primera vez en diciembre de 1845.
+print "", (emph) "La pequeÃ±a cerillera", " es un cuento breve del escritor danÃ©s ", (header) "Hans Christian Andersen", ", publicado por primera vez en diciembre de 1845.
 ^^
-Diseño, programación y textos adicionales de la presente adaptación obra de ", (header) "José Francisco Martín Lisaso", ". Publicada por primera vez en diciembre de 2010, con licencia GNU GPL v3. Tercera revisión de mayo de 2018.
+DiseÃ±o, programacion y textos adicionales de la presente adaptaciÃ³n obra de ", (header) "JosÃ© Francisco MartÃ­n Lisaso", ". Publicada por primera vez en diciembre de 2010, con licencia GNU GPL v3. Tercera revisiÃ³n de mayo de 2018.
 ^^
-", (emph) "Stille Nacht, heilige Nacht", " es una melodía del compositor austríaco ", (header) "Franz Xaver Gruber", " (1818). La pista de audio utilizada ha sido grabada por ", (header) "Kevin MacLeod", " (", (emph) "incompetech.com", ") en 2010 y está publicada con licencia CC 3.0 BY: ", (emph) "http://creativecommons.org/licenses/by/3.0/", ".
+", (emph) "Stille Nacht, heilige Nacht", " es una melodÃ­a del compositor austrÃ­aco ", (header) "Franz Xaver Gruber", " (1818). La pista de audio utilizada ha sido grabada por ", (header) "Kevin MacLeod", " (";
+Util.website_hyperlink("https://incompetech.com/");
+print ") en 2010 y estÃ¡ publicada con licencia CC 3.0 BY: ";
+Util.website_hyperlink("http://creativecommons.org/licenses/by/3.0/");
+print ".
 ^^
-La ilustración de la portada ha sido creada por ", (header) "Anne Anderson", " (1874-1930) y forma parte del dominio público.
+La ilustraciÃ³n de la portada ha sido creada por ", (header) "Anne Anderson", " (1874-1930) y forma parte del dominio pÃºblico.
 ^^
-El icono utilizado en la aplicación es una adaptación sobre un original diseñado por ", (header) "Roundicons", " y disponible desde ", (emph) "www.flaticon.com", ". Publicado con licencia CC 3.0 BY: ", (emph) "http://creativecommons.org/licenses/by/3.0/", ".
+El icono utilizado en la aplicaciÃ³n es una adaptaciÃ³n sobre un original diseÃ±ado por ", (header) "Roundicons", " y disponible desde ";
+Util.website_hyperlink("https://www.flaticon.com/");
+print ". Publicado con licencia CC 3.0 BY: ";
+Util.website_hyperlink("http://creativecommons.org/licenses/by/3.0/");
+print ".
 ^^
-", (stressed) "Dedicado con cariño a ", (header) "Freire", (stressed) ", por haberme descubierto este cuento ---y tantas otras cosas---. (Como ves, tu nombre ", (important) "si", (stressed) " aparece al final).";
+", (stressed) "Dedicado con cariÃ±o a ", (header) "Freire", (stressed) ", por haberme descubierto este cuento ---y tantas otras cosas---. (Como ves, tu nombre ", (important) "si", (stressed) " aparece al final).";
 new_line;
 return true;
 10:	! ##Dance
-print "Si bien la encantaba bailar, en aquel momento sencillamente no tenía fuerzas.";
+print "Si bien la encantaba bailar, en aquel momento sencillamente no tenÃ­a fuerzas.";
 new_line;
 return true;
 11:	! ##Sit
@@ -108,15 +116,15 @@ print "Ya estaba sentada.";
 new_line;
 return true;
 12:	! ##StandUp
-print "No tenía fuerzas suficientes para volver a levantarse en aquel momento.";
+print "No tenÃ­a fuerzas suficientes para volver a levantarse en aquel momento.";
 new_line;
 return true;
 13:	! ##Wave
-print "No podía dejar de temblar, muerta de frío como estaba.";
+print "No podÃ­a dejar de temblar, muerta de frÃ­o como estaba.";
 new_line;
 return true;
 14:	! ##Wave
-print "El frío era tan intenso que su cuerpo ni siquiera se molestaba en tiritar ya.";
+print "El frÃ­o era tan intenso que su cuerpo ni siquiera se molestaba en tiritar ya.";
 new_line;
 return true;
 15:	! ##Masturbate/##SleepWith
@@ -127,8 +135,8 @@ return true;
 
 CajaCerillas: switch (n) {
 1:	! ##Examine (A - general)
-print "Es todo cuanto tenía la pequeña; un pequeño ";
-Hyperlink(CajaCerillas, "estuche", 0);
+print "Es todo cuanto tenÃ­a; un pequeÃ±o ";
+Util.extended_print(CajaCerillas, "estuche", 0);
 print " lleno de cerillas.";
 return true;
 2:	! ##Examine (B - cerrada)
@@ -141,116 +149,116 @@ return true;
 print "", (a) CajaCerillas, " abiert", (o) CajaCerillas, "";
 return true;
 5:	! ##Drop, ##Insert, ##PutOn, ##Transfer:
-print "Aquella ", (name) CajaCerillas, " era lo único que tenía. De ninguna forma iba a dejarla tirada por ahí.";
+print "Aquella ", (name) CajaCerillas, " era lo Ãºnico que tenÃ­a la pequeÃ±a. De ninguna forma iba a dejarla tirada por ahÃ­.";
 new_line;
 return true;
 6:	! ##Open (after)
-print "Sacó el ";
-Hyperlink(CajaCerillas, "estuche", 0);
-print " del bolsillo del delantal y lo abrió con muchísimo esfuerzo, ya que las manos no dejaban de temblarle y sus dedos se habían quedado completamente entumecidos por el frío. Dentro estaban todas aquellas cerillas que no había sido capaz de vender.";
+print "SacÃ³ el ";
+Util.extended_print(CajaCerillas, "estuche", 0);
+print " del bolsillo del delantal y lo abriÃ³ con muchÃ­simo esfuerzo, ya que las manos no dejaban de temblarle y sus dedos se habÃ­an quedado completamente entumecidos por el frÃ­o. Dentro estaban todas aquellas cerillas que no habÃ­a sido capaz de vender.";
 new_line;
 return true;
 7:	! ##Burn (A)
 print "La ";
-Hyperlink(CajaCerillas, "caja", 0);
+Util.extended_print(CajaCerillas, "caja", 0);
 print " estaba cerrada, con todas las cerillas bien guardadas en su interior.";
 new_line;
 return true;
 8:	! light_match (A)
-print "Estaba completamente helada. ¡Si se atreviese a encender un ";
-Hyperlink(Cerilla, "fósforo", 0);
-print " para calentarse los dedos! Nadie notaría la falta de uno solo de ellos, pensó. De modo que agarró uno y: @<<¡ritch!@>>.
+print "Estaba completamente helada. Â¡Si se atreviese a encender un ";
+Util.extended_print(Cerilla, "fÃ³sforo", 0);
+print " para calentarse los dedos! Nadie notarÃ­a la falta de uno solo de ellos, pensÃ³. De modo que agarrÃ³ uno y: @<<Â¡ritch!@>>.
 ^^
-¡Cómo chispeó y cómo quemaba! La llama de ", (the) Cerilla, " era cálida y clara, una lucecita maravillosa que trataba resguardar del viento con sus manitas temblorosas. Parecióle a la ";
-Hyperlink(Alba, "pequeña", 0);
-print " que estaba sentada junto a una gran estufa de hierro, una con brillantes adornos y pies y campana de latón. El fuego ardía magníficamente en su interior, ¡y calentaba tan bien! La ";
-Hyperlink(Alba, "niña", 0);
-print " alargó los pies para calentárselos a su vez.
+Â¡CÃ³mo chispeÃ³ y cÃ³mo quemaba! La llama de ", (the) Cerilla, " era cÃ¡lida y clara, una lucecita maravillosa que trataba resguardar del viento con sus manitas temblorosas. PareciÃ³le a la ";
+Util.extended_print(Alba, "pequeÃ±a", 0);
+print " que estaba sentada junto a una gran estufa de hierro, una con brillantes adornos y pies y campana de latÃ³n. El fuego ardÃ­a magnÃ­ficamente en su interior, Â¡y calentaba tan bien! La ";
+Util.extended_print(Alba, "niÃ±a", 0);
+print " alargÃ³ los pies para calentÃ¡rselos a su vez.
 ^^
-Pero en ese momento se extinguió la llama, la estufa se desvaneció, y ella se encontró allí sentada, en mitad del frío, con los ";
-Hyperlink(RestosCalcinados, "restos", 0);
-print " de una cerilla consumida entre las manos. Arrojó el palillo calcinado al ";
-Hyperlink(Adoquines, "suelo", 0);
+Pero en ese momento se extinguiÃ³ la llama, la estufa se desvaneciÃ³, y ella se encontrÃ³ allÃ­ sentada, en mitad del frÃ­o, con los ";
+Util.extended_print(RestosCalcinados, "restos", 0);
+print " de una cerilla consumida entre las manos. ArrojÃ³ el palillo calcinado al ";
+Util.extended_print(Adoquines, "suelo", 0);
 print ".";
 new_line;
 return true;
 9:	! light_match (B)
-print "Cogió otra de las ";
-Hyperlink(Cerilla, "cerillas", 0);
-print " y la frotó contra el rascador del lateral de la ";
-Hyperlink(CajaCerillas, "caja", 0);
+print "CogiÃ³ otra de las ";
+Util.extended_print(Cerilla, "cerillas", 0);
+print " y la frotÃ³ contra el rascador del lateral de la ";
+Util.extended_print(CajaCerillas, "caja", 0);
 print ".
 ^^
 El ";
-Hyperlink(Cerilla, "fósforo", 0);
-print " ardió y brilló, y un trozo de ", (name) Pared, " donde se reflejaba la amarillenta luz se volvió transparente, como si fuese un suave velo de gasa. La ";
-Hyperlink(Alba, "niña", 0);
-print " pudo ver el interior de una habitación donde estaba la mesa puesta, cubierta con un blanquísimo mantel y fina porcelana. En el centro, un pato asado humeaba deliciosamente, relleno de ciruelas y de pasas y de manzanas. Y entonces sucedió algo aún mejor: el pato se revolvió, saltó de la bandeja y empezó a arrastrarse graciosamente por el ";
-Hyperlink(Adoquines, "suelo", 0);
-print " en dirección a la ";
-Hyperlink(Alba, "muchachita", 0);
-print ", con el cuchillo y el tenedor aún a la espalda.
+Util.extended_print(Cerilla, "fÃ³sforo", 0);
+print " ardiÃ³ y brillÃ³, y un trozo de ", (name) Pared, " donde se reflejaba la amarillenta luz se volviÃ³ transparente, como si fuese un suave velo de gasa. La ";
+Util.extended_print(Alba, "niÃ±a", 0);
+print " pudo ver el interior de una habitaciÃ³n donde estaba la mesa puesta, cubierta con un blanquÃ­simo mantel y fina porcelana. En el centro, un pato asado humeaba deliciosamente, relleno de ciruelas y de pasas y de manzanas. Y entonces sucediÃ³ algo aÃºn mejor: el pato se revolviÃ³, saltÃ³ de la bandeja y empezÃ³ a arrastrarse graciosamente por el ";
+Util.extended_print(Adoquines, "suelo", 0);
+print " en direcciÃ³n a la ";
+Util.extended_print(Alba, "muchachita", 0);
+print ", con el cuchillo y el tenedor aÃºn a la espalda.
 ^^
-Y ", (the) Cerilla, " se apagó y el ";
-Hyperlink(Pared, "muro", 0);
-print " volvió a ser frío y sólido de nuevo.";
+Y ", (the) Cerilla, " se apagÃ³ y el ";
+Util.extended_print(Pared, "muro", 0);
+print " volviÃ³ a ser frÃ­o y sÃ³lido de nuevo.";
 new_line;
 return true;
 10:	! light_match (C)
-print "Encendió una tercera ", (name) Cerilla, "...
+print "EncendiÃ³ una tercera ", (name) Cerilla, "...
 ^^
-...y se encontró sentada debajo de un precioso árbol de Navidad, aún más alto y más bonito que el que viera la pasada Nochebuena, a través de la puerta de cristales, en casa del rico comerciante. Millares de velitas ardían en las verdes ramas, y de éstas colgaban estampas pintadas de vivos colores, semejantes a las que adornaban los escaparates de las tiendas. La pequeña levantó los dos bracitos hacia ellas...
+...y se encontrÃ³ sentada debajo de un precioso Ã¡rbol de Navidad, aÃºn mÃ¡s alto y mÃ¡s bonito que el que viera la pasada Nochebuena, a travÃ©s de la puerta de cristales, en casa del rico comerciante. Millares de velitas ardÃ­an en las verdes ramas, y de Ã©stas colgaban estampas pintadas de vivos colores, semejantes a las que adornaban los escaparates de las tiendas. La pequeÃ±a levantÃ³ los dos bracitos hacia ellas...
 ^^
-...y se apagó el ";
-Hyperlink(Cerilla, "fósforo", 0);
+...y se apagÃ³ el ";
+Util.extended_print(Cerilla, "fÃ³sforo", 0);
 print ". Todas las lucecitas se remontaron hacia arriba, como las chispas de una hoguera que vuelan a la noche, y entonces se dio cuenta de que todos aquellos puntitos de luz eran en realidad las rutilantes estrellas ", (del) Cielo, ".";
 new_line;
 return true;
 11:	! light_match (D)
-print "Frotó una nueva ", (name) Cerilla, " contra la ";
-Hyperlink(CajaCerillas, "caja", 0);
+print "FrotÃ³ una nueva ", (name) Cerilla, " contra la ";
+Util.extended_print(CajaCerillas, "caja", 0);
 print "...";
 new_line;
 return true;
 12:	! light_match (E)
-print "Su alrededor se iluminó con la cálida llama, y apareció la anciana abuelita, radiante, dulce y cariñosa. ---¡Abuelita! ---exclamó la ";
-Hyperlink(Alba, "pequeña", 0);
-print ". ---¡Oh, abuelita, llévame contigo! Sé que te querrás ir cuando se apague ", (the) Cerilla, ", igual que se fueron la estufa y el asado y el árbol de Navidad... ¡pero tú no me dejes sola! ¡no te vayas sin mí, abuelita!";
+print "Su alrededor se iluminÃ³ con la cÃ¡lida llama, y apareciÃ³ la anciana abuelita, radiante, dulce y cariÃ±osa. ---Â¡Abuelita! ---exclamÃ³ la ";
+Util.extended_print(Alba, "pequeÃ±a", 0);
+print ". ---Â¡Oh, abuelita, llÃ©vame contigo! SÃ© que te querrÃ¡s ir cuando se apague ", (the) Cerilla, ", igual que se fueron la estufa y el asado y el Ã¡rbol de Navidad... Â¡pero tÃº no me dejes sola! Â¡no te vayas sin mÃ­, abuelita!";
 new_line;
 return true;
 13:	! light_match (F)
-print "Apresuróse a encender tantos fósforos como pudo, afanosa de no perder a su abuela; y los fósforos brillaron con luz más clara que la del pleno día. Nunca la abuelita había sido tan alta y tan hermosa; tomó a la ";
-Hyperlink(Alba, "niña", 0);
+print "ApresurÃ³se a encender tantos fÃ³sforos como pudo, afanosa de no perder a su abuela; y los fÃ³sforos brillaron con luz mÃ¡s clara que la del pleno dÃ­a. Nunca la abuelita habÃ­a sido tan alta y tan hermosa; tomÃ³ a la ";
+Util.extended_print(Alba, "niÃ±a", 0);
 print " del brazo y, envueltas las dos en un gran resplandor, henchidas de gozo, emprendieron el vuelo hacia las alturas, sin que la ";
-Hyperlink(Alba, "pequeña", 0);
-print " sintiera ya frío, hambre ni miedo.";
+Util.extended_print(Alba, "pequeÃ±a", 0);
+print " sintiera ya frÃ­o, hambre ni miedo.";
 new_line;
 return true;
 14:	! light_match (G)
-print "Pero la fría madrugada descubrió a la ";
-Hyperlink(Alba, "chiquilla", 0);
-print " en el ángulo de la casa, rojas las mejillas y con una sonrisa en los labios... muerta, muerta de frío en la última noche del año. El sol de la mañana iluminó el pequeño cadáver hecho aún un ovillo, con un círculo de cerillas consumidas a su alrededor. @<<Quiso calentarse@>>, es todo cuanto supo decir la gente.";
+print "Pero la gÃ©lida madrugada descubriÃ³ a la ";
+Util.extended_print(Alba, "chiquilla", 0);
+print " en el Ã¡ngulo de la casa, rojas las mejillas y con una sonrisa en los labios... muerta, muerta de frÃ­o en la Ãºltima noche del aÃ±o. El sol de la maÃ±ana iluminÃ³ el pequeÃ±o cadÃ¡ver hecho aÃºn un ovillo, con un cÃ­rculo de cerillas consumidas a su alrededor. @<<Quiso calentarse@>>, es todo cuanto supo decir la gente.";
 new_line;
 return true;
 15:	! light_match (H)
-print "Nadie supo nunca sin embargo de las maravillas que había visto, ni del esplendor con que había entrado, en compañía de su anciana abuelita, en la gloria y la alegría del Año Nuevo.";
+print "Nadie supo nunca sin embargo de las maravillas que habÃ­a visto, ni del esplendor con que habÃ­a entrado, en compaÃ±Ã­a de su anciana abuelita, en la gloria y la alegrÃ­a del AÃ±o Nuevo.";
 new_line;
 return true;
 16:	! ##Take
-print "Ya las tenía todas consigo.";
+print "Ya las tenÃ­a todas consigo.";
 new_line;
 return true;
 17:	! ##Wave (A)
-print "Las manos le temblaban de tal forma que no podía evitar hacerlo.";
+print "Las manos le temblaban de tal forma que no podÃ­a evitar hacerlo.";
 new_line;
 return true;
 18:	! ##Wave (B)
-print "Sus manos también se habían agotado y no temblaban ya.";
+print "Sus manos tambiÃ©n se habÃ­an agotado y no temblaban ya.";
 new_line;
 return true;
 19:	! ##Open
 print "La ";
-Hyperlink(CajaCerillas, "caja", 0);
+Util.extended_print(CajaCerillas, "caja", 0);
 print " ya estaba abierta.";
 new_line;
 return true;
@@ -259,104 +267,104 @@ return true;
 
 Calle: switch (n) {
 1:	! ##Examine
-print "La calle estaba completamente desierta. Solo ", (the) Nieve, ", el ";
-Hyperlink(Calle, "frío", 0);
+print "La calle estaba completamente desierta. SÃ³lo ", (the) Nieve, ", el ";
+Util.extended_print(Calle, "frÃ­o", 0);
 print " y la ";
-Hyperlink(Faroles, "oscuridad", 0);
-print ", y también la ";
-Hyperlink(Alba, "pequeña", 0);
-print ", seguían fuera de casa a aquellas horas.";
+Util.extended_print(Faroles, "oscuridad", 0);
+print ", y tambiÃ©n la ";
+Util.extended_print(Alba, "pequeÃ±a", 0);
+print ", seguÃ­an fuera de casa a aquellas horas.";
 new_line;
 return true;
 }
 
 Casas: switch (n) {
 1:	! ##Examine (A)
-print "Las ventanas y la rendija bajo ", (the) Puerta, " que tenía junto a ella esparcían sobre ", (the) Calle, " un resplandor anaranjado.";
+print "Las ventanas y la rendija bajo ", (the) Puerta, " que tenÃ­a junto a ella esparcÃ­an sobre ", (the) Calle, " un resplandor anaranjado.";
 new_line;
 return true;
 2:	! ##Examine (B)
-print "Las luces tras las ventanas habían comenzado a apagarse, una tras otra, a medida que la gente en su interior terminaba de cenar y se iba retirando a dormir.";
+print "Las luces tras las ventanas habÃ­an comenzado a apagarse, una tras otra, a medida que la gente en su interior terminaba de cenar y se iba retirando a dormir.";
 new_line;
 return true;
 }
 
 Cielo: switch (n) {
 1:	! ##Examine (A)
-print "Entre los jirones de nubes tenuemente anaranjadas por ", (the) Faroles, " se distinguía un cielo de tinta, un cielo salpicado de diminutos puntitos de luz lejana y titilante.";
+print "Entre los jirones de nubes tenuemente anaranjadas por ", (the) Faroles, " se distinguÃ­a un cielo de tinta, un cielo salpicado de diminutos puntitos de luz lejana y titilante.";
 new_line;
 return true;
 2:	! ##Examine (B)
-print "En lo alto, una estrella se desprendió de su sitio y trazó en el ";
-Hyperlink(Cielo, "firmamento", 0);
-print " una larga estela de fuego. @<<Alguien se está muriendo@>> pensó la ";
-Hyperlink(Alba, "pequeña", 0);
-print ", pues su abuela, la única persona que la había querido de verdad pero que había muerto ya, le había dicho una vez: @<<Cuando una estrella cae, un alma se eleva al cielo@>>.
+print "En lo alto, una estrella se desprendiÃ³ de su sitio y trazÃ³ en el ";
+Util.extended_print(Cielo, "firmamento", 0);
+print " una larga estela de fuego. @<<Alguien se estÃ¡ muriendo@>> pensÃ³ la ";
+Util.extended_print(Alba, "pequeÃ±a", 0);
+print ", pues su abuela, la Ãºnica persona que la habÃ­a querido de verdad pero que habÃ­a muerto ya, le habÃ­a dicho una vez: @<<Cuando una estrella cae, un alma se eleva al cielo@>>.
 ^^
-Su pobre abuela... ¡cuánto la echaba de menos!";
+Su pobre abuela... Â¡cuÃ¡nto la echaba de menos!";
 new_line;
 return true;
 }
 
 Esquina: switch (n) {
 1:	! ##Examine (A)
-print "Desde su rincón, la ";
-Hyperlink(Alba, "pequeña", 0);
-print " veía cómo ", (the) Nieve, " se posaba delicadamente sobre los tejados de los ";
-Hyperlink(Casas, "edificios", 0);
-print " y sobre ", (the) Adoquines, " del suelo, donde había empezado a formarse ya un delgado manto blanco. Y lo hacían también sobre su delicado cuerpecito, que no podía dejar de temblar por culpa del frío.";
+print "Desde su rincÃ³n, la ";
+Util.extended_print(Alba, "pequeÃ±a", 0);
+print " veÃ­a cÃ³mo ", (the) Nieve, " se posaba delicadamente sobre los tejados de los ";
+Util.extended_print(Casas, "edificios", 0);
+print " y sobre ", (the) Adoquines, " del suelo, donde habÃ­a empezado a formarse ya un delgado manto blanco. Y lo hacÃ­an tambiÃ©n sobre su delicado cuerpecito, que no podÃ­a dejar de temblar por culpa del frÃ­o.";
 new_line;
 return true;
 2:	! ##Examine (B)
-print "", (The) Nieve, " continuaba cayendo sobre ", (the) Calle, ", acumulándose en una capa cada vez más y más ancha. El aire era gélido y a la ";
-Hyperlink(Alba, "pequeña", 0);
-print " le dolía al respirar, pero traía consigo el agradable olor a leña quemada de las chimeneas, y el aún más agradable de la comida asada que se filtraba por las rendijas de ", (the) Puerta, " cercanas";
+print "", (The) Nieve, " continuaba cayendo sobre ", (the) Calle, ", acumulÃ¡ndose en una capa cada vez mÃ¡s y mÃ¡s ancha. El aire era gÃ©lido y a la ";
+Util.extended_print(Alba, "pequeÃ±a", 0);
+print " le dolÃ­a al respirar, pero traÃ­a consigo el agradable olor a leÃ±a quemada de las chimeneas, y el aÃºn mÃ¡s agradable de la comida asada que se filtraba por las rendijas de ", (the) Puerta, " cercanas";
 new_line;
 return true;
 3:	! ##Examine (C)
-print "Las gélidas sombras de la noche lo envolvían ya todo. Solo el apagado resplandor de ", (the) Faroles, ", y el más vivo que salía de las ";
-Hyperlink(Casas, "ventanas", 0);
+print "Las gÃ©lidas sombras de la noche lo envolvÃ­an ya todo. SÃ³lo el apagado resplandor de ", (the) Faroles, ", y el mÃ¡s vivo que salÃ­a de las ";
+Util.extended_print(Casas, "ventanas", 0);
 print " de ", (the) Casas, ", lograba alejar las tinieblas y arrojaba algo de luz sobre los grandes ";
-Hyperlink(Nieve, "copos de nieve", 0);
-print " que caían pausadamente sobre ", (the) Adoquines, " de la solitaria ", (name) Calle, " y sobre el cuerpo inmóvil de la ";
-Hyperlink(Alba, "pequeña", 0);
+Util.extended_print(Nieve, "copos de nieve", 0);
+print " que caÃ­an pausadamente sobre ", (the) Adoquines, " de la solitaria ", (name) Calle, " y sobre el cuerpo inmÃ³vil de la ";
+Util.extended_print(Alba, "pequeÃ±a", 0);
 print ".";
 new_line;
 return true;
 4:	! ##Examine (D)
 print "Las luces de las ";
-Hyperlink(Casas, "ventanas", 0);
-print " habían comenzado a apagarse y la oscuridad en ", (the) Calle, " se hacía más y más espesa por momentos, rota tan sólo por el débil resplandor anaranjado de ", (the) Faroles, ". El frío se había vuelto tan intenso que el cuerpecito de la ";
-Hyperlink(Alba, "pequeña", 0);
+Util.extended_print(Casas, "ventanas", 0);
+print " habÃ­an comenzado a apagarse y la oscuridad en ", (the) Calle, " se hacÃ­a mÃ¡s y mÃ¡s espesa por momentos, rota tan sÃ³lo por el dÃ©bil resplandor anaranjado de ", (the) Faroles, ". El frÃ­o se habÃ­a vuelto tan intenso que el cuerpecito de la ";
+Util.extended_print(Alba, "pequeÃ±a", 0);
 print ", vencido, ni siquiera se molestaba en tiritar ya.";
 new_line;
 return true;
 5:	! ##Listen
-print "", (The) Nieve, " caía en el más completo silencio.";
-if (x1) { print " Sólo se oía, ahogado por los gruesos ";
-Hyperlink(Pared, "muros", 0);
-print ", el rumor de las risas y las conversaciones, y el tintinear de los cubiertos chocando entre sí que llegaban desde el interior de ", (the) Casas, "."; }
+print "", (The) Nieve, " caÃ­a en el mÃ¡s completo silencio.";
+if (x1) { print " SÃ³lo se oÃ­a, ahogado por los gruesos ";
+Util.extended_print(Pared, "muros", 0);
+print ", el rumor de las risas y las conversaciones, y el tintinear de los cubiertos chocando entre sÃ­ que llegaban desde el interior de ", (the) Casas, "."; }
 new_line;
 return true;
 6:	! ##Smell
-print "El aire era gélido y a la ";
-Hyperlink(Alba, "pequeña", 0);
-print " le dolía al respirar, pero traía consigo el agradable olor a leña quemada de las chimeneas";
-if (x1) { print ", y el aún más agradable de la comida asada que se filtraba por las rendijas de ", (the) Puerta, " que tenía al lado"; }
+print "El aire era gÃ©lido y a la ";
+Util.extended_print(Alba, "pequeÃ±a", 0);
+print " le dolÃ­a al respirar, pero traÃ­a consigo el agradable olor a leÃ±a quemada de las chimeneas";
+if (x1) { print ", y el aÃºn mÃ¡s agradable de la comida asada que se filtraba por las rendijas de ", (the) Puerta, " que tenÃ­a al lado"; }
 print ".";
 new_line;
 return true;
 7:	! cant_go (A)
-print "Pensó en volver a su casa pero no se atrevía, pues no había vendido ni un solo fósforo, no tenía dinero ni comida que llevar de vuelta; si aparecía así, su padre sin duda le pegaría.";
+print "PensÃ³ en volver a su casa pero no se atrevÃ­a, pues no habÃ­a vendido ni un solo fÃ³sforo, no tenÃ­a dinero ni comida que llevar de vuelta; si aparecÃ­a asÃ­, su padre sin duda le pegarÃ­a.";
 return true;
 8:	! cant_go (B)
-print ".  Además de que en casa hacía frío también. El tejado, lleno de goteras, apenas los cobijaba, y el viento entraba por todas partes, pese a la paja y los trapos con que habían procurado tapar las rendijas. No, no se atrevía a volver.";
+print ".  AdemÃ¡s de que en casa hacÃ­a frÃ­o tambiÃ©n. El tejado, lleno de goteras, apenas los cobijaba, y el viento entraba por todas partes, pese a la paja y los trapos con que habÃ­an procurado tapar las rendijas. No, no se atrevÃ­a a volver.";
 return true;
 }
 
 Faroles: switch (n) {
 1:	! ##Examine
-print "Los faroles emitían una débil lucecilla temblorosa, apenas suficiente para ahuyentar las tinieblas a su alrededor.";
+print "Los faroles emitÃ­an una dÃ©bil lucecilla temblorosa, apenas suficiente para ahuyentar las tinieblas a su alrededor.";
 new_line;
 return true;
 }
@@ -367,73 +375,73 @@ print (parser) "Si es la primera vez que experimentas la obra tal vez quieras te
 new_line;
 return true;
 2:	! (pista general)
-print (parser) "Es posible finalizar la historia simplemente pulsando @<<intro@>> para obtener una descripción del entorno de la protagonista, y tecleando el nombre de los objetos presentes en esa descripción ---o haciendo clic sobre ellos---. Hay, sin embargo, muchas otras accions que puedes utilizar para conocer más información acerca de la pequeña cerillera y del mundo que la rodeaba. No temas experimentar con nuevas instrucciones.";
+print (parser) "Es posible finalizar la historia simplemente pulsando @<<intro@>> para obtener una descripciÃ³n del entorno de la protagonista, y tecleando el nombre de los objetos presentes en esa descripciÃ³n ---o haciendo clic sobre ellos---. Hay, sin embargo, muchas otras accions que puedes utilizar para conocer mÃ¡s informaciÃ³n acerca de la pequeÃ±a cerillera y del mundo que la rodeaba. No temas experimentar con nuevas instrucciones.";
 new_line;
 return true;
 3:	! (pista: look)
-print (parser) "Al iniciar el relato se ha mostrado una descripción del lugar en el que se encontraba la pequeña protagonista con un conjunto de palabras destacadas: @<<pequeña@>>, @<<nieve@>>, @<<edificios@>> y @<<adoquines@>>. Estas palabras destacadas hacen referencia a los objetos presentes en el entorno con los que debes interactuar para hacer que la historia avance. Siempre puedes volver a consultar la descripción del lugar, junto con los objetos interactivos presentes en él, introduciendo una línea en blanco ---pulsando la tecla @<<intro@>> sin escribir ningún comando---.";
+print (parser) "Al iniciar el relato se ha mostrado una descripciÃ³n del lugar en el que se encontraba la pequeÃ±a protagonista con un conjunto de palabras destacadas: @<<pequeÃ±a@>>, @<<nieve@>>, @<<edificios@>> y @<<adoquines@>>. Estas palabras destacadas hacen referencia a los objetos presentes en el entorno con los que debes interactuar para hacer que la historia avance. Siempre puedes volver a consultar la descripciÃ³n del lugar, junto con los objetos interactivos presentes en Ã©l, introduciendo una lÃ­nea en blanco ---pulsando la tecla @<<intro@>> sin escribir ningÃºn comando---.";
 new_line;
 return true;
 4:	! (pista: look)
-print (parser) "Introducir una línea en blanco es en realidad una abreviatura de la instrucción MIRA A TU ALREDEDOR. De este modo, pulsar la tecla @<<intro@>> tiene el mismo efecto que teclear MIRA o, simplemente, M: se vuelve a imprimir una descipción del entorno en el que se encontraba la protagonista. Si lo deseas, puedes volver a teclear AYUDA en cualquier momento para recibir más información sobre cómo avanzar en el relato.";
+print (parser) "Introducir una lÃ­nea en blanco es en realidad una abreviatura de la instrucciÃ³n MIRA A TU ALREDEDOR. De este modo, pulsar la tecla @<<intro@>> tiene el mismo efecto que teclear MIRA o, simplemente, M: se vuelve a imprimir una descipciÃ³n del entorno en el que se encontraba la protagonista. Si lo deseas, puedes volver a teclear AYUDA en cualquier momento para recibir mÃ¡s informaciÃ³n sobre cÃ³mo avanzar en el relato.";
 new_line;
 return true;
 5:	! (pista: DefaultAction)
-print (parser) "Puedes interactuar con cualquiera de los objetos destacados presentes en la descripción que se imprime al pulsar @<<intro@>> ---aquellos que aparecen con un estilo diferente en el texto---. Para hacerlo, simplemente debes teclear el nombre del objeto, o hacer clic con el ratón sobre la propia palabra. Por ejemplo, prueba a teclear @<<edificios@>>.";
+print (parser) "Puedes interactuar con cualquiera de los objetos destacados presentes en la descripciÃ³n que se imprime al pulsar @<<intro@>> ---aquellos que aparecen con un estilo diferente en el texto---. Para hacerlo, simplemente debes teclear el nombre del objeto, o hacer clic con el ratÃ³n sobre la propia palabra. Por ejemplo, prueba a teclear @<<edificios@>>.";
 new_line;
 return true;
 6:	! (pista: DefaultAction)
-print (parser) "Al escribir el nombre de un objeto o hacer clic sobre él se lanza una acción por defecto sobre ese objeto. Esta acción es habitualmente EXAMINA <OBJETO>, pero hay ocasiones en las que en su lugar se lanza otra acción también lógica. Por ejemplo, si tecleas PUERTA, en lugar de ejecutarse la acción EXAMINA PUERTA, se ejecuta en su lugar LLAMA A LA PUERTA.";
+print (parser) "Al escribir el nombre de un objeto o hacer clic sobre Ã©l se lanza una acciÃ³n por defecto sobre ese objeto. Esta acciÃ³n es habitualmente EXAMINA <OBJETO>, pero hay ocasiones en las que en su lugar se lanza otra acciÃ³n tambiÃ©n lÃ³gica. Por ejemplo, si tecleas PUERTA, en lugar de ejecutarse la acciÃ³n EXAMINA PUERTA, se ejecuta en su lugar LLAMA A LA PUERTA.";
 new_line;
 return true;
 7:	! (hint: basic commands)
-print (parser) "Eso es todo lo que necesitas para terminar la historia: pulsa @<<intro@>> para obtener de nuevo una descripción del entorno; y teclea el nombre de un objeto o haz clic sobre él para ejecutar una acción por defecto sobre ese objeto. Si te bloqueas y no sabes cómo continuar recuerda que siempre puedes teclear AYUDA.";
+print (parser) "Eso es todo lo que necesitas para terminar la historia: pulsa @<<intro@>> para obtener de nuevo una descripciÃ³n del entorno; y teclea el nombre de un objeto o haz clic sobre Ã©l para ejecutar una acciÃ³n por defecto sobre ese objeto. Si te bloqueas y no sabes cÃ³mo continuar recuerda que siempre puedes teclear AYUDA.";
 new_line;
 return true;
 8:	! (hint: inventory)
-print (parser) "Para saber cuáles son las cosas que la niña llevaba encima, examínala.";
+print (parser) "Para saber cuÃ¡les son las cosas que la niÃ±a llevaba encima, examÃ­nala.";
 new_line;
 return true;
 9:	! (hint: inventory)
-print (parser) "Puedes obtener una descripción de la pequeña tecleando NIÑA o EXAMINA A LA NIÑA.";
+print (parser) "Puedes obtener una descripciÃ³n de la pequeÃ±a tecleando NIÃ‘A o EXAMINA A LA NIÃ‘A.";
 new_line;
 return true;
 10:	! (hint: open)
-print (parser) "La descripción de la protagonista señala que llevaba consigo una caja de cerillas cerrada. Puedes abrirla con la instrucción ABRE LA CAJA o, simplemente, tecleando su nombre: CAJA.";
+print (parser) "La descripciÃ³n de la protagonista seÃ±ala que llevaba consigo una caja de cerillas cerrada. Puedes abrirla con la instrucciÃ³n ABRE LA CAJA o, simplemente, tecleando su nombre: CAJA.";
 new_line;
 return true;
 11:
-print (parser) "De forma análoga, también podrás cerrarla con la instrucción CIERRA. Además, normalmente los objetos se pueden manipular de muchas otras maneras (puedes intentar coger y dejar, agitar, empujar, comer... cualquier objeto). Un mensaje te informará del efecto de la acción:";
+print (parser) "De forma anÃ¡loga, tambiÃ©n podrÃ¡s cerrarla con la instrucciÃ³n CIERRA. AdemÃ¡s, normalmente los objetos se pueden manipular de muchas otras maneras (puedes intentar coger y dejar, agitar, empujar, comer... cualquier objeto). Un mensaje te informarÃ¡ del efecto de la acciÃ³n:";
 new_line;
 return true;
 12:	! (hint: burn a)
-print (parser) "Intenta encender una cerilla para que la pequeña se pueda calentar con ella.";
+print (parser) "Intenta encender una cerilla para que la pequeÃ±a se pueda calentar con ella.";
 new_line;
 return true;
 13:	! (hint: burn b)
-print (parser) "Para encender una cerilla, asegúrate de que la CAJA está abierta y teclea: ENCIENDE CERILLA.";
+print (parser) "Para encender una cerilla, asegÃ¡rate de que la CAJA estÃ¡ abierta y teclea: ENCIENDE CERILLA.";
 new_line;
 return true;
 14:	! (hint: highlight)
-print (parser) "Existe una instrucción RESALTADO que te permite escoger el estilo con el que se imprime el nombre de los objetos interactivos del relato.";
+print (parser) "Existe una instrucciÃ³n RESALTADO que te permite escoger el estilo con el que se imprime el nombre de los objetos interactivos del relato.";
 new_line;
 return true;
 15:	! (hint: meta comandos)
-print (parser) "Si quieres salir del cuento, teclea TERMINA. Para guardar tu partida actual teclea GUARDA. CARGA te permitirá retomar una partida que hayas guardado previamente, y REINICIA comenzará el relato de nuevo desde el principio. Además, si en algún momento quieres volver @<<un paso atrás@>>, teclea DESHACER.";
+print (parser) "Si quieres salir del cuento, teclea TERMINA. Para guardar tu partida actual teclea GUARDA. CARGA te permitirÃ¡ retomar una partida que hayas guardado previamente, y REINICIA comenzarÃ¡ el relato de nuevo desde el principio. AdemÃ¡s, si en algÃºn momento quieres volver @<<un paso atrÃ¡s@>>, teclea DESHACER.";
 new_line;
 return true;
 16:	! (hint: use)
-print (parser) "La instrucción USA resulta demasiado ambigua. Prueba a realizar una acción más concreta.";
+print (parser) "La instrucciÃ³n USA resulta demasiado ambigua. Prueba a realizar una acciÃ³n mÃ¡s concreta.";
 new_line;
 return true;
 }
 
 Limbo: switch (n) {
 1:	! ##Examine (A - general)
-print "Más allá de la barrera casi insuperable que separa la realidad de todo lo demás. Un lugar etéreo, donde la vida, la materia y la vitalidad no son necesariamente constantes; un lugar donde el tiempo y el espacio no existen tal y como los capta nuestro ser despierto...";
+print "MÃ¡s allÃ¡ de la barrera casi insuperable que separa la realidad de todo lo demÃ¡s. Un lugar etÃ©reo, donde la vida, la materia y la vitalidad no son necesariamente constantes; un lugar donde el tiempo y el espacio no existen tal y como los capta nuestro ser despierto...";
 return true;
 2:	! ##Examine (B - la primera vez)
-print " ", (emph) "bienvenido al mundo del sueño", ".";
+print " ", (emph) "bienvenido al mundo del sueÃ±o", ".";
 return true;
 }
 
@@ -450,7 +458,7 @@ return true;
 
 Pared: switch (n) {
 1:	! ##Examine
-print "Notaba el tacto duro y gélido de la pared contra su diminuta espalda";
+print "Notaba el tacto duro y gÃ©lido de la pared contra su diminuta espalda";
 new_line;
 return true;
 }
@@ -460,24 +468,24 @@ Puerta: switch (n) {
 print "Las puertas de ", (the) Casas, " cercanas eran grandes y bonitas, con finos adornos tallados en oscura madera y brillantes ", (name) Aldabas, " de metal con rostros de bestia.";
 return true;
 2:	! ##Pull, ##Push, ##PushDir, ##Turn
-print "No tenía fuerzas para molestarse en hacer algo así.";
+print "No tenÃ­a fuerzas para molestarse en hacer algo asÃ­.";
 new_line;
 return true;
 3:	! ##KnockOn, ##Open
 print "Seguramente se tratasen de las casas de familias ricas e
-importantes. No iba a llamar. Tenía miedo de molestar y de que
-la pudiesen echar de allí.";
+importantes. No iba a llamar. TenÃ­a miedo de molestar y de que
+la pudiesen echar de allÃ­.";
 new_line;
 return true;
 }
 
 RestosCalcinados: switch (n) {
 1:	! ##Examine (A)
-print "No son más que los restos ennegrecidos e inservibles de la cerilla que había usado para calentarse.";
+print "No son mÃ¡s que los restos ennegrecidos e inservibles de la cerilla que habÃ­a usado para calentarse.";
 new_line;
 return true;
 2:	! ##Examine (B)
-print "No son más que los restos ennegrecidos e inservibles de las cerillas que había usado para calentarse.";
+print "No son mÃ¡s que los restos ennegrecidos e inservibles de las cerillas que habÃ­a usado para calentarse.";
 new_line;
 return true;
 }

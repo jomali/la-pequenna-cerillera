@@ -141,11 +141,19 @@ print "*La pequeña cerillera* es un cuento breve del escritor danés ", (header
 ^^
 Diseño, programacion y textos adicionales de la presente adaptación obra de ", (header) "José Francisco Martín Lisaso", ". Publicada por primera vez en diciembre de 2010, con licencia GNU GPL v3. Tercera revisión de mayo de 2018.
 ^^
-*Stille Nacht, heilige Nacht* es una melodía del compositor austríaco ", (header) "Franz Xaver Gruber", " (1818). La pista de audio utilizada ha sido grabada por ", (header) "Kevin MacLeod", " (*incompetech.com*) en 2010 y está publicada con licencia CC 3.0 BY: *http://creativecommons.org/licenses/by/3.0/*.
+*Stille Nacht, heilige Nacht* es una melodía del compositor austríaco ", (header) "Franz Xaver Gruber", " (1818). La pista de audio utilizada ha sido grabada por ", (header) "Kevin MacLeod", " (";
+Util.website_hyperlink("https://incompetech.com/");
+print ") en 2010 y está publicada con licencia CC 3.0 BY: ";
+Util.website_hyperlink("http://creativecommons.org/licenses/by/3.0/");
+print ".
 ^^
 La ilustración de la portada ha sido creada por ", (header) "Anne Anderson", " (1874-1930) y forma parte del dominio público.
 ^^
-El icono utilizado en la aplicación es una adaptación sobre un original diseñado por ", (header) "Roundicons", " y disponible desde *www.flaticon.com*. Publicado con licencia CC 3.0 BY: *http://creativecommons.org/licenses/by/3.0/*.
+El icono utilizado en la aplicación es una adaptación sobre un original diseñado por ", (header) "Roundicons", " y disponible desde ";
+Util.website_hyperlink("https://www.flaticon.com/");
+print ". Publicado con licencia CC 3.0 BY: ";
+Util.website_hyperlink("http://creativecommons.org/licenses/by/3.0/");
+print ".
 ^^
 ", (stressed) "Dedicado con cariño a ", (header) "Freire", (stressed) ", por haberme descubierto este cuento ---y tantas otras cosas---. (Como ves, tu nombre ", (important) "si", (stressed) " aparece al final).";
 new_line;

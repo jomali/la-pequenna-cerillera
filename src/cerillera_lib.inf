@@ -41,23 +41,23 @@
 !!
 !!	TABLA DE CONTENIDOS
 !!
-!!	-	Banner()
+!!	<>	Banner()
 !!		-	PrintStoryTitle()
 !!		-	PrintHeadline()
 !!		-	PrintVersionNumber()
 !!		-	PrintSerialNumber()
-!!	-	DrawStatusLine()
-!!	-	ExamineSub()
-!!	-	GetGNAOfObject()
-!!	-	GetActionVerb()
-!!	-	LanguageDirection() / Redefinición de direcciones
-!!	-	LMode1Sub()
-!!	-	LMode2Sub()
-!!	-	LMode3Sub()
-!!	-	LookSub()
-!!	-	ParseNoun()
-!!	-	PSN__()
-!!	-	VersionSub()
+!!	<>	DrawStatusLine()
+!!	<>	ExamineSub()
+!!	<>	GetGNAOfObject()
+!!	<>	GetActionVerb()
+!!	<>	LanguageDirection() / Redefinición de direcciones
+!!	<>	LMode1Sub()
+!!	<>	LMode2Sub()
+!!	<>	LMode3Sub()
+!!	<>	LookSub()
+!!	<>	ParseNoun()
+!!	<>	PSN__()
+!!	<>	VersionSub()
 !!
 !!------------------------------------------------------------------------------
 
@@ -68,21 +68,17 @@
 !! PrintSerialNumber(), PrintStoryTitle() y PrintVersionNumber().
 !!
 !!	@override verblibm.h
-!!	@version 1.1
+!!	@version 1.2
 !!------------------------------------------------------------------------------
-!! FIXME - Vorple / móvil
 [ Banner;
 	PrintStoryTitle();
 	PrintHeadline();
-	#Ifdef DEBUG;
-	print "DEBUG ";
-	#Ifnot;
 	print "Versión ";
-	#Endif; ! DEBUG;
 	PrintVersionNumber();
-	#Ifdef TARGET_ZCODE;
-	print " Z";
-	#Endif; ! TARGET_ZCODE;
+	#Ifndef VERSION_DESKTOP;
+	if (isVorpleSupported()) print " WEB";
+	else print " LITE";
+	#Endif; ! VERSION_DESKTOP;
 	print " / Núm. de serie ";
 	PrintSerialNumber();
 	print " / Creado con Inform "; inversion;
@@ -95,7 +91,7 @@
 	#Ifdef INFIX;
 	print "X";
 	#Endif; ! INFIX
-	new_line;
+	new_line;;
 ];
 
 !! Imprime el encabezado
@@ -715,20 +711,16 @@ CompassDirection d_obj "abajo" compass
 !!
 !!	@returns {boolean} Verdadero
 !!	@override parserm.h
-!!	@version 1.1
+!!	@version 2.0
 !!------------------------------------------------------------------------------
 [ PSN__ obj;
-    if (obj == 0) { print (string) NOTHING__TX; rtrue; }
-    switch (metaclass(obj)) {
-	    Routine:  print "<routine ", obj, ">"; rtrue;
-	    String:   print "<string ~", (string) obj, "~>"; rtrue;
-	    nothing:  print "<illegal object number ", obj, ">"; rtrue;
-    }
-    !! if (obj == player) { print (string) YOURSELF__TX; rtrue; }
-    #Ifdef LanguagePrintShortName;
-    if (LanguagePrintShortName(obj)) rtrue;
-    #Endif; ! LanguagePrintShortName
-	return Hyperlink(obj);
+	if (obj == 0) { print (string) NOTHING__TX; rtrue; }
+	switch (metaclass(obj)) {
+		Routine:	print "<routine ", obj, ">"; rtrue;
+		String:		print "<string ~", (string) obj, "~>"; rtrue;
+		nothing:	print "<illegal object number ", obj, ">"; rtrue;
+	}
+	return Util.extended_print(obj);
 ];
 
 
@@ -736,7 +728,7 @@ CompassDirection d_obj "abajo" compass
 !! Créditos detallados de la aplicación.
 !!
 !!	@override verblibm.h
-!!	@version 1.0
+!!	@version 1.1
 !!------------------------------------------------------------------------------
 [ VersionSub
 	ix;
@@ -776,6 +768,14 @@ CompassDirection d_obj "abajo" compass
 	print "VM ", ix / $10000, ".", (ix & $FF00) / $100, ".", ix & $FF;
 	#Endif; ! TARGET_;
 	new_line;
+	#Ifndef VERSION_DESKTOP;
+    if (isVorpleSupported()) {
+        VorpleExecuteJavaScriptCommand("vorple.version");
+		print "Versión de la librería Vorple ";
+ 		PrintStringOrArray(VorpleWhatTextWasReturned());
+		new_line;
+    }
+	#Endif; ! VERSION_DESKTOP
 
 	new_line;
 	print "Relato original: ", (strong) "Hans Christian Andersen", ".^";

@@ -41,8 +41,9 @@
 !!
 !!	TABLA DE CONTENIDOS
 !!
-!!	1)	Mensajes de la librería
-!!	2)	Mensajes de error del sistema
+!!	1)	Definiciones de apoyo
+!!	2)	Mensajes de la librería
+!!	3)	Mensajes de error del sistema
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -59,7 +60,27 @@
 
 !!==============================================================================
 !!
-!!	1)	Mensajes de la librería
+!!	1)	Definiciones de apoyo
+!!
+!!------------------------------------------------------------------------------
+
+Default PS1 ">";
+
+#Ifdef USE_VORPLE;
+Array _prefill_array buffer 100;
+[ PrefillWithCommand;
+    bp_output_stream(3, _prefill_array, 100);
+    PrintCommand();
+    print " ";
+    bp_output_stream(-3);
+    VorplePrefillPrompt(_prefill_array);
+];
+#Endif; ! USE_VORPLE;
+
+
+!!==============================================================================
+!!
+!!	2)	Mensajes de la librería
 !!
 !!------------------------------------------------------------------------------
 
@@ -233,11 +254,11 @@ Object	LibraryMessages
 				!! Si el usuario intenta hablar con un objeto que no es
 				!! "animate" ni "talkable" ("talkable" debe ponerse a objetos
 				!! inanimates con los que se podría hablar, como un micrófono).
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "No es posible hablar con ", (the) lm_o, ".";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				new_line;
 				return true;
 			25:
@@ -257,7 +278,10 @@ Object	LibraryMessages
 				!! El usuario ha escrito una frase u orden a NPC incompleta,
 				!! como BESA (verbo aplicado sobre NPCs normalmente). El parser
 				!! le pregunta para que complete la frase.
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				#Ifdef USE_VORPLE;
+				PrefillWithCommand();
+				#Endif; ! USE_VORPLE;
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				PreguntaCualExactamente = 1;
 				if (IniciarPregunta() ==0 ) print "A quién";
@@ -267,14 +291,17 @@ Object	LibraryMessages
 				if (actor~=player) print " ", (the) actor;
 				print "?";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				new_line;
 				return true;
 			49:
 				!! El usuario ha escrito una frase u orden incompleta, como
 				!! COGE (verbo aplicado sobre objetos normalmente). El parser
 				!! le pregunta para que complete la frase.
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				#Ifdef USE_VORPLE;
+				PrefillWithCommand();
+				#Endif; ! USE_VORPLE;
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				PreguntaCualExactamente = 1;
 				if (IniciarPregunta() ==0 ) print "Qué";
@@ -284,7 +311,7 @@ Object	LibraryMessages
 				if (actor~=player) print " ", (the) actor;
 				print "?";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				new_line;
 				return true;
 			51:
@@ -322,7 +349,7 @@ Object	LibraryMessages
 		!!	5:	[6/11].
 		switch (lm_n) {
 			1:
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "En este momento, ";
 			2:
@@ -332,12 +359,12 @@ Object	LibraryMessages
 			4:
 				print "el juego no conoce ningún pronombre.";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				new_line;
 			5:
 				print ".";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				new_line;
 		}
 		return true;
@@ -346,8 +373,11 @@ Object	LibraryMessages
 		!! El prompt aparece justo antes de pedir una nueva línea al usuario.
 		!! Puede definirse para que sea una frase, o se genere una frase
 		!! aleatoria en cada turno, por ejemplo.
+		#Ifdef USE_VORPLE;
+		if (VorpleAppendToLM(##Prompt, lm_n)) return true;
+		#Endif; ! USE_VORPLE;
 		new_line;
-		print (string) PS1;
+		print (string) PS1, " ";
 		return true;
 
 	Quit:
@@ -355,7 +385,7 @@ Object	LibraryMessages
 		!!	2:	Respuesta si el jugador escribe algo distinto de "si" o "no".
 		switch (lm_n) {
 			1:
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "Por favor, responde ";
 				print "SÍ"; ! Hyperlink("SÍ"); !! TODO
@@ -363,10 +393,10 @@ Object	LibraryMessages
 				print "NO"; ! Hyperlink("NO"); !! TODO
 				print ":";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				print " ";
 			2:
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "¿Realmente quieres abandonar el relato? (";
 				print "SÍ"; ! Hyperlink("SÍ"); !! TODO
@@ -374,7 +404,7 @@ Object	LibraryMessages
 				print "NO"; ! Hyperlink("NO"); !! TODO
 				print ")";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				print " ";
 		}
 		return true;
@@ -384,7 +414,7 @@ Object	LibraryMessages
 		!!	2:	Si no se puede reiniciar.
 		switch (lm_n) {
 			1:
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "¿Realmente quieres reiniciar el relato? (";
 				print "SÍ"; ! Hyperlink("SÍ"); !! TODO
@@ -392,7 +422,7 @@ Object	LibraryMessages
 				print "NO"; ! Hyperlink("NO"); !! TODO
 				print ")";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				print " ";
 				return true;
 			2:
@@ -431,7 +461,7 @@ Object	LibraryMessages
 		!! este último caso, la variable "deadflag" será igual a true.
 		switch (lm_n) {
 			1:
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				if (deadflag) print "En este juego, tu puntuación ha sido ";
 				else print "Hasta el momento tu puntuación es ";
@@ -440,7 +470,7 @@ Object	LibraryMessages
 				if (turns > 1) print "s";
 				print ".";
 				!! print (string) TEXT_STYLE_PARSER_SUFIX;
-				!! UseTextStyle(previous_style);
+				!! Util.set_text_style(previous_style);
 				new_line;
 				return true;
 			2:
@@ -517,7 +547,7 @@ Object	LibraryMessages
 
 !!==============================================================================
 !!
-!!	2)	Mensajes de error del sistema
+!!	3)	Mensajes de error del sistema
 !!
 !!------------------------------------------------------------------------------
 
@@ -531,14 +561,14 @@ Object	LibraryMessages
 		UPTO_PE:
 				!! #28: Al parser le sobran palabras, aunque ha entendido gran
 				!! parte de la orden.
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "Intenta de nuevo porque sólo se pudo entender que
 				quieres @<<";
 				PrintCommand();
 				print "@>>.";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				new_line;
 				return true;
 		NUMBER_PE:
@@ -558,7 +588,7 @@ Object	LibraryMessages
 				!! #32: El objeto que el usuario intenta usar no está en su
 				!! poder. El parser ha intentado "cogerlo de forma automática",
 				!! pero ha fallado.
-				switch (_grammatical_inflection) {
+				switch (Util.get_grammatical_inflection) {
 					FIRST_PERSON_PRESENT:
 						if (IsPluralNoun(player)) "No tenemos eso.";
 						else "No tengo eso.";
@@ -590,12 +620,12 @@ Object	LibraryMessages
 		MULTI_PE:
 				!! #33: El usuario ha intentado usar objetos múltiples (o
 				!! "TODO") con un verbo que en su gramática no lo admite.
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "No se pueden especificar objetos múltiples con @<<",
 				(address) verb_word, "@>>.";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				new_line;
 				return true;
 		MMULTI_PE:
@@ -606,12 +636,12 @@ Object	LibraryMessages
 		VAGUE_PE:
 				!! #35: El usuario ha usado un pronombre, como CÓMELO, pero el
 				!! parser no tiene asignado un valor a ese pronombre.
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "No está claro a qué te refieres con @<<",
 				(address) pronoun_word ,"@>>.";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				new_line;
 				return true;
 		EXCEPT_PE:
@@ -632,14 +662,14 @@ Object	LibraryMessages
 				!! #38: La primera palabra usada por el usuario es desconocida
 				!! (o la primera palabra tras la coma, si se trata de una
 				!! orden a un NPC).
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "La instrucción @<<";
 				for (j = 0: j < WordLength(1): j++)
 					print (char) WordAddress(1) -> j;
 				print "@>> no está definida.";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				new_line;
 				return true;
 		SCENERY_PE:
@@ -649,13 +679,13 @@ Object	LibraryMessages
 		ITGONE_PE:
 				!! #40: El usuario ha usado un pronombre, como EXAMÍNALO, pero
 				!! el pronombre se refiere a un objeto que ya no está visible.
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				print "Ahora mismo no se puede encontrar lo que representa el
 				pronombre @<<", (address) pronoun_word ,"@>> (",
 				(the) pronoun_obj, ").";
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				new_line;
 				return true;
 		JUNKAFTER_PE:
@@ -669,7 +699,7 @@ Object	LibraryMessages
 				!! #42: El usuario ha solicitado un número de objetos en una
 				!! lista de objetos múltiples, pero el parser no es capaz de
 				!! encontrar tantos. Por ejemplo: COGE SEIS MONEDAS.
-				previous_style = UseTextStyle(TEXT_STYLE_PARSER);
+				previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
 				print (string) TEXT_STYLE_PARSER_PREFIX;
 				if (multi_had == 0) print "No hay suficientes disponibles.";
 				else {
@@ -678,7 +708,7 @@ Object	LibraryMessages
 					print ".";
 				}
 				print (string) TEXT_STYLE_PARSER_SUFIX;
-				UseTextStyle(previous_style);
+				Util.set_text_style(previous_style);
 				new_line;
 				return true;
 		NOTHING_PE:
