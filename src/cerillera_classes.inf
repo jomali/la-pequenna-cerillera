@@ -115,35 +115,35 @@ Class	Thing
 		volume	0,			! Volumen
 		weight	0,			! Peso
 		description [;
-			!! switch (Util.get_grammatical_inflection) {
-			!! 	FIRST_PERSON_PRESENT:
-			!! 		if (IsPluralNoun(player)) print "No vemos";
-			!! 		else print "No veo";
-			!! 	SECOND_PERSON_PRESENT:
-			!! 		if (IsPluralNoun(player)) print "No veis";
-			!! 		else print "No ves";
-			!! 	THIRD_PERSON_PRESENT:
-			!! 		if (IsPluralNoun(player)) print "No ven";
-			!! 		else print "No ve";
-			!! 	FIRST_PERSON_PAST:
-			!! 		if (IsPluralNoun(player)) print "No vimos";
-			!! 		else print "No vi";
-			!! 	SECOND_PERSON_PAST:
-			!! 		if (IsPluralNoun(player)) print "No visteis";
-			!! 		else print "No viste";
-			!! 	THIRD_PERSON_PAST:
-			!! 		if (IsPluralNoun(player)) print "No vieron";
-			!! 		else print "No vio";
-			!! 	FIRST_PERSON_FUTURE:
-			!! 		if (IsPluralNoun(player)) print "No veremos";
-			!! 		else print "No veré";
-			!! 	SECOND_PERSON_FUTURE:
-			!! 		if (IsPluralNoun(player)) print "No veréis";
-			!! 		else print "No verás";
-			!! 	THIRD_PERSON_FUTURE:
-			!! 		if (IsPluralNoun(player)) print "No verán";
-			!! 		else print "No verá";
-			!! }
+			switch (Util.get_grammatical_inflection) {
+				FIRST_PERSON_PRESENT:
+					if (IsPluralNoun(player)) print "No vemos";
+					else print "No veo";
+				SECOND_PERSON_PRESENT:
+					if (IsPluralNoun(player)) print "No veis";
+					else print "No ves";
+				THIRD_PERSON_PRESENT:
+					if (IsPluralNoun(player)) print "No ven";
+					else print "No ve";
+				FIRST_PERSON_PAST:
+					if (IsPluralNoun(player)) print "No vimos";
+					else print "No vi";
+				SECOND_PERSON_PAST:
+					if (IsPluralNoun(player)) print "No visteis";
+					else print "No viste";
+				THIRD_PERSON_PAST:
+					if (IsPluralNoun(player)) print "No vieron";
+					else print "No vio";
+				FIRST_PERSON_FUTURE:
+					if (IsPluralNoun(player)) print "No veremos";
+					else print "No veré";
+				SECOND_PERSON_FUTURE:
+					if (IsPluralNoun(player)) print "No veréis";
+					else print "No verás";
+				THIRD_PERSON_FUTURE:
+					if (IsPluralNoun(player)) print "No verán";
+					else print "No verá";
+			}
 			" nada especial en ", (the) self, ".";
 		],
 ;
@@ -158,53 +158,53 @@ Class	Thing
 Class	Item
  class	Thing
  with	description [;
-			!! switch (Util.get_grammatical_inflection) {
-			!! 	FIRST_PERSON_PRESENT,
-			!! 	SECOND_PERSON_PRESENT,
-			!! 	THIRD_PERSON_PRESENT:
-			!! 		print "Tiene", (n) self;
-			!! 	FIRST_PERSON_PAST,
-			!! 	SECOND_PERSON_PAST,
-			!! 	THIRD_PERSON_PAST:
-			!! 		print "Tenía", (n) self;
-			!! 	FIRST_PERSON_FUTURE,
-			!! 	SECOND_PERSON_FUTURE,
-			!! 	THIRD_PERSON_FUTURE:
-			!! 		print "Tendrá", (n) self;
-			!! }
-			!! print " el mismo aspecto que ";
-			!! if (IsPluralNoun(self)) print "cualesquiera";
-			!! else print "cualquier";
-			!! print " otr", (o) self, " ", (name) self, " que ";
-			!! switch (Util.get_grammatical_inflection) {
-			!! 	FIRST_PERSON_PRESENT:
-			!! 		if (IsPluralNoun(player)) print "hayamos";
-			!! 		else print "haya";
-			!! 	SECOND_PERSON_PRESENT:
-			!! 		if (IsPluralNoun(player)) print "hayáis";
-			!! 		else print "hayas";
-			!! 	THIRD_PERSON_PRESENT:
-			!! 		if (IsPluralNoun(player)) print "hayan";
-			!! 		else print "haya";
-			!! 	FIRST_PERSON_PAST:
-			!! 		if (IsPluralNoun(player)) print "hubiésemos";
-			!! 		else print "hubiese";
-			!! 	SECOND_PERSON_PAST:
-			!! 		if (IsPluralNoun(player)) print "hubieseis";
-			!! 		else print "hubieses";
-			!! 	THIRD_PERSON_PAST:
-			!! 		if (IsPluralNoun(player)) print "hubiesen";
-			!! 		else print "hubiese";
-			!! 	FIRST_PERSON_FUTURE:
-			!! 		if (IsPluralNoun(player)) print "habremos";
-			!! 		else print "habré";
-			!! 	SECOND_PERSON_FUTURE:
-			!! 		if (IsPluralNoun(player)) print "habréis";
-			!! 		else print "habrás";
-			!! 	THIRD_PERSON_FUTURE:
-			!! 		if (IsPluralNoun(player)) print "habrán";
-			!! 		else print "habrá";
-			!! }
+			switch (Util.get_grammatical_inflection) {
+				FIRST_PERSON_PRESENT,
+				SECOND_PERSON_PRESENT,
+				THIRD_PERSON_PRESENT:
+					print "Tiene", (n) self;
+				FIRST_PERSON_PAST,
+				SECOND_PERSON_PAST,
+				THIRD_PERSON_PAST:
+					print "Tenía", (n) self;
+				FIRST_PERSON_FUTURE,
+				SECOND_PERSON_FUTURE,
+				THIRD_PERSON_FUTURE:
+					print "Tendrá", (n) self;
+			}
+			print " el mismo aspecto que ";
+			if (IsPluralNoun(self)) print "cualesquiera";
+			else print "cualquier";
+			print " otr", (o) self, " ", (name) self, " que ";
+			switch (Util.get_grammatical_inflection) {
+				FIRST_PERSON_PRESENT:
+					if (IsPluralNoun(player)) print "hayamos";
+					else print "haya";
+				SECOND_PERSON_PRESENT:
+					if (IsPluralNoun(player)) print "hayáis";
+					else print "hayas";
+				THIRD_PERSON_PRESENT:
+					if (IsPluralNoun(player)) print "hayan";
+					else print "haya";
+				FIRST_PERSON_PAST:
+					if (IsPluralNoun(player)) print "hubiésemos";
+					else print "hubiese";
+				SECOND_PERSON_PAST:
+					if (IsPluralNoun(player)) print "hubieseis";
+					else print "hubieses";
+				THIRD_PERSON_PAST:
+					if (IsPluralNoun(player)) print "hubiesen";
+					else print "hubiese";
+				FIRST_PERSON_FUTURE:
+					if (IsPluralNoun(player)) print "habremos";
+					else print "habré";
+				SECOND_PERSON_FUTURE:
+					if (IsPluralNoun(player)) print "habréis";
+					else print "habrás";
+				THIRD_PERSON_FUTURE:
+					if (IsPluralNoun(player)) print "habrán";
+					else print "habrá";
+			}
 			" visto antes.";
 		],
 ;
@@ -289,14 +289,6 @@ Class	Atrezzo
 
 Class	NPC
  class	Thing,
- with	before [;
-			DefaultAction:
-				#Ifdef USE_SPANISH_LM;
-				if (self has described) {
-					<<TalkTo self>>;
-				}
-				#Endif; ! USE_SPANISH_LM;
-		],
  has	animate;
 
 !!==============================================================================

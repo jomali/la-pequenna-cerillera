@@ -154,11 +154,12 @@ NPC		-> Alba "cerillera"
 			}
 			else quit;
 			#Ifnot; ! VERSION_WEB_MOBILE;
+			previous_style = c = 0; ! (por evitar alertas del compilador)
 			print (header) "FIN";
 			new_line;
 			new_line;
 			print (parser) "Pulsa cualquier tecla para volver a empezar.";
-			PressAnyKey();
+			Util.press_any_key();
 			@restart;
 			L__M(##Restart, 2);
 			#Endif; ! VERSION_

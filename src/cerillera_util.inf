@@ -314,7 +314,7 @@ Object	Util "(Utilities)"
 			if (status) self.create_vorple_hyperlink(item, alternative);
 			else {
 				if (alternative) print (string) alternative;
-				else self.print_object_short_name(alternative);
+				else self.print_object_short_name(item);
 			}
 			#Ifnot;
 			if (alternative) print (string) alternative;

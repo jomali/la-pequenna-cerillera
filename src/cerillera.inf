@@ -124,7 +124,7 @@ Constant Checking 4;
 Release 0; ! Serial "180921";
 
 !! Descomentar para compilar la versión Web/Móvil:
-!! Constant VERSION_WEB_MOBILE;
+Constant VERSION_WEB_MOBILE;
 
 !!------------------------------------------------------------------------------
 !!	Control de las extensiones utilizadas por la obra
@@ -137,7 +137,7 @@ Constant VERSION_DESKTOP;
 
 #Ifdef VERSION_WEB_MOBILE;
 !! Utilización de la interfaz Vorple:
-!! Constant USE_VORPLE; ! FIXME
+Constant USE_VORPLE;
 #Ifnot; ! VERSION_DESKTOP;
 !! Utilización del gestor de audio:
 Constant USE_DAMUSIX;
@@ -194,7 +194,6 @@ Constant VORPLE_NO_REPLACES;
 Constant MANUAL_PRONOUNS;		! Los prons. refieren a objetos ya mencionados
 Constant NO_PLACES;				! Acciones LUGARES y OBJETOS desactivadas
 Constant NO_SCORE;				! No se lleva conteo de puntuación
-Constant VORPLE_NO_REPLACES;	! Vorple no reescribe rutinas de Inform
 
 #Ifdef USE_SPANISH_LM;
 Constant SIN_MENSAJES;			! Se omiten los mensajes por defecto de la lib.
@@ -723,9 +722,11 @@ Include "vorple-screen-effects.h";
 
 	!! Lee el fichero de configuración:
 	#Ifdef TARGET_GLULX;
+	#Ifdef VERSION_DESKTOP;
 	#Ifdef CONFIG_FILE_NAME;
 	Util.read_configuration_file(CONFIG_FILE_NAME);
 	#Endif; ! CONFIG_FILE_NAME;
+	#Endif; ! VERSION_DESKTOP;
 	#Endif; ! TARGET_GLULX;
 
 	!! Comprobaciones del intérprete -------------------------------------------
