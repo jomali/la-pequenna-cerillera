@@ -31,11 +31,11 @@ El equipo de desarrollo de la adaptación está formado por una única persona t
 
 ### Créditos
 
-Relato original: **Hans Christian Andersen**
-Diseño y programación: **J. Francisco Martín Lisaso**
-Composición musical: **Franz Xaver Gruber**
-Grabación: **Kevin MacLeod**
-Ilustración de la portada: **Anne Anderson**
+Relato original: **Hans Christian Andersen**  
+Diseño y programación: **J. Francisco Martín Lisaso**  
+Composición musical: **Franz Xaver Gruber**  
+Grabación: **Kevin MacLeod**  
+Ilustración de la portada: **Anne Anderson**  
 Icono original: **Roundicons.com**  
 
 *Que la disfrutéis.*
