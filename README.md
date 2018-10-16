@@ -1,4 +1,4 @@
-# La Pequeña Cerillera
+# La pequeña cerillera
 
 
 ### Introducción
@@ -36,7 +36,7 @@ Diseño y programación: **J. Francisco Martín Lisaso**
 Composición musical: **Franz Xaver Gruber**
 Grabación: **Kevin MacLeod**
 Ilustración de la portada: **Anne Anderson**
-Icono original: **Roundicons.com**
+Icono original: **Roundicons.com**  
 
 *Que la disfrutéis.*
 
