@@ -12,8 +12,8 @@
 !!	Idioma:			ES (Español)
 !!	Sistema:		Inform-INFSP 6
 !!	Plataforma:		Máquina-Z/Glulx
-!!	Versión:		4.0
-!!	Fecha:			2018/09/21
+!!	Versión:		4.2
+!!	Fecha:			2018/10/16
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -64,7 +64,8 @@
 !!
 !!------------------------------------------------------------------------------
 
-[ LanguageOM obj n x1;
+[ LanguageOM obj n x1
+	previous_style;
 	switch (obj) {
 
 !!------------------------------------------------------------------------------
@@ -100,14 +101,14 @@ box	""
 new_line;
 return true;
 3:	! cita (Glulx)
-print (stressed) "---¿Tú crees que hay gente que sobra?^
----Los mendigos.^
----Los que se mean en el portal.^
----Los que no me dan la razón.^
----Los que no me dan.^
----Definitivamente los mendigos sobran.^
----Pero si quitamos a los mendigos... ¿quién va a protagonizar los cuentos y las películas y los documentales?^
----Sobre todo en Navidad.";
+print (stressed) "—¿Tú crees que hay gente que sobra?^
+—Los mendigos.^
+—Los que se mean en el portal.^
+—Los que no me dan la razón.^
+—Los que no me dan.^
+—Definitivamente los mendigos sobran.^
+—Pero si quitamos a los mendigos... ¿quién va a protagonizar los cuentos y las películas y los documentales?^
+—Sobre todo en Navidad.";
 new_line;
 new_line;
 print "CRISTINA PEREGRINA^
@@ -117,7 +118,7 @@ return true;
 4:	! introducción
 print "¡Qué frío hacía!; [la Nieve] y la noche comenzaban a caer lentamente sobre la ciudad aquel día de San Silvestre, el último del viejo año. En medio del frío y la oscuridad crecientes, una pobre [Alba](niña) vagaba sola por las calles, descalza y con la cabeza descubierta. Verdad es que al salir de su casa llevaba zapatillas, pero, ¡de qué sirvieron! Eran unas zapatillas que su madre había llevado últimamente, y a la pequeña le venían tan grandes, que las perdió al cruzar corriendo la calle para librarse de dos coches tirados por caballos que venían a toda velocidad. Una de las zapatillas no hubo medio de encontrarla, y la otra se la había puesto un mozalbete que salió corriendo con ella mientras gritaba que la haría servir de cuna el día que tuviese hijos.
 ^^
-Y así la pobrecilla andaba descalza con los desnudos piececitos completamente amoratados por el frío. En un viejo delantal guardaba, como si de un tesoro se tratase, un [CajaCerillas](paquete) lleno de fósforos. Había intentado venderlos para conseguir algo de dinero que llevar a casa, sin embargo, en todo el santo día nadie le había comprado nada, no le habían dado ni un mísero chelín; volvíase a casa hambrienta y medio helada, ¡y parecía tan abatida! Rendida, se sentó en el suelo, en un ángulo que formaban dos [Casas] ---una más saliente que la otra---, y se acurrucó hecha un ovillo.";
+Y así la pobrecilla andaba descalza con los desnudos piececitos completamente amoratados por el frío. En un viejo delantal guardaba, como si de un tesoro se tratase, un paquete lleno de [CajaCerillas](fósforos). Había intentado venderlos para conseguir algo de dinero que llevar a casa, sin embargo, en todo el santo día nadie le había comprado nada, no le habían dado ni un mísero chelín; volvíase a casa hambrienta y medio helada, ¡y parecía tan abatida! Rendida, se sentó en el suelo, en un ángulo que formaban dos [Casas] —una más saliente que la otra—, y se acurrucó hecha un ovillo.";
 new_line;
 return true;
 5:	! ##Sleep (A)
@@ -139,7 +140,7 @@ return true;
 9:
 print "*La pequeña cerillera* es un cuento breve del escritor danés ", (header) "Hans Christian Andersen", ", publicado por primera vez en diciembre de 1845.
 ^^
-Diseño, programacion y textos adicionales de la presente adaptación obra de ", (header) "José Francisco Martín Lisaso", ". Publicada por primera vez en diciembre de 2010, con licencia GNU GPL v3. Tercera revisión de mayo de 2018.
+Diseño, programacion y textos adicionales de la presente adaptación obra de ", (header) "José Francisco Martín Lisaso", ". Publicada por primera vez en diciembre de 2010, con licencia GNU GPL v3. Cuarta revisión de octubre de 2018.
 ^^
 *Stille Nacht, heilige Nacht* es una melodía del compositor austríaco ", (header) "Franz Xaver Gruber", " (1818). La pista de audio utilizada ha sido grabada por ", (header) "Kevin MacLeod", " (";
 Util.website_hyperlink("https://incompetech.com/");
@@ -155,7 +156,7 @@ print ". Publicado con licencia CC 3.0 BY: ";
 Util.website_hyperlink("http://creativecommons.org/licenses/by/3.0/");
 print ".
 ^^
-", (stressed) "Dedicado con cariño a ", (header) "Freire", (stressed) ", por haberme descubierto este cuento ---y tantas otras cosas---. (Como ves, tu nombre ", (important) "si", (stressed) " aparece al final).";
+", (stressed) "Dedicado con cariño a ", (header) "Freire", (stressed) ", por haberme descubierto este cuento —y tantas otras cosas—. (Como ves, tu nombre ", (important) "si", (stressed) " aparece al final).";
 new_line;
 return true;
 10:	! ##Dance
@@ -187,7 +188,7 @@ return true;
 !!------------------------------------------------------------------------------
 CajaCerillas: switch (n) {
 1:	! ##Examine (A - general)
-print "Es todo cuanto tenía; un pequeño [CajaCerillas](estuche) lleno de cerillas.";
+print "Es todo cuanto tenía; un pequeño estuche lleno de [CajaCerillas](cerillas).";
 return true;
 2:	! ##Examine (B - cerrada)
 print " Estaba cerrado.";
@@ -203,7 +204,7 @@ print "Aquella [CajaCerillas] era lo único que tenía la pequeña. De ninguna f
 new_line;
 return true;
 6:	! ##Open (after)
-print "Sacó el [CajaCerillas](estuche) del bolsillo del delantal y lo abrió con muchísimo esfuerzo, ya que las manos no dejaban de temblarle y sus dedos se habían quedado completamente entumecidos por el frío. Dentro estaban todas aquellas cerillas que no había sido capaz de vender.";
+print "Sacó el [CajaCerillas](estuche) del bolsillo del delantal y lo abrió con muchísimo esfuerzo, ya que las manos no dejaban de temblarle y sus dedos se habían quedado completamente entumecidos por el frío. Dentro estaban todas aquellas [CajaCerillas](cerillas) que no había sido capaz de vender.";
 new_line;
 return true;
 7:	! ##Burn (A)
@@ -239,7 +240,7 @@ print "Frotó una nueva [Cerilla] contra la [CajaCerillas](caja)...";
 new_line;
 return true;
 12:	! light_match (E)
-print "Su alrededor se iluminó con la cálida llama, y apareció la anciana abuelita, radiante, dulce y cariñosa. ---¡Abuelita! ---exclamó la [Alba](pequeña). ---¡Oh, abuelita, llévame contigo! Sé que te querrás ir cuando se apague [la Cerilla], igual que se fueron la estufa y el asado y el árbol de Navidad... ¡pero tú no me dejes sola! ¡no te vayas sin mí, abuelita!";
+print "Su alrededor se iluminó con la cálida llama, y apareció la anciana abuelita, radiante, dulce y cariñosa. —¡Abuelita! —exclamó la [Alba](pequeña). —¡Oh, abuelita, llévame contigo! Sé que te querrás ir cuando se apague [la Cerilla], igual que se fueron la estufa y el asado y el árbol de Navidad... ¡pero tú no me dejes sola! ¡no te vayas sin mí, abuelita!";
 new_line;
 return true;
 13:	! light_match (F)
@@ -357,67 +358,131 @@ return true;
 #Ifnot; ! TARGET_GLULX;
 HelpManager: switch (n) {
 1:	! (mensaje inicial)
-print (parser) "Si es la primera vez que experimentas la obra tal vez quieras teclear AYUDA.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "Si es la primera vez que experimentas la obra tal vez quieras teclear ", (printx) "AYUDA", ".";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 2:	! (pista general)
-print (parser) "Es posible finalizar la historia simplemente pulsando @<<intro@>> para obtener una descripción del entorno de la protagonista, y tecleando el nombre de los objetos presentes en esa descripción ---o haciendo clic sobre ellos---. Hay, sin embargo, muchas otras accions que puedes utilizar para conocer más información acerca de la pequeña cerillera y del mundo que la rodeaba. No temas experimentar con nuevas instrucciones.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "Es posible finalizar la historia simplemente pulsando @<<intro@>> para obtener una descripción del entorno de la protagonista, y tecleando el nombre de los objetos presentes en esa descripción —o haciendo clic sobre ellos—. Hay, sin embargo, muchas otras accions que puedes utilizar para conocer más información acerca de la pequeña cerillera y del mundo que la rodeaba. No temas experimentar con nuevas instrucciones.";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 3:	! (pista: look)
-print (parser) "Al iniciar el relato se ha mostrado una descripción del lugar en el que se encontraba la pequeña protagonista con un conjunto de palabras destacadas: @<<pequeña@>>, @<<nieve@>>, @<<edificios@>> y @<<adoquines@>>. Estas palabras destacadas hacen referencia a los objetos presentes en el entorno con los que debes interactuar para hacer que la historia avance. Siempre puedes volver a consultar la descripción del lugar, junto con los objetos interactivos presentes en él, introduciendo una línea en blanco ---pulsando la tecla @<<intro@>> sin escribir ningún comando---.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "Al iniciar el relato se ha mostrado una descripción del lugar en el que se encontraba la pequeña protagonista con un conjunto de palabras destacadas: @<<pequeña@>>, @<<nieve@>>, @<<edificios@>> y @<<adoquines@>>. Estas palabras destacadas hacen referencia a los objetos presentes en el entorno con los que debes interactuar para hacer que la historia avance. Siempre puedes volver a consultar la descripción del lugar, junto con los objetos interactivos presentes en él, introduciendo una línea en blanco —pulsando la tecla @<<intro@>> sin escribir ningún comando—.";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 4:	! (pista: look)
-print (parser) "Introducir una línea en blanco es en realidad una abreviatura de la instrucción MIRA A TU ALREDEDOR. De este modo, pulsar la tecla @<<intro@>> tiene el mismo efecto que teclear MIRA o, simplemente, M: se vuelve a imprimir una descipción del entorno en el que se encontraba la protagonista. Si lo deseas, puedes volver a teclear AYUDA en cualquier momento para recibir más información sobre cómo avanzar en el relato.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "Introducir una línea en blanco es en realidad una abreviatura de la instrucción ", (printx) "MIRA A TU ALREDEDOR", ". De este modo, pulsar la tecla @<<intro@>> tiene el mismo efecto que teclear ", (printx) "MIRA", " o, simplemente, ", (printx) "M", ": se vuelve a imprimir una descipción del entorno en el que se encontraba la protagonista. Si lo deseas, puedes volver a teclear ", (printx) "AYUDA", " en cualquier momento para recibir más información sobre cómo avanzar en el relato.";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 5:	! (pista: DefaultAction)
-print (parser) "Puedes interactuar con cualquiera de los objetos destacados presentes en la descripción que se imprime al pulsar @<<intro@>> ---aquellos que aparecen con un estilo diferente en el texto---. Para hacerlo, simplemente debes teclear el nombre del objeto, o hacer clic con el ratón sobre la propia palabra. Por ejemplo, prueba a teclear @<<edificios@>>.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "Puedes interactuar con cualquiera de los objetos destacados presentes en la descripción que se imprime al pulsar @<<intro@>> —aquellos que aparecen con un estilo diferente en el texto—. Para hacerlo, simplemente debes teclear el nombre del objeto, o hacer clic con el ratón sobre la propia palabra. Por ejemplo, prueba a teclear @<<", (printx) "edificios", "@>>.";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 6:	! (pista: DefaultAction)
-print (parser) "Al escribir el nombre de un objeto o hacer clic sobre él se lanza una acción por defecto sobre ese objeto. Esta acción es habitualmente EXAMINA <OBJETO>, pero hay ocasiones en las que en su lugar se lanza otra acción también lógica. Por ejemplo, si tecleas PUERTA, en lugar de ejecutarse la acción EXAMINA PUERTA, se ejecuta en su lugar LLAMA A LA PUERTA.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "Al escribir el nombre de un objeto o hacer clic sobre él se lanza una acción por defecto sobre ese objeto. Esta acción es habitualmente EXAMINA <OBJETO>, pero hay ocasiones en las que en su lugar se lanza otra acción también lógica. Por ejemplo, si tecleas ", (printx) "PUERTA", ", en lugar de ejecutarse la acción EXAMINA PUERTA, se ejecuta en su lugar LLAMA A LA PUERTA.";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 7:	! (hint: basic commands)
-print (parser) "Eso es todo lo que necesitas para terminar la historia: pulsa @<<intro@>> para obtener de nuevo una descripción del entorno; y teclea el nombre de un objeto o haz clic sobre él para ejecutar una acción por defecto sobre ese objeto. Si te bloqueas y no sabes cómo continuar recuerda que siempre puedes teclear AYUDA.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "Eso es todo lo que necesitas para terminar la historia: pulsa @<<intro@>> para obtener de nuevo una descripción del entorno; y teclea el nombre de un objeto o haz clic sobre él para ejecutar una acción por defecto sobre ese objeto. Si te bloqueas y no sabes cómo continuar recuerda que siempre puedes teclear ", (printx) "AYUDA", ".";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 8:	! (hint: inventory)
-print (parser) "Para saber cuáles son las cosas que la niña llevaba encima, examínala.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "Para saber cuáles son las cosas que la ", (printx) "niña", " llevaba encima, examínala.";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 9:	! (hint: inventory)
-print (parser) "Puedes obtener una descripción de la pequeña tecleando NIÑA o EXAMINA A LA NIÑA.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "Puedes obtener una descripción de la pequeña tecleando ", (printx) "NIÑA", " o ", (printx) "EXAMINA A LA NIÑA", ".";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 10:	! (hint: open)
-print (parser) "La descripción de la protagonista señala que llevaba consigo una caja de cerillas cerrada. Puedes abrirla con la instrucción ABRE LA CAJA o, simplemente, tecleando su nombre: CAJA.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "La descripción de la protagonista señala que llevaba consigo una caja de cerillas cerrada. Puedes abrirla con la instrucción ", (printx) "ABRE LA CAJA", " o, simplemente, tecleando su nombre: ", (printx) "CAJA", ".";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 11:
-print (parser) "De forma análoga, también podrás cerrarla con la instrucción CIERRA. Además, normalmente los objetos se pueden manipular de muchas otras maneras (puedes intentar coger y dejar, agitar, empujar, comer... cualquier objeto). Un mensaje te informará del efecto de la acción:";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "De forma análoga, también podrás cerrarla con la instrucción CIERRA. Además, normalmente los objetos se pueden manipular de muchas otras maneras (puedes intentar coger y dejar, agitar, empujar, comer... cualquier objeto). Un mensaje te informará del efecto de la acción:";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 12:	! (hint: burn a)
-print (parser) "Intenta encender una cerilla para que la pequeña se pueda calentar con ella.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "Intenta encender una ", (printx) "cerilla", " para que la pequeña se pueda calentar con ella.";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 13:	! (hint: burn b)
-print (parser) "Para encender una cerilla, asegárate de que la CAJA está abierta y teclea: ENCIENDE CERILLA.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "Para encender una cerilla, asegárate de que la ", (printx) "CAJA", " está abierta y teclea: ", (printx) "ENCIENDE CERILLA", ".";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 14:	! (hint: highlight)
-print (parser) "Existe una instrucción RESALTADO que te permite escoger el estilo con el que se imprime el nombre de los objetos interactivos del relato.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "Existe una instrucción ", (printx) "CONFIG", " que te permite escoger el estilo con el que se imprime el nombre de los objetos interactivos del relato.";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 15:	! (hint: meta comandos)
-print (parser) "Si quieres salir del cuento, teclea TERMINA. Para guardar tu partida actual teclea GUARDA. CARGA te permitirá retomar una partida que hayas guardado previamente, y REINICIA comenzará el relato de nuevo desde el principio. Además, si en algún momento quieres volver @<<un paso atrás@>>, teclea DESHACER.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "Si quieres salir del cuento, teclea ", (printx) "TERMINA", ". Para guardar tu partida actual teclea ", (printx) "GUARDA", ". ", (printx) "CARGA", " te permitirá retomar una partida que hayas guardado previamente, y ", (printx) "REINICIA", " comenzará el relato de nuevo desde el principio. Además, si en algún momento quieres volver @<<un paso atrás@>>, teclea ", (printx) "DESHACER", ".";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 16:	! (hint: use)
-print (parser) "La instrucción USA resulta demasiado ambigua. Prueba a realizar una acción más concreta.";
+previous_style = Util.set_text_style(TEXT_STYLE_PARSER);
+print (string) TEXT_STYLE_PARSER_PREFIX;
+print "La instrucción USA resulta demasiado ambigua. Prueba a realizar una acción más concreta.";
+print (string) TEXT_STYLE_PARSER_SUFIX;
+Util.set_text_style(previous_style);
 new_line;
 return true;
 }

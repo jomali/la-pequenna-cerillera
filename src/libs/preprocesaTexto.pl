@@ -78,10 +78,10 @@ for (@lines) {
 
 	# Hipervínculo asociado a un objeto, con un texto alternativo:
 	s/(?<!\\)\[([^\[\]]+)(?<!\\)\](?<!\\)\(([^\(\)\:]+)(?<!\\)\:\s*([^\(\)\:\s]+)(?<!\\)\)/";\nUtil.extended_print(\1, "\2", \3);\nprint "/g;
-	s/(?<!\\)\[([^\[\]]+)(?<!\\)\](?<!\\)\(([^\(\)\:]+)(?<!\\)\)/";\nUtil.extended_print(\1, "\2", 0);\nprint "/g;
+	s/(?<!\\)\[([^\[\]]+)(?<!\\)\](?<!\\)\(([^\(\)\:]+)(?<!\\)\)/";\nUtil.extended_print(\1, "\2", -1);\nprint "/g;
 	# Hipervínculo creado a partir de un texto:
 	s/(?<!\\)\[(?<!\\)\](?<!\\)\(([^\(\)\:]+)(?<!\\)\:\s*([^\(\)\:\s]+)(?<!\\)\)/";\nUtil.extended_print("\1", "\1", \2);\nprint "/g;
-	s/(?<!\\)\[(?<!\\)\](?<!\\)\(([^\(\)\:]+)(?<!\\)(?<!\\)\)/";\nUtil.extended_print("\1", "\1", 0);\nprint "/g;
+	s/(?<!\\)\[(?<!\\)\](?<!\\)\(([^\(\)\:]+)(?<!\\)(?<!\\)\)/";\nUtil.extended_print("\1", "\1", -1);\nprint "/g;
 
 	# Imprime el nombre corto del objeto:
 	s/\[\s*(.+?)\s*\]/", (name) \1, "/g;

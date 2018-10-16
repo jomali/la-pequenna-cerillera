@@ -1,5 +1,7 @@
-!% -DSs
 !% -Cu
+!% -~D
+!% -~S
+!% -s
 !% +language_name=Spanish
 !% $MAX_STATIC_DATA=25000
 !% $MAX_VERBSPACE=4800
@@ -15,8 +17,8 @@
 !!	Idioma:			ES (Español)
 !!	Sistema:		Inform-INFSP 6
 !!	Plataforma:		Máquina-Z/Glulx
-!!	Versión:		4.0
-!!	Fecha:			2018/10/02
+!!	Versión:		4.2
+!!	Fecha:			2018/10/16
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -44,6 +46,14 @@
 !!
 !!	HISTORIAL DE VERSIONES
 !!
+!!	4.2: 2018/10/16	Modificación de los símbolos de raya —aprovechando la
+!!					posibilidad de utilizar la codificación de caracteres UTF-8
+!!					con la versión 6.34 del compilador—. Se elimina el modo de
+!!					de compilación "estricto" —utilizado para depurar—.
+!!	4.1: 2018/10/13	Pequeñas correcciones en los estilos de Vorple. Añadido
+!!					atributo 'remarkable' al objeto Cerilla. Corrección de un
+!!					error al seleccionar el estilo destacado por defecto cuando
+!!					se especificaba el estilo TEXT_STYLES_UPRIGHT.
 !!	4.0: 2018/10/02	Creada infraestructura para compilar alternativamente la
 !!					versión de escritorio con soporte completo de las
 !!					funcionalidades Glulx, o una versión móvil/web con soporte
@@ -71,7 +81,7 @@
 !!	TABLA DE CONTENIDOS
 !!
 !!	1)	Constantes y variables globales de la obra
-!!	2)	Reemplazos de rutinas utilizadas por la librería Inform
+!!	2)	Reemplazos de rutinas por defecto
 !!	3)	Librerías y extensiones (parte 1 de 2)
 !!	4)	Puntos de entrada Glk
 !!	5)	Librerías y extensiones (parte 2 de 2)
@@ -121,10 +131,11 @@ Basada en el cuento breve del escritor Hans Christian Andersen";
 !! Release 2; Serial "180616";
 
 Constant Checking 4;
-Release 0; ! Serial "180921";
+!! Release 0; Serial "2018/10/02";
+Release 1; Serial "181013";
 
 !! Descomentar para compilar la versión Web/Móvil:
-Constant VERSION_WEB_MOBILE;
+!! Constant VERSION_WEB_MOBILE;
 
 !!------------------------------------------------------------------------------
 !!	Control de las extensiones utilizadas por la obra
@@ -160,7 +171,7 @@ Constant USE_SPANISH_LM;
 Constant CONFIG_FILE_NAME "cerillera.params";
 
 !! Estilos de texto por defecto para las palabras destacadas:
-Constant DEFAULT_HIGHLIGHT_ST_1 TEXT_STYLE_USER1;
+Constant DEFAULT_HIGHLIGHT_ST_1 TEXT_STYLE_UPRIGHT;
 Constant DEFAULT_HIGHLIGHT_ST_2 TEXT_STYLE_UPRIGHT;
 
 !! Estado por defecto de los hipervínculos:
@@ -315,9 +326,11 @@ Constant TEXT_STYLE_PARSER_SUFIX "]";
 
 !!==============================================================================
 !!
-!!	2)	Reemplazos de rutinas utilizadas por la librería Inform
+!!	2)	Reemplazos de rutinas por defecto
 !!
 !!------------------------------------------------------------------------------
+
+Replace BeforeSettingTextStyle;	! Lógica previa al cambiar de estilo de texto
 
 #Ifdef USE_SPANISH_LM;
 Replace ChangePlayer;			! Rutina para cambiar el objeto PC
@@ -651,6 +664,7 @@ Include "vorple-screen-effects.h";
 !!
 !!------------------------------------------------------------------------------
 !!	<>	BeforeParsing()
+!!	<>	BeforeSettingTextStyle()
 !!	<>	Initialise()
 !!	<>	InScope()
 !!	<>	MyVorplePrompt()
@@ -675,6 +689,73 @@ Include "vorple-screen-effects.h";
 
 	Util.fade_out(SFX_PASOS_NIEVE, 0, 100);
 ];
+
+!!------------------------------------------------------------------------------
+!! Permite añadir lógica antes de establecer un nuevo estilo de texto a través
+!! de la extensión 'textStyles'. Se encarga de seleccionar los estilos de texto
+!! en Vorple.
+!!
+!!	@param {integer} previous_style - Código del estilo de texto actual
+!!	@param {integer} next_style - Código del nuevo estilo de texto
+!!	@returns {boolean} Verdadero para interrumpir la ejecución normal de la
+!!		rutina de selección de estilo de texto. Falso para continuar
+!!		normalmente
+!!------------------------------------------------------------------------------
+#Ifdef TEXT_STYLES;
+[ BeforeSettingTextStyle previous_style next_style
+	applied_styles i;
+	#Ifdef USE_VORPLE;
+	if (isVorpleSupported()) {
+		!! Finaliza los estilos aplicados anteriormente:
+		if (previous_style == TEXT_STYLE_NOTE or TEXT_STYLE_QUOTE
+			or TEXT_STYLE_REVERSED) {
+			applied_styles = 2;
+		} else if (previous_style == TEXT_STYLE_STRESSED
+			or TEXT_STYLE_IMPORTANT or TEXT_STYLE_MONOSPACED
+			or TEXT_STYLE_HEADER or TEXT_STYLE_INPUT
+			or TEXT_STYLE_USER1 or TEXT_STYLE_USER2) {
+			applied_styles = 1;
+		} else { ! (previous_style == TEXT_STYLE_UPRIGHT)
+			applied_styles = 0;
+		}
+		for (i = 0 : i < applied_styles : i++) {
+			VorpleEndStyle();
+		}
+		!! Aplica los nuevos estilos:
+		switch (next_style) {
+			TEXT_STYLE_UPRIGHT:
+				;
+			TEXT_STYLE_STRESSED:
+				VorpleStyle(STYLE_EMPHASIS);
+			TEXT_STYLE_IMPORTANT:
+				VorpleStyle(STYLE_STRONG);
+			TEXT_STYLE_MONOSPACED:
+				VorpleStyle(STYLE_MONOSPACE);
+			TEXT_STYLE_REVERSED:
+				VorpleStyle(STYLE_DARK_GRAY_LETTERS);
+				VorpleStyle(STYLE_LIGHT_GRAY_BACKGROUND);
+			TEXT_STYLE_HEADER:
+				VorpleStyle(STYLE_LARGE);
+			TEXT_STYLE_NOTE:
+				VorpleStyle(STYLE_EMPHASIS);
+				VorpleStyle(STYLE_STRONG);
+			TEXT_STYLE_QUOTE:
+				VorpleStyle(STYLE_EMPHASIS);
+				VorpleStyle(STYLE_MONOSPACE);
+			TEXT_STYLE_INPUT:
+				VorpleStyle(STYLE_FANTASY);
+			TEXT_STYLE_USER1:
+				VorpleStyle(STYLE_YELLOW_BACKGROUND);
+			TEXT_STYLE_USER2:
+				VorpleStyle(STYLE_LIGHT_GRAY_LETTERS);
+		}
+	}
+	#Endif; ! USE_VORPLE;
+	previous_style = next_style + applied_styles + i;
+	!! Continúa con la ejecución normal de 'SetTextStyle()':
+	return false;
+];
+#Endif; ! TEXT_STYLES;
 
 !!------------------------------------------------------------------------------
 !! Inicializaciones del relato. Esta rutina es obligatoria y, entre otras
@@ -705,21 +786,6 @@ Include "vorple-screen-effects.h";
 	#Endif; ! USE_HYPERLINKS;
 	#Endif; ! TARGET_GLULX;
 
-	!! Inicializa los canales de audio (10 reales + 10 virtuales):
-	!!		Damusix.AsignarCanal(
-	!!			SONIDO,
-	!!			CANAL [0-9],
-	!!			VOLUMEN [0-100],
-	!!			REPETICIONES (-1 para repeticiones infinitas)
-	!!		);
-	#Ifdef TARGET_GLULX;
-	#Ifdef USE_DAMUSIX;
-	Damusix.AsignarCanal(MUS_FINAL, 0, 100, 1);
-	Damusix.AsignarCanal(SFX_VIENTO, 1, 100, -1);
-	Damusix.AsignarCanal(SFX_PASOS_NIEVE, 2, 100, 1);
-	#Endif; ! USE_DAMUSIX;
-	#Endif; ! TARGET_GLULX;
-
 	!! Lee el fichero de configuración:
 	#Ifdef TARGET_GLULX;
 	#Ifdef VERSION_DESKTOP;
@@ -728,6 +794,9 @@ Include "vorple-screen-effects.h";
 	#Endif; ! CONFIG_FILE_NAME;
 	#Endif; ! VERSION_DESKTOP;
 	#Endif; ! TARGET_GLULX;
+
+	!! Inicializa los recursos multimedia:
+	Util.initialise_multimedia();
 
 	!! Comprobaciones del intérprete -------------------------------------------
 	#Ifdef TARGET_GLULX;
@@ -771,7 +840,16 @@ Include "vorple-screen-effects.h";
 	new_line;
 	Banner();
 	new_line;
+
+	#Ifdef USE_VORPLE;
+	if (isVorpleSupported()) {
+		print (parser) "Haz clic con el ratón o pulsa una tecla";
+	} else {
+		print (parser) "Pulsa una tecla para empezar";
+	}
+	#Ifnot;
 	print (parser) "Pulsa una tecla para empezar";
+	#Endif; ! USE_VORPLE;
 	Util.press_any_key();
 	Util.erase_window();
 	!! Cita de "Concierto para la acumulación". Cristina Peregrina (2010):
@@ -785,8 +863,6 @@ Include "vorple-screen-effects.h";
 	#Endif; ! TARGET_
 	Util.press_any_key();
 	Util.erase_window();
-	TestTextStyles1(); ! FIXME
-	TestTextStyles2(); ! FIXME
 	!! Texto inicial:
 	Util.fade_in(SFX_PASOS_NIEVE, 75, 0);
 	new_line;
@@ -806,52 +882,6 @@ Include "vorple-screen-effects.h";
 	lookmode = 2;
 	!! Se evita la impresión inicial del banner
 	return 2;
-];
-
-[ TestTextStyles1;
-	print (header) "HEADER. Lorem ipsum dolor sit amet", "^";
-	print (important) "IMPORTANT. Lorem ipsum dolor sit amet", "^";
-	print (input) "INPUT. Lorem ipsum dolor sit amet", "^";
-	print (monospaced) "MONOSPACED. Lorem ipsum dolor sit amet", "^";
-	print (note) "NOTE. Lorem ipsum dolor sit amet", "^";
-	print (parser) "PARSER. Lorem ipsum dolor sit amet", "^";
-	print (quote) "QUOTE. Lorem ipsum dolor sit amet", "^";
-	print (reversed) "REVERSED. Lorem ipsum dolor sit amet", "^";
-	print (stressed) "STRESSED. Lorem ipsum dolor sit amet", "^";
-	print (upright) "UPRIGHT. Lorem ipsum dolor sit amet", "^";
-	print (user1) "USER1. Lorem ipsum dolor sit amet", "^";
-	print (user2) "USER2. Lorem ipsum dolor sit amet", "^";
-	new_line;
-];
-
-[ TestTextStyles2
-	previous_style;
-	previous_style = Util.set_text_style(TEXT_STYLE_HEADER);
-	print (string) "HEADER. Lorem ipsum dolor sit amet", "^";
-	Util.set_text_style(TEXT_STYLE_IMPORTANT);
-	print (string) "IMPORTANT. Lorem ipsum dolor sit amet", "^";
-	Util.set_text_style(TEXT_STYLE_INPUT);
-	print (string) "INPUT. Lorem ipsum dolor sit amet", "^";
-	Util.set_text_style(TEXT_STYLE_MONOSPACED);
-	print (string) "MONOSPACED. Lorem ipsum dolor sit amet", "^";
-	Util.set_text_style(TEXT_STYLE_NOTE);
-	print (string) "NOTE. Lorem ipsum dolor sit amet", "^";
-	Util.set_text_style(TEXT_STYLE_PARSER);
-	print (string) "PARSER. Lorem ipsum dolor sit amet", "^";
-	Util.set_text_style(TEXT_STYLE_QUOTE);
-	print (string) "QUOTE. Lorem ipsum dolor sit amet", "^";
-	Util.set_text_style(TEXT_STYLE_REVERSED);
-	print (string) "REVERSED. Lorem ipsum dolor sit amet", "^";
-	Util.set_text_style(TEXT_STYLE_STRESSED);
-	print (string) "STRESSED. Lorem ipsum dolor sit amet", "^";
-	Util.set_text_style(TEXT_STYLE_UPRIGHT);
-	print (string) "UPRIGHT. Lorem ipsum dolor sit amet", "^";
-	Util.set_text_style(TEXT_STYLE_USER1);
-	print (string) "USER1. Lorem ipsum dolor sit amet", "^";
-	Util.set_text_style(TEXT_STYLE_USER2);
-	print (string) "USER2. Lorem ipsum dolor sit amet", "^";
-	Util.set_text_style(previous_style);
-	new_line;
 ];
 
 !!------------------------------------------------------------------------------
@@ -1001,7 +1031,6 @@ VerboIrregular "establecer la reproducción de audio" with imperativo
 !!------------------------------------------------------------------------------
 
 #Ifdef TARGET_GLULX;
-#Ifdef USE_HYPERLINKS;
 Verb meta 'config' 'configuracion' 'enlace' 'enlaces' 'hiperenlace'
 	'hiperenlaces' 'hipervinculo' 'hipervinculos' 'resaltado' 'vinculo'
 	'vinculos'
@@ -1013,12 +1042,25 @@ VerboIrregular "establecer opciones de configuración" with imperativo
 	'hipervinculo' 'hipervinculos' 'resaltado' 'vinculo' 'vinculos';
 
 [ ConfigurationSub;
+	#Ifdef USE_HYPERLINKS;
 	Util.configure_hyperlinks("Pulsa @<<INTRO@>> para aceptar.");
 	Util.configure_highlight_style("Pulsa @<<INTRO@>> para aceptar.");
 	Util.write_configuration_file(CONFIG_FILE_NAME);
 	<<Look>>;
+	#Ifnot;
+	#Ifdef USE_VORPLE;
+	if (isVorpleSupported()) {
+		Util.configure_hyperlinks("Pulsa @<<ESPACIO@>> para aceptar.");
+		Util.configure_highlight_style("Pulsa @<<ESPACIO@>> para aceptar.");
+		<<Look>>;
+	} else {
+		<<NoSuchVerb>>;
+	}
+	#Ifnot;
+	<<NoSuchVerb>>;
+	#Endif; ! USE_VORPLE;
+	#Endif; ! USE_HYPERLINKS;
 ];
-#Endif; ! USE_HYPERLINKS;
 #Endif; ! TARGET_GLULX;
 
 !!------------------------------------------------------------------------------

@@ -12,8 +12,8 @@
 !!	Idioma:			ES (Español)
 !!	Sistema:		Inform-INFSP 6
 !!	Plataforma:		Máquina-Z/Glulx
-!!	Versión:		4.0
-!!	Fecha:			2018/09/21
+!!	Versión:		4.2
+!!	Fecha:			2018/10/16
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -76,8 +76,8 @@ Atrezzo	-> RestosCalcinados "restos calcinados"
 			'consumidos' 'calcinados' 'quemados' 'extinguidos' 'ennegrecidos'
 			'inservible' 'inservibles',
 		description [;
-			if (Esquina.scene == 2) return O__M(self, 2);
-			else return O__M(self, 1);
+			if (Esquina.scene == 2) return O__M(self, 1);
+			else return O__M(self, 2);
 		],
  has	male pluralname;
 
@@ -146,13 +146,7 @@ NPC		-> Alba "cerillera"
 			print (string) TEXT_STYLE_PARSER_SUFIX;
 			Util.set_text_style(previous_style);
 			c = Util.press_any_key();
-			Util.fade_out(SFX_VIENTO, 0, 1000, 0, true);
-			Util.fade_out(MUS_FINAL, 0, 1000, 0, true);
-			if (c == 'r' or 'R') {
-				@restart;
-				L__M(##Restart, 2);
-			}
-			else quit;
+			if (c ~= 'r' or 'R') quit;
 			#Ifnot; ! VERSION_WEB_MOBILE;
 			previous_style = c = 0; ! (por evitar alertas del compilador)
 			print (header) "FIN";
@@ -160,9 +154,11 @@ NPC		-> Alba "cerillera"
 			new_line;
 			print (parser) "Pulsa cualquier tecla para volver a empezar.";
 			Util.press_any_key();
+			#Endif; ! VERSION_
+			Util.fade_out(SFX_VIENTO, 0, 1000, 0, true);
+			Util.fade_out(MUS_FINAL, 0, 1000, 0, true);
 			@restart;
 			L__M(##Restart, 2);
-			#Endif; ! VERSION_
 		],
 		stop_shivering false,
 		try_to_wake_up false,
@@ -252,36 +248,46 @@ Item	-> -> CajaCerillas "caja de cerillas"
  private
 		flag_open false,
 		light_match [;
-			switch (Shuffle(3, matchFlags)) {
-				1:	Util.play_sfx(SFX_CERILLA_1, 75);
-				2:	Util.play_sfx(SFX_CERILLA_2, 75);
-				3:	Util.play_sfx(SFX_CERILLA_3, 75);
-			}
 			switch (Esquina.scene) {
-				1:	move RestosCalcinados to Esquina;
+				1:
+					switch (Shuffle(3, matchFlags)) {
+						1:	Util.play_sfx(SFX_CERILLA_1, 75);
+						2:	Util.play_sfx(SFX_CERILLA_2, 75);
+						3:	Util.play_sfx(SFX_CERILLA_3, 75);
+					}
+					move RestosCalcinados to Esquina;
 					O__M(self, 8);
-				2:	O__M(self, 9);
-				3:	Alba.stop_shivering = true;
+				2:
+					switch (Shuffle(3, matchFlags)) {
+						1:	Util.play_sfx(SFX_CERILLA_1, 75);
+						2:	Util.play_sfx(SFX_CERILLA_2, 75);
+						3:	Util.play_sfx(SFX_CERILLA_3, 75);
+					}
+					O__M(self, 9);
+				3:
+					switch (Shuffle(3, matchFlags)) {
+						1:	Util.play_sfx(SFX_CERILLA_1, 75);
+						2:	Util.play_sfx(SFX_CERILLA_2, 75);
+						3:	Util.play_sfx(SFX_CERILLA_3, 75);
+					}
+					Alba.stop_shivering = true;
 					CajaCerillas.stop_shaking = true;
 					Casas.lights_out = true;
 					Cielo.falling_star = true;
 					O__M(self, 10);
-				4:	O__M(self, 11);
-					#Ifndef USE_VORPLE;
-					Util.fade_out(SFX_VIENTO, 0, 2000, 0, true);
-					Util.fade_in(MUS_FINAL, -1, 30000);
-					#Endif; ! USE_VORPLE;
+				4:
+					O__M(self, 11);
 					Util.press_any_key();
-					#Ifdef USE_VORPLE;
-					VorpleStopMusic();
-					#Endif; ! USE_VORPLE;
-					!! Util.fade_out(SFX_VIENTO, 0, 6000);
+					Util.fade_out(SFX_VIENTO, 0, 2000, 0, true);
+					switch (Shuffle(3, matchFlags)) {
+						1:	Util.play_sfx(SFX_CERILLA_1, 75);
+						2:	Util.play_sfx(SFX_CERILLA_2, 75);
+						3:	Util.play_sfx(SFX_CERILLA_3, 75);
+					}
 					new_line;
 					O__M(self, 12);
 					Util.press_any_key();
-					#Ifdef USE_VORPLE;
-					Util.fade_in(MUS_FINAL, -1, 30000);
-					#Endif; ! USE_VORPLE;
+					Util.fade_in(MUS_FINAL, -1, 2000);
 					new_line;
 					O__M(self, 13);
 					Util.press_any_key();
@@ -319,7 +325,7 @@ Item	-> -> -> Cerilla "cerilla"
 				noun = CajaCerillas;
 				return CajaCerillas.before();
 		],
- has	female;
+ has	female remarkable;
 
 
 !!==============================================================================

@@ -17,14 +17,16 @@ Esta adaptación de la pequeña cerillera ofrece una sencilla simulación del en
 
 ### Ejecutar la aplicación
 
-El ejecutable con la obra es el fichero *cerillera.gblorb*, pero necesitarás de un programa intérprete adecuado para iniciarlo en tu ordenador. Se recomienda utilizar el intérprete Gargoyle, gratis y con versiones disponibles para los principales sistemas operativos; macOS, Windows y Linux: <https://github.com/garglk/garglk/releases>
+Los ejecutables de la obra son los ficheros *cerillera.gblorb* y *cerillera-lite.gblorb* (sin recursos multimedia) que pueden ser ejecutados en múltiples sistemas operativos. Para ello es necesario disponer de un intérprete de Glulx adecuado con el que lanzar la aplicación. Se recomienda utilizar el intérprete multiplataforma Gargoyle, gratis y con versiones disponibles para los sistemas operativos macOS, Windows y Linux: <https://github.com/garglk/garglk/releases>. O bien, los intérpretes WinGlulxe o WinGit, en Windows, que incluyen soporte de lectura por pantalla: <http://www.davidkinder.co.uk/glulxe.html>​
 
-Si Gargoyle no satisface tus necesidades, existen otros muchos programas intérprete de la máquina virtual Glulx para otras plataformas: Android, Palm, DOS... Puedes consultar los más destacados a través del siguiente enlace: <http://ifwiki.org/index.php/Interpreter​​>
+​En plataformas móviles con el sistema operativo Android se recomienda utilizar el intérprete Fabularium: <https://play.google.com/store/apps/details?id=com.luxlunae.fabularium​>.​ Los intérpretes móviles normalmente no soportan adecuadamente obras con uno intensivo de multimedia; en este caso de querer experimentar la obra desde tu teléfono probablemente debas utilizar el fichero cerillera-lite.gblorb.
+
+Si ninguno de estos intérpretes satisface tus necesidades, existen otras múltiples alternativas para múltiples plataformas.Puedes consultar las más destacadas a través del siguiente enlace: <http://ifwiki.org/index.php/Interpreter>
 
 
-### Donaciones (pasando la gorra virtual)
+### Invitar a un café al autor
 
-El equipo de desarrollo de la adaptación está formado únicamente por mí, una única persona trabajando de manera no profesional. Puedes descargar la obra y experimentarla completamente gratis desde <https://jomali.itch.io/la-pequenna-cerillera>. Una vez la hayas finalizado, y sólo si te ha gustado, quizá puedas plantearte hacer una donación con cualquier cantidad que creas oportuna, por pequeña que sea. Incluso las donaciones más mínimas se agradecen profundamente y suponen un importante apoyo para que pueda seguir dedicando tiempo al desarrollo de nuevas obras.
+El equipo de desarrollo de la adaptación está formado por una única persona trabajando de manera no profesional. Puedes experimentar la obra y descargarla en tu ordenador completamente gratis desde su página web en itch.io: <https://jomali.itch.io/la-pequenna-cerillera>. Una vez la hayas finalizado, y si decides que te ha gustado lo suficiente, quizá puedas plantearte hacer un pequeño aporte económico, haciendo clic de nuevo en el botón de descargas y seleccionando cualquier cantidad que creas oportuna. Estas donaciones, por mínimas que sean, se agradecen profundamente y suponen un importante apoyo con el que seguir dedicando tiempo al desarrollo de nuevas obras.
 
 
 ### Créditos

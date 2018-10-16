@@ -11,8 +11,8 @@
 !!	Idioma:			ES (Español)
 !!	Sistema:		Inform-INFSP 6
 !!	Plataforma:		Máquina-Z/Glulx
-!!	Versión:		4.0
-!!	Fecha:			2018/10/04
+!!	Versión:		4.2
+!!	Fecha:			2018/10/16
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -52,6 +52,7 @@
 !!	<>	get_hyperlinks_status()
 !!	<>	get_text_style()
 !!	<>	horizontal_rule()
+!!	<>	initialise_multimedia()
 !!	<>	play_sfx()
 !!	<>	press_any_key()
 !!	<>	read_configuration_file()
@@ -85,7 +86,6 @@ Object	Util "(Utilities)"
 		!!----------------------------------------------------------------------
 		configure_highlight_style [ txt
 			done i highlight temp previous_style;
-			#Ifdef USE_HYPERLINKS;
 			while (~~done) {
 				self.erase_window();
 				new_line;
@@ -95,7 +95,7 @@ Object	Util "(Utilities)"
 				Introduce el número del tipo de palabra destacada para rotar
 				entre los distintos estilos de resaltado disponibles y
 				seleccionar aquel que se adecue mejor a tus preferencias
-				personales.:";
+				personales:";
 				new_line;
 				new_line;
 				for (i = 1 : i <= 2 : i++) {
@@ -108,23 +108,16 @@ Object	Util "(Utilities)"
 					highlight = self.get_highlight_style(i);
 					temp = ~~self.get_hyperlinks_status(i);
 					switch (highlight) {
-						TEXT_STYLE_UPRIGHT:
-							Hyperlink("sin estilo", 0, highlight, temp);
-						TEXT_STYLE_STRESSED:
-							Hyperlink("enfatizado (a)", 0, highlight, temp);
-						TEXT_STYLE_NOTE:
-							Hyperlink("enfatizado (b)", 0, highlight, temp);
-						TEXT_STYLE_IMPORTANT:
-							Hyperlink("destacado (a)", 0, highlight, temp);
-						TEXT_STYLE_HEADER:
-							Hyperlink("destacado (b)", 0, highlight, temp);
-						TEXT_STYLE_MONOSPACED:
-							Hyperlink("monoespaciado", 0, highlight, temp);
-						TEXT_STYLE_REVERSED:
-							Hyperlink("invertido", 0, highlight, temp);
-						TEXT_STYLE_USER1:
-							Hyperlink("color de fondo", 0, highlight, temp);
+						TEXT_STYLE_UPRIGHT:		temp = "sin estilo";
+						TEXT_STYLE_STRESSED:	temp = "enfatizado (a)";
+						TEXT_STYLE_NOTE:		temp = "enfatizado (b)";
+						TEXT_STYLE_IMPORTANT:	temp = "destacado (a)";
+						TEXT_STYLE_HEADER:		temp = "destacado (b)";
+						TEXT_STYLE_MONOSPACED:	temp = "monoespaciado";
+						TEXT_STYLE_REVERSED:	temp = "invertido";
+						TEXT_STYLE_USER1:		temp = "color de fondo";
 					}
+					self.extended_print(temp, 0, highlight);
 					print ".";
 					new_line;
 				}
@@ -175,10 +168,6 @@ Object	Util "(Utilities)"
 			}
 			self.erase_window();
 			return true;
-			#Ifnot;
-			txt = done + i + highlight + temp + previous_style;
-			return false;
-			#Endif; ! USE_HYPERLINKS;
 		],
 		!!----------------------------------------------------------------------
 		!! Muestra un menú a través del que el usuario puede activar/desactivar
@@ -193,7 +182,6 @@ Object	Util "(Utilities)"
 		!!----------------------------------------------------------------------
 		configure_hyperlinks [ txt
 			done previous_style i;
-			#Ifdef USE_HYPERLINKS;
 			while (~~done) {
 				self.erase_window();
 				new_line;
@@ -243,10 +231,6 @@ Object	Util "(Utilities)"
 			}
 			self.erase_window();
 			return true;
-			#Ifnot;
-			txt = done + previous_style + i;
-			return false;
-			#Endif; !USE_HYPERLINKS;
 		],
 		!!----------------------------------------------------------------------
 		!! Deja las ventanas de la obra en blanco.
@@ -276,49 +260,44 @@ Object	Util "(Utilities)"
 		!!	@param {string|Object} item - Cadena de caracteres u objeto del que
 		!!		se imprime su nombre corto, con un estilo de texto destacado
 		!!		adecuado y, si es posible, un hipervínculo asociado a él
-		!!	@param {string} [alternative = 0] - Permite especificar un texto
+		!!	@param {string} alternative - Permite especificar un texto
 		!!		alternativo a imprimir en lugar de 'item'. Se sigue utilizando
 		!!		'item', no obstante, para determinar el estilo de texto
 		!!		destacado (si se hace automáticamente ---si el parámetro
 		!!		'style' es 0---) y para asociar a él el hipervínculo
-		!!	@param {integer} [style = 0] - Código numérico indicando un estilo
+		!!	@param {integer} style - Código numérico indicando un estilo
 		!!		de texto a utilizar en lugar del estilo determinado
 		!!		automáticamente en función de la definición de 'item'
 		!!	@returns {boolean} Falso si no se has especificado los parámetros
 		!!		adecuados. Verdadero en caso contrario
-		!!	@version 1.0
+		!!	@version 1.1
 		!!----------------------------------------------------------------------
 		extended_print [ item alternative style
 			object_type previous_style status;
-
-			!! Establece el estilo de texto destacado:
 			object_type = 2; ! las cadenas se tratan como objs. no importantes
 			if (metaclass(item) == Object) {
 				if (item has remarkable) object_type = 1;
 				else object_type = 2;
 			}
-			if (style == 0) style = self.get_highlight_style(object_type);
-			previous_style = self.set_text_style(style);
+
+			!! Establece el estilo de texto destacado:
+			previous_style = self.get_text_style();
+			if (style == -1) style = self.get_highlight_style(object_type);
+			if (previous_style == 0) self.set_text_style(style);
 
 			!! Determina si los hipervínculos están activados para el tipo de
 			!! 'item' y crea un hipervínculo sobre él (o lo imprime):
 			status = self.get_hyperlinks_status(object_type);
+			if (metaclass(alternative) == String) item = alternative;
 			#Ifdef USE_HYPERLINKS;
-			if (status) Hyperlink(item, alternative);
-			else {
-				if (alternative) print (string) alternative;
-				else self.print_object_short_name(item);
-			}
+			if (status) Hyperlink(item);
+			else self.print_object_short_name(item);
 			#Ifnot;
 			#Ifdef USE_VORPLE;
-			if (status) self.create_vorple_hyperlink(item, alternative);
-			else {
-				if (alternative) print (string) alternative;
-				else self.print_object_short_name(item);
-			}
-			#Ifnot;
-			if (alternative) print (string) alternative;
+			if (status) self.create_vorple_hyperlink(item);
 			else self.print_object_short_name(item);
+			#Ifnot;
+			self.print_object_short_name(item);
 			#Endif; ! USE_VORPLE;
 			#Endif; ! USE_HYPERLINKS;
 
@@ -363,7 +342,7 @@ Object	Util "(Utilities)"
 		!!	@version 3.0
 		!!----------------------------------------------------------------------
 		fade_in [ track volume fade_time simple_fade_in
-			result;
+			result js_variable;
 			!! FIXME - simple_fade_in
 			!! FIXME - si el volumen pasado como parámetro < volumen actual
 			result = false;
@@ -389,20 +368,31 @@ Object	Util "(Utilities)"
 			#Endif; ! USE_DAMUSIX;
 
 			#Ifdef USE_VORPLE;
-			switch (track) {
-				MUS_FINAL:
-					VorplePlayMusic("kevin-macleod_silent-night.ogg");
-				SFX_VIENTO:
-					VorplePlayMusic("memuse_california-night-time-suburb-ambience-distant-traffic.ogg");
-				SFX_PASOS_NIEVE:
-					VorplePlaySoundEffect("mediagruppen_walking-in-snow.ogg");
+			if (isVorpleSupported()) {
+				switch (track) {
+					MUS_FINAL:			js_variable = "jsFinal";
+					SFX_CAJA_CERILLAS:	js_variable = "jsCajaCerillas";
+					SFX_CERILLA_1:		js_variable = "jsCerilla1";
+					SFX_CERILLA_2:		js_variable = "jsCerilla2";
+					SFX_CERILLA_3:		js_variable = "jsCerilla3";
+					SFX_PASOS_NIEVE:	js_variable = "jsPasosNieve";
+					SFX_VIENTO:			js_variable = "jsViento";
+				}
+				VorpleExecuteJavaScriptCommand(BuildCommand("
+					", js_variable, ".volume(0);
+					", js_variable, ".play();
+					result = ", js_variable, ".fade(0.0, 1.0, 100);
+					console.log('Fade-in: ' + result);
+				"));
+				result = true;
+			} else {
+				result = false;
 			}
-			result = true;
 			#Endif; ! USE_VORPLE;
 
 			#Endif; ! TARGET_GLULX;
 			!! (por evitar alertas del compilador)
-			track = volume + fade_time + simple_fade_in;
+			track = volume + fade_time + simple_fade_in + js_variable;
 			return result;
 		],
 		!!----------------------------------------------------------------------
@@ -442,7 +432,7 @@ Object	Util "(Utilities)"
 		!!	@version 4.1
 		!!----------------------------------------------------------------------
 		fade_out [ track volume fade_time simple_fade_out post_track
-			result;
+			result js_track;
 			result = false;
 			#Ifdef TARGET_GLULX;
 
@@ -465,12 +455,32 @@ Object	Util "(Utilities)"
 			#Endif; ! USE_DAMUSIX;
 
 			#Ifdef USE_VORPLE;
-			!! FIXME
+			if (isVorpleSupported()) {
+				switch (track) {
+					MUS_FINAL:			js_track = "jsFinal";
+					SFX_CAJA_CERILLAS:	js_track = "jsCajaCerillas";
+					SFX_CERILLA_1:		js_track = "jsCerilla1";
+					SFX_CERILLA_2:		js_track = "jsCerilla2";
+					SFX_CERILLA_3:		js_track = "jsCerilla3";
+					SFX_PASOS_NIEVE:	js_track = "jsPasosNieve";
+					SFX_VIENTO:			js_track = "jsViento";
+				}
+				VorpleExecuteJavaScriptCommand(BuildCommand("
+					if (", js_track, ".playing()) {
+						result = ", js_track, ".fade(1.0, 0.0, 200);
+						console.log('Fade out: ' + result);
+					}
+				"));
+				result = true;
+			} else {
+				result = false;
+			}
 			#Endif; ! USE_VORPLE;
 
 			#Endif; ! TARGET_GLULX;
 			!! (por evitar alertas del compilador)
-			track = volume + fade_time + simple_fade_out + post_track;
+			track = volume + fade_time + simple_fade_out + post_track
+				+ js_track;
 			return result;
 		],
 		!!----------------------------------------------------------------------
@@ -512,8 +522,8 @@ Object	Util "(Utilities)"
 		get_highlight_style [ object_type
 			result;
 			result = 0; ! (por defecto)
-			if (object_type < (self.#highlight_styles)/WORDSIZE) {
-				result = self.&highlight_styles-->object_type;
+			if ((object_type-1) < (self.#highlight_styles)/WORDSIZE) {
+				result = self.&highlight_styles-->(object_type-1);
 			}
 			return result;
 		],
@@ -530,8 +540,8 @@ Object	Util "(Utilities)"
 		get_hyperlinks_status [ object_type
 			result;
 			result = false; ! (por defecto)
-			if (object_type < (self.#hyperlinks_status)/WORDSIZE) {
-				result = self.&hyperlinks_status-->object_type;
+			if ((object_type-1) < (self.#hyperlinks_status)/WORDSIZE) {
+				result = self.&hyperlinks_status-->(object_type-1);
 			}
 			return result;
 		],
@@ -572,13 +582,103 @@ Object	Util "(Utilities)"
 		!!----------------------------------------------------------------------
 		horizontal_rule [
 			previous_style;
+			previous_style = self.set_text_style(TEXT_STYLE_MONOSPACED);
 			#Ifdef VERSION_DESKTOP;
 			spaces (ScreenWidth() - 1 - 7) / 2; ! 7 -> longitud de "*  *  *"
 			#Endif; ! VERSION_DESKTOP;
-			previous_style = self.set_text_style(TEXT_STYLE_MONOSPACED);
 			print "*  *  *";
 			self.set_text_style(previous_style);
 			new_line;
+			return true;
+		],
+		!!----------------------------------------------------------------------
+		!! Inicializa los recursos multimedia de la aplicación.
+		!!
+		!! Al utilizar Damusix deben inicializarse los canales de audio.
+		!!
+		!! Al utilizar Vorple se inicializan las diferentes variables
+		!! Javascript con las que se gestionan los sonidos.
+		!!
+		!!	@returns {boolean} Verdadero
+		!!	@version 1.0
+		!!----------------------------------------------------------------------
+		initialise_multimedia [;
+			#Ifdef TARGET_GLULX;
+
+			#Ifdef USE_DAMUSIX;
+			!!		Damusix.AsignarCanal(
+			!!			SONIDO,
+			!!			CANAL [0-9],
+			!!			VOLUMEN [0-100],
+			!!			REPETICIONES (-1 para repeticiones infinitas)
+			!!		);
+			Damusix.AsignarCanal(MUS_FINAL, 0, 100, 1);
+			Damusix.AsignarCanal(SFX_VIENTO, 1, 100, -1);
+			Damusix.AsignarCanal(SFX_PASOS_NIEVE, 2, 100, 1);
+			#Endif; ! USE_DAMUSIX;
+
+			#Ifdef USE_VORPLE;
+			if (isVorpleSupported()) {
+				!! MUS_FINAL:
+				VorpleExecuteJavaScriptCommand("
+					var jsFinal = new Howl({
+						src: ['resources/audio/kevin-macleod_silent-night.ogg'],
+						loop: false,
+						volume: 1.0
+					});
+				");
+				!! SFX_CAJA_CERILLAS:
+				VorpleExecuteJavaScriptCommand("
+					var jsCajaCerillas = new Howl({
+						src: ['resources/audio/jarredgibb_matchbox-shake.ogg'],
+						loop: false,
+						volume: 1.0
+					});
+				");
+				!! SFX_CERILLA_1:
+				VorpleExecuteJavaScriptCommand("
+					var jsCerilla1 = new Howl({
+						src: ['resources/audio/jarredgibb_match-strike-and-light-01.ogg'],
+						loop: false,
+						volume: 1.0
+					});
+				");
+				!! SFX_CERILLA_2:
+				VorpleExecuteJavaScriptCommand("
+					var jsCerilla2 = new Howl({
+						src: ['resources/audio/jarredgibb_match-strike-and-light-02.ogg'],
+						loop: false,
+						volume: 1.0
+					});
+				");
+				!! SFX_CERILLA_3:
+				VorpleExecuteJavaScriptCommand("
+					var jsCerilla3 = new Howl({
+						src: ['resources/audio/jarredgibb_match-strike-and-light-03.ogg'],
+						loop: false,
+						volume: 1.0
+					});
+				");
+				!! SFX_PASOS_NIEVE:
+				VorpleExecuteJavaScriptCommand("
+					var jsPasosNieve = new Howl({
+						src: ['resources/audio/mediagruppen_walking-in-snow.ogg'],
+						loop: false,
+						volume: 1.0
+					});
+				");
+				!! SFX_VIENTO:
+				VorpleExecuteJavaScriptCommand("
+					var jsViento = new Howl({
+						src: ['resources/audio/memuse_california-night-time-suburb-ambience-distant-traffic.ogg'],
+						loop: true,
+						volume: 1.0
+					});
+				");
+			}
+			#Endif; ! USE_VORPLE;
+
+			#Endif; ! TARGET_GLULX;
 			return true;
 		],
 		!!----------------------------------------------------------------------
@@ -608,16 +708,7 @@ Object	Util "(Utilities)"
 			#Endif; ! USE_DAMUSIX;
 
 			#Ifdef USE_VORPLE;
-			switch (sound) {
-				SFX_CAJA_CERILLAS:
-					VorplePlaySoundEffect("jarredgibb_matchbox-shake.ogg");
-				SFX_CERILLA_1:
-					VorplePlaySoundEffect("jarredgibb_match-strike-and-light-01.ogg");
-				SFX_CERILLA_2:
-					VorplePlaySoundEffect("jarredgibb_match-strike-and-light-02.ogg");
-				SFX_CERILLA_3:
-					VorplePlaySoundEffect("jarredgibb_match-strike-and-light-03.ogg");
-			}
+			result = self.fade_in(sound);
 			#Endif; ! USE_VORPLE;
 
 			#Endif; ! TARGET_GLULX;
@@ -813,8 +904,8 @@ Object	Util "(Utilities)"
 					text_style = default_text_style;
 			}
 			!! Establece el estilo de texto y retorna el estilo previo:
-			if (object_type < (self.#highlight_styles)/WORDSIZE) {
-				self.&highlight_styles-->object_type = text_style;
+			if ((object_type-1) < (self.#highlight_styles)/WORDSIZE) {
+				self.&highlight_styles-->(object_type-1) = text_style;
 			}
 			return result;
 		],
@@ -836,8 +927,8 @@ Object	Util "(Utilities)"
 			result highlight;
 			!! Establece el estado de los hipervínculos para 'object_type':
 			result = self.get_hyperlinks_status(object_type);
-			if (object_type < (self.#hyperlinks_status)/WORDSIZE) {
-				self.&hyperlinks_status-->object_type = status;
+			if ((object_type-1) < (self.#hyperlinks_status)/WORDSIZE) {
+				self.&hyperlinks_status-->(object_type-1) = status;
 			}
 			!! Actualiza el estilo de texto resaltado:
 			highlight = self.get_highlight_style(object_type);
@@ -854,62 +945,12 @@ Object	Util "(Utilities)"
 		!!	@version 2.0
 		!!----------------------------------------------------------------------
 		set_text_style [ style
-			result applied_styles i;
+			result;
 			result = 0; ! (por defecto)
 			#Ifdef TEXT_STYLES;
-
-			#Ifdef USE_VORPLE;
-			if (IsVorpleSupported()) {
-				!! Finaliza los estilos aplicados anteriormente:
-				if (_current_text_style == TEXT_STYLE_NOTE
-					or TEXT_STYLE_QUOTE or TEXT_STYLE_REVERSED) {
-					applied_styles = 2;
-				} else if (_current_text_style == TEXT_STYLE_STRESSED
-					or TEXT_STYLE_IMPORTANT or TEXT_STYLE_MONOSPACED
-					or TEXT_STYLE_HEADER or TEXT_STYLE_INPUT
-					or TEXT_STYLE_USER1 or TEXT_STYLE_USER2) {
-					applied_styles = 1;
-				} else { ! (_current_text_style == TEXT_STYLE_UPRIGHT)
-					applied_styles = 0;
-				}
-				for (i = 0 : i < applied_styles : i++) {
-					VorpleEndStyle();
-				}
-				!! Aplica los nuevos estilos:
-				switch (style) {
-					TEXT_STYLE_UPRIGHT:
-						;
-					TEXT_STYLE_STRESSED:
-						VorpleStyle(STYLE_EMPHASIS);
-					TEXT_STYLE_IMPORTANT:
-						VorpleStyle(STYLE_STRONG);
-					TEXT_STYLE_MONOSPACED:
-						VorpleStyle(STYLE_MONOSPACE);
-					TEXT_STYLE_REVERSED:
-						VorpleStyle(STYLE_LIGHT_GRAY_LETTERS);
-						VorpleStyle(STYLE_BLACK_BACKGROUND);
-					TEXT_STYLE_HEADER:
-						VorpleStyle(STYLE_LARGE);
-					TEXT_STYLE_NOTE:
-						VorpleStyle(STYLE_EMPHASIS);
-						VorpleStyle(STYLE_STRONG);
-					TEXT_STYLE_QUOTE:
-						VorpleStyle(STYLE_EMPHASIS);
-						VorpleStyle(STYLE_MONOSPACE);
-					TEXT_STYLE_INPUT:
-						VorpleStyle(STYLE_FANTASY);
-					TEXT_STYLE_USER1:
-						VorpleStyle(STYLE_YELLOW_BACKGROUND);
-					TEXT_STYLE_USER2:
-						VorpleStyle(STYLE_LIGHT_GRAY_LETTERS);
-				}
-			}
-			#Endif; ! USE_VORPLE;
-
 			result = SetTextStyle(style);
-
 			#Endif; ! TEXT_STYLES;
-			style = applied_styles + i; ! (por evitar alertas del compilador)
+			style = 0; ! (por evitar alertas del compilador)
 			return result;
 		],
 		!!----------------------------------------------------------------------
@@ -959,10 +1000,11 @@ Object	Util "(Utilities)"
 		!!----------------------------------------------------------------------
 		website_hyperlink [ txt;
 			#Ifdef USE_VORPLE;
-			if (IsVorpleSupported()) VorpleLinkWebsiteText(txt, txt);
+			if (isVorpleSupported()) VorpleLinkWebsiteText(txt, txt);
 			else print (stressed) txt;
-			#Endif; ! USE_VORPLE;
+			#Ifnot;
 			print (stressed) txt;
+			#Endif; ! USE_VORPLE;
 			return true;
 		],
 		!!----------------------------------------------------------------------
@@ -1046,7 +1088,7 @@ Object	Util "(Utilities)"
 		!! Crea un hipervínculo en Vorple:
 		create_vorple_hyperlink [ item alternative;
 			#Ifdef USE_VORPLE;
-			if (IsVorpleSupported()) {
+			if (isVorpleSupported()) {
 				bp_output_stream(3, _hyperlinks_temp_array, LEN_HUGEHUGESTR);
 				self.print_object_short_name(item);
 				bp_output_stream(-3);
@@ -1063,10 +1105,10 @@ Object	Util "(Utilities)"
 			item = alternative = 0; ! (por evitar alertas del compilador)
 			return true;
 		],
-		!! Imprime el nombre corto de un objeto:
+		!! Imprime el nombre corto de un objeto/una cadena de caracteres dada:
 		print_object_short_name [ obj;
-			if (obj == player) {
-				print (string) YOURSELF__TX;
+			if (metaclass(obj) == String) {
+				print (string) obj;
 				jump shortNamePrinted;
 			}
 			#Ifdef LanguagePrintShortName;
@@ -1086,3 +1128,5 @@ Object	Util "(Utilities)"
 			return true;
 		],
 ;
+
+[ printx str; Util.extended_print(str, 0, -1); ];

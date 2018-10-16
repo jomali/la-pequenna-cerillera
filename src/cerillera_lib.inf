@@ -12,8 +12,8 @@
 !!	Idioma:			ES (Español)
 !!	Sistema:		Inform-INFSP 6
 !!	Plataforma:		Máquina-Z/Glulx
-!!	Versión:		4.0
-!!	Fecha:			2018/09/21
+!!	Versión:		4.2
+!!	Fecha:			2018/10/16
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -68,11 +68,22 @@
 !! PrintSerialNumber(), PrintStoryTitle() y PrintVersionNumber().
 !!
 !!	@override verblibm.h
-!!	@version 1.2
+!!	@version 2.0
 !!------------------------------------------------------------------------------
-[ Banner;
-	PrintStoryTitle();
-	PrintHeadline();
+[ Banner
+	previous_style;
+	!! Imprime el título:
+	if (Story ~= 0) {
+		previous_style = Util.set_text_style(TEXT_STYLE_HEADER);
+		print (string) Story;
+		Util.set_text_style(previous_style);
+		new_line;
+	}
+	!! Imprime el encabezado:
+	if (Headline ~= 0) {
+		print (string) Headline;
+		new_line;
+	}
 	print "Versión ";
 	PrintVersionNumber();
 	#Ifndef VERSION_DESKTOP;
@@ -94,14 +105,6 @@
 	new_line;;
 ];
 
-!! Imprime el encabezado
-[ PrintHeadline;
-	if (Headline ~= 0) {
-		print (string) Headline;
-		new_line;
-	}
-];
-
 !! Imprime el número de serie
 [ PrintSerialNumber
 	i;
@@ -110,22 +113,6 @@
 	#Ifnot;	! TARGET_GLULX;
 	for (i=0 : i<6 : i++) print (char) ROM_GAMESERIAL->i;
 	#Endif;	! TARGET_
-];
-
-!! Imprime el título
-[ PrintStoryTitle;
-	if (Story ~= 0) {
-		#Ifdef TARGET_ZCODE;
-		#IfV5; style bold; #Endif;
-		print (string) Story;
-		#IfV5; style roman; #Endif;
-		#Ifnot; ! TARGET_GLULX;
-		glk($0086, 3); ! set header style
-		print (string) Story;
-		glk($0086, 0); ! set normal style
-		#Endif; ! TARGET_
-		new_line;
-	}
 ];
 
 !! Imprime el número de versión
@@ -720,7 +707,7 @@ CompassDirection d_obj "abajo" compass
 		String:		print "<string ~", (string) obj, "~>"; rtrue;
 		nothing:	print "<illegal object number ", obj, ">"; rtrue;
 	}
-	return Util.extended_print(obj);
+	return Util.extended_print(obj, 0, -1);
 ];
 
 

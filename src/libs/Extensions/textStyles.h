@@ -12,8 +12,8 @@
 !!	Idioma:			ES (Español)
 !!	Sistema:		Inform-INFSP 6
 !!	Plataforma:		Máquina-Z/Glulx
-!!	Versión:		2.2
-!!	Fecha:			2018/10/09
+!!	Versión:		3.0
+!!	Fecha:			2018/10/10
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -37,8 +37,12 @@
 !!
 !!	HISTORIAL DE VERSIONES
 !!
-!!	2.2: 2018/10/09	Modificado el nombre de la rutina 'UseTextStyle()' por
-!!					'SetTextStyle()' y añadido mensaje de compilación.
+!!	3.0: 2018/10/10 Rutina 'UseTextStyle()' renombrada por 'SetTextStyle()'. Se
+!!					añaden además un nuevo mensaje de compilación para
+!!					especificar que se está utilizando la extensión, y un punto
+!!					de entrada 'BeforeSettingTextStyle()' invocado desde
+!!					'SetTextStyle()' con el que se facilita al autor añadir
+!!					lógica antes de establecer un estilo de texto.
 !!	2.1: 2018/09/21	Modificada la codificación de caracteres de ISO 8859-15 a
 !!					UTF-8 (requiere la versión 6.34 o superior del compilador).
 !!	2.0: 2018/03/07	Modificación del enfoque basado en el uso de un objeto
@@ -68,10 +72,15 @@
 !!	INSTALACIÓN
 !!
 !!	Para utilizar la extensión basta con añadir la siguiente línea en el
-!!	fichero principal de la aplicación, inmediatamente después de la línea
-!!	'Include "Parser";
+!!	fichero principal de la aplicación, después de la línea
+!!	'Include "Parser";':
 !!
 !!		Include "textStyles";
+!!
+!!	Para utilizar el punto de entrada 'BeforeSettingTextStyle()' es necesario
+!!	añadir la sentencia: 'Replace BeforeSettingTextStyle;' antes de incluir la
+!!	extensión. Las sentencias 'Replace' permiten excluir ciertas definiciones
+!!	de una librería o extensión marcada con la directiva 'System_file'.
 !!
 !!	Opcionalmente en Glulx, además, es posible inicializar algunas sugerencias
 !!	sobre el aspecto de los distintos estilos de texto de la extensión. Desde
@@ -104,7 +113,7 @@ System_file;
 
 #Ifndef TEXT_STYLES;
 Constant TEXT_STYLES;
-Message "Incluyendo rutinas de selección de estilo de texto [textStyles 2.2]";
+Message "Incluyendo rutinas de selección de estilo de texto [textStyles 3.0]";
 
 
 !!==============================================================================
@@ -149,6 +158,19 @@ Global _current_text_style = TEXT_STYLE_UPRIGHT;
 !!	2)	Rutinas de selección del estilo de texto
 !!
 !!------------------------------------------------------------------------------
+
+!!------------------------------------------------------------------------------
+!! Rutina vacía que se ejecuta desde 'SetTextStyle()' antes de establecer un
+!! nuevo estilo de texto. Puede ser reescrita para añadir lógica adicional.
+!!
+!!	@param {integer} previous_style - Código del estilo de texto actual
+!!	@param {integer} next_style - Código del nuevo estilo de texto
+!!	@returns {boolean} Verdadero para interrumpir la ejecución normal de la
+!!		rutina 'SetTextStyle()'. Falso para continuar normalmente
+!!------------------------------------------------------------------------------
+[ BeforeSettingTextStyle previous_style next_style;
+	return false;
+];
 
 !!------------------------------------------------------------------------------
 !! (SÓLO PARA GLULX. NO TIENE NINGÚN EFECTO EN MÁQUINA-Z). Establece las
@@ -205,6 +227,9 @@ Global _current_text_style = TEXT_STYLE_UPRIGHT;
 !!------------------------------------------------------------------------------
 [ SetTextStyle st
 	is_proportional is_bold is_underline is_reverse glulx_code result;
+	if (BeforeSettingTextStyle(_current_text_style, st)) {
+		return _current_text_style;
+	}
 	result = _current_text_style;
 	switch (st) {
 		TEXT_STYLE_HEADER:
